@@ -1,0 +1,10 @@
+[submodule "external/eigen"]
+	path = external/eigen
+	url = https://gitlab.com/libeigen/eigen.git
+	branch = 5.0
+[submodule "external/lsm6dsl-pid"]
+	path = external/lsm6dsl-pid
+	url = https://github.com/STMicroelectronics/lsm6dsl-pid.git
+[submodule "external/lsm9ds1-pid"]
+	path = external/lsm9ds1-pid
+	url = https://github.com/STMicroelectronics/lsm9ds1-pid.git
