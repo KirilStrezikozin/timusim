@@ -1,0 +1,98 @@
+# Configuration of clang-format
+# =============================
+
+AlignAfterOpenBracket: BlockIndent
+
+AlignConsecutiveAssignments:
+  Enabled: true
+  AcrossComments: true
+  AlignCompound: true
+  PadOperators: true
+
+AlignConsecutiveMacros:
+  Enabled: true
+  AcrossEmptyLines: true
+  AcrossComments: true
+
+AlignTrailingComments:
+  Kind: Always
+  OverEmptyLines: 1
+
+AlignEscapedNewlines: Right
+
+AlignOperands: AlignAfterOperator
+
+AllowShortBlocksOnASingleLine: true
+
+# Allow formatter more freedom to place function
+# parameters or call arguments on separate lines.
+BinPackArguments: false
+BinPackParameters: false
+
+# Line width (don't exceed 120).
+ColumnLimit: 100
+
+# For switch statements, do not indent the cases.
+IndentCaseLabels: false
+
+# Use "if (...)" instead of "if(...)", but have function calls like foo().
+SpaceBeforeParens: ControlStatements
+SpaceInEmptyParentheses: false
+
+SpacesBeforeTrailingComments: 2
+ReflowComments: true
+
+UseTab: Never
+TabWidth: 4
+IndentWidth: 4
+
+PenaltyReturnTypeOnItsOwnLine: 10000
+
+PenaltyBreakAssignment: 100
+
+PenaltyBreakComment: 0
+PenaltyBreakOpenParenthesis: 0
+
+# In case strict line length limit is not desired.
+# PenaltyExcessCharacter: 2
+
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortIfStatementsOnASingleLine: WithoutElse
+AllowAllArgumentsOnNextLine: true
+
+AllowAllParametersOfDeclarationOnNextLine: true
+
+SortIncludes: true
+
+AlwaysBreakBeforeMultilineStrings: true
+
+BreakBeforeBinaryOperators: NonAssignment
+
+PenaltyBreakString: 1000000
+
+InsertNewlineAtEOF: true
+InsertTrailingCommas: Wrapped
+KeepEmptyLinesAtEOF: False
+
+# BreakBeforeBraces: Stroustrup
+
+# Like Stroustrup, but do not break before else and functions.
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterCaseLabel: false
+  AfterClass: false
+  AfterControlStatement: Never
+  AfterEnum: false
+  AfterFunction: false
+  AfterNamespace: false
+  AfterStruct: false
+  AfterUnion: false
+  AfterExternBlock: false
+  BeforeCatch: false
+  BeforeElse: false
+  BeforeLambdaBody: true
+  BeforeWhile: false
+  IndentBraces: false
+  SplitEmptyFunction: false
+  SplitEmptyRecord: false
+  SplitEmptyNamespace: false
