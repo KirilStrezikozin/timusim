@@ -1,0 +1,34 @@
+[project]
+name = "timusim"
+version = "0.1.0"
+description = "Simulated IMU data for a palm and finger chain, validated against real LSM9DS1 captures"
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.12"
+dependencies = [
+    "matplotlib>=3.10",
+    "numpy>=2.2",
+    "pyserial>=3.5",
+    "scipy>=1.15",
+    "tomli-w>=1.2",
+]
+
+[project.scripts]
+timusim-capture = "timusim.cli:capture_main"
+timusim-inspect = "timusim.cli:inspect_main"
+timusim-bench = "timusim.cli:bench_main"
+timusim-v1 = "timusim.cli:v1_main"
+timusim-figures = "timusim.cli:figures_main"
+
+[dependency-groups]
+dev = [
+    "marimo>=0.20",
+    "pytest>=8.3",
+]
+
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[tool.ruff]
+line-length = 100
