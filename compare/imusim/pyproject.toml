@@ -1,0 +1,17 @@
+[project]
+name = "timusim-compare-imusim"
+version = "0.1.0"
+description = "Still holds through IMUSim for the timusim comparison"
+license = "GPL-3.0-or-later"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "cython>=3.0",
+    "numpy>=2.2",
+    "pyparsing>=3.1",
+    "scipy>=1.15",
+    "setuptools>=77",
+    "simpy>=2.3,<3",
+]
+
+[tool.uv]
+package = false

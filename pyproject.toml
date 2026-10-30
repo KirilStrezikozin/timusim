@@ -18,6 +18,10 @@ timusim-capture = "timusim.cli:capture_main"
 timusim-inspect = "timusim.cli:inspect_main"
 timusim-bench = "timusim.cli:bench_main"
 timusim-v1 = "timusim.cli:v1_main"
+timusim-v2 = "timusim.cli:v2_main"
+timusim-v3 = "timusim.cli:v3_main"
+timusim-v4 = "timusim.cli:v4_main"
+timusim-compare = "timusim.cli:compare_main"
 timusim-figures = "timusim.cli:figures_main"
 
 [dependency-groups]

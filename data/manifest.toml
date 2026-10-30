@@ -1,0 +1,7553 @@
+[[capture]]
+file = "2026-10-20/I6-default-s1-180841.stale-start.bin"
+started = "2026-10-20T18:08:41"
+test = "I6"
+config = "default"
+session = 1
+notes = "I6 done-when: 10 min gap check. Not clean: stale bridge buffer at port open (one 33 s index jump at t=0) and a cut final frame; live part has no gaps"
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = false
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251914
+duration_s = 633.14
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.929
+overruns = 0
+missing_samples = 13961
+temp_c = 25.36
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276871
+duration_s = 633.139
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.532
+overruns = 0
+missing_samples = 15344
+temp_c = 17.99
+
+[[capture]]
+file = "2026-10-20/I6-default-s1-182030.bin"
+started = "2026-10-20T18:20:30"
+test = "I6"
+config = "default"
+session = 1
+notes = "I6 done-when: 10 min gap check"
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251838
+duration_s = 599.713
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.929
+overruns = 0
+missing_samples = 0
+temp_c = 25.37
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276791
+duration_s = 599.717
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.534
+overruns = 0
+missing_samples = 0
+temp_c = 17.88
+
+[[capture]]
+file = "2026-10-21/V1-default-s1-011744.bin"
+started = "2026-10-21T01:17:44"
+test = "V1"
+config = "default"
+session = 1
+notes = "bench still on a curled blanket, night; board replugged before the night's first capture, chip soft reset by flash between captures"
+power_up = 1
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251885
+duration_s = 599.81
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.94
+overruns = 0
+missing_samples = 0
+temp_c = 24.46
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276837
+duration_s = 599.81
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.539
+overruns = 0
+missing_samples = 0
+temp_c = 17.52
+
+[[capture]]
+file = "2026-10-21/V1-low_range-s1-012930.bin"
+started = "2026-10-21T01:29:30"
+test = "V1"
+config = "low_range"
+session = 1
+notes = "bench still on a curled blanket, night; board replugged before the night's first capture, chip soft reset by flash between captures"
+power_up = 1
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = false
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251813
+duration_s = 599.729
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.937
+overruns = 0
+missing_samples = 36
+temp_c = 24.72
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276760
+duration_s = 599.728
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.539
+overruns = 0
+missing_samples = 39
+temp_c = 17.52
+
+[[capture]]
+file = "2026-10-21/V1-238hz-s1-014114.bin"
+started = "2026-10-21T01:41:14"
+test = "V1"
+config = "238hz"
+session = 1
+notes = "bench still on a curled blanket, night; board replugged before the night's first capture, chip soft reset by flash between captures"
+power_up = 1
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251897
+duration_s = 599.846
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.935
+overruns = 0
+missing_samples = 0
+temp_c = 24.88
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 138427
+duration_s = 599.845
+odr_nominal_hz = 238.0
+odr_measured_hz = 230.77
+overruns = 0
+missing_samples = 0
+temp_c = 17.54
+
+[[capture]]
+file = "2026-10-21/V1-119hz-s1-015254.bin"
+started = "2026-10-21T01:52:54"
+test = "V1"
+config = "119hz"
+session = 1
+notes = "bench still on a curled blanket, night; board replugged before the night's first capture, chip soft reset by flash between captures"
+power_up = 1
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251840
+duration_s = 599.712
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.934
+overruns = 0
+missing_samples = 0
+temp_c = 24.98
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 69199
+duration_s = 599.715
+odr_nominal_hz = 119.0
+odr_measured_hz = 115.385
+overruns = 0
+missing_samples = 0
+temp_c = 17.54
+
+[[capture]]
+file = "2026-10-21/V1-lpf2_strong-s1-020434.bin"
+started = "2026-10-21T02:04:34"
+test = "V1"
+config = "lpf2_strong"
+session = 1
+notes = "bench still on a curled blanket, night; board replugged before the night's first capture, chip soft reset by flash between captures"
+power_up = 1
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251877
+duration_s = 599.801
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.933
+overruns = 0
+missing_samples = 0
+temp_c = 25.03
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276833
+duration_s = 599.802
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.539
+overruns = 0
+missing_samples = 0
+temp_c = 17.56
+
+[[capture]]
+file = "2026-10-21/V1-lpf2_light-s1-021612.bin"
+started = "2026-10-21T02:16:12"
+test = "V1"
+config = "lpf2_light"
+session = 1
+notes = "bench still on a curled blanket, night; board replugged before the night's first capture, chip soft reset by flash between captures"
+power_up = 1
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251876
+duration_s = 599.799
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.933
+overruns = 0
+missing_samples = 0
+temp_c = 25.05
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276833
+duration_s = 599.802
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.539
+overruns = 0
+missing_samples = 0
+temp_c = 17.57
+
+[[capture]]
+file = "2026-10-21/V1-952hz-s1-022758.bin"
+started = "2026-10-21T02:27:58"
+test = "V1"
+config = "952hz"
+session = 1
+notes = "bench still on a curled blanket, night; board replugged before the night's first capture, chip soft reset by flash between captures"
+power_up = 1
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251843
+duration_s = 599.72
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.932
+overruns = 0
+missing_samples = 0
+temp_c = 25.07
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 553588
+duration_s = 599.719
+odr_nominal_hz = 952.0
+odr_measured_hz = 923.078
+overruns = 0
+missing_samples = 0
+temp_c = 17.59
+
+[[capture]]
+file = "2026-10-21/V1-mid_range-s1-023947.bin"
+started = "2026-10-21T02:39:47"
+test = "V1"
+config = "mid_range"
+session = 1
+notes = "bench still on a curled blanket, night; board replugged before the night's first capture, chip soft reset by flash between captures"
+power_up = 1
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251884
+duration_s = 599.818
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.932
+overruns = 0
+missing_samples = 0
+temp_c = 25.08
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276840
+duration_s = 599.817
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.539
+overruns = 0
+missing_samples = 0
+temp_c = 17.53
+
+[[capture]]
+file = "2026-10-21/V1-16g-s1-025117.bin"
+started = "2026-10-21T02:51:17"
+test = "V1"
+config = "16g"
+session = 1
+notes = "bench still on a curled blanket, night; board replugged before the night's first capture, chip soft reset by flash between captures"
+power_up = 1
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251821
+duration_s = 599.668
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.932
+overruns = 0
+missing_samples = 0
+temp_c = 25.1
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276773
+duration_s = 599.672
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.539
+overruns = 0
+missing_samples = 0
+temp_c = 17.53
+
+[[capture]]
+file = "2026-10-21/V1-xl_lp_off-s1-030247.bin"
+started = "2026-10-21T03:02:47"
+test = "V1"
+config = "xl_lp_off"
+session = 1
+notes = "bench still on a curled blanket, night; board replugged before the night's first capture, chip soft reset by flash between captures"
+power_up = 1
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251882
+duration_s = 599.814
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.932
+overruns = 0
+missing_samples = 0
+temp_c = 25.11
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276838
+duration_s = 599.813
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.539
+overruns = 0
+missing_samples = 0
+temp_c = 17.54
+
+[[capture]]
+file = "2026-10-21/V1-xl_div50-s1-031417.bin"
+started = "2026-10-21T03:14:17"
+test = "V1"
+config = "xl_div50"
+session = 1
+notes = "bench still on a curled blanket, night; board replugged before the night's first capture, chip soft reset by flash between captures"
+power_up = 1
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251882
+duration_s = 599.814
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.932
+overruns = 0
+missing_samples = 0
+temp_c = 25.09
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276838
+duration_s = 599.812
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.54
+overruns = 0
+missing_samples = 0
+temp_c = 17.54
+
+[[capture]]
+file = "2026-10-21/V1-default-s2-032547.bin"
+started = "2026-10-21T03:25:47"
+test = "V1"
+config = "default"
+session = 2
+notes = "bench still on a curled blanket, night; board replugged before the night's first capture, chip soft reset by flash between captures"
+power_up = 1
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251883
+duration_s = 599.816
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.932
+overruns = 0
+missing_samples = 0
+temp_c = 25.09
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276840
+duration_s = 599.816
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.54
+overruns = 0
+missing_samples = 0
+temp_c = 17.54
+
+[[capture]]
+file = "2026-10-21/V1-low_range-s2-033717.bin"
+started = "2026-10-21T03:37:17"
+test = "V1"
+config = "low_range"
+session = 2
+notes = "bench still on a curled blanket, night; board replugged before the night's first capture, chip soft reset by flash between captures"
+power_up = 1
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251882
+duration_s = 599.813
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.932
+overruns = 0
+missing_samples = 0
+temp_c = 25.09
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276838
+duration_s = 599.812
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.54
+overruns = 0
+missing_samples = 0
+temp_c = 17.55
+
+[[capture]]
+file = "2026-10-21/V1-238hz-s2-034847.bin"
+started = "2026-10-21T03:48:47"
+test = "V1"
+config = "238hz"
+session = 2
+notes = "bench still on a curled blanket, night; board replugged before the night's first capture, chip soft reset by flash between captures"
+power_up = 1
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251870
+duration_s = 599.785
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.932
+overruns = 0
+missing_samples = 0
+temp_c = 25.09
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 138412
+duration_s = 599.779
+odr_nominal_hz = 238.0
+odr_measured_hz = 230.77
+overruns = 0
+missing_samples = 0
+temp_c = 17.53
+
+[[capture]]
+file = "2026-10-21/V1-119hz-s2-040013.bin"
+started = "2026-10-21T04:00:13"
+test = "V1"
+config = "119hz"
+session = 2
+notes = "bench still on a curled blanket, night; board replugged before the night's first capture, chip soft reset by flash between captures"
+power_up = 1
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251893
+duration_s = 599.84
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.932
+overruns = 0
+missing_samples = 0
+temp_c = 25.08
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 69212
+duration_s = 599.827
+odr_nominal_hz = 119.0
+odr_measured_hz = 115.385
+overruns = 0
+missing_samples = 0
+temp_c = 17.47
+
+[[capture]]
+file = "2026-10-21/V1-lpf2_strong-s2-041135.bin"
+started = "2026-10-21T04:11:35"
+test = "V1"
+config = "lpf2_strong"
+session = 2
+notes = "bench still on a curled blanket, night; board replugged before the night's first capture, chip soft reset by flash between captures"
+power_up = 1
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251877
+duration_s = 599.801
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.932
+overruns = 0
+missing_samples = 0
+temp_c = 25.08
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276834
+duration_s = 599.803
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.54
+overruns = 0
+missing_samples = 0
+temp_c = 17.49
+
+[[capture]]
+file = "2026-10-21/V1-lpf2_light-s2-042305.bin"
+started = "2026-10-21T04:23:05"
+test = "V1"
+config = "lpf2_light"
+session = 2
+notes = "bench still on a curled blanket, night; board replugged before the night's first capture, chip soft reset by flash between captures"
+power_up = 1
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = false
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251461
+duration_s = 599.711
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.932
+overruns = 0
+missing_samples = 378
+temp_c = 25.07
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276377
+duration_s = 599.714
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.54
+overruns = 0
+missing_samples = 416
+temp_c = 17.46
+
+[[capture]]
+file = "2026-10-21/V1-long-s1-043435.bin"
+started = "2026-10-21T04:34:35"
+test = "V1"
+config = "long"
+session = 1
+notes = "bench still on a curled blanket, night; board replugged before the night's first capture, chip soft reset by flash between captures"
+power_up = 1
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = false
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 3020851
+duration_s = 7196.033
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.933
+overruns = 0
+missing_samples = 1000
+temp_c = 25.04
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 3320159
+duration_s = 7196.033
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.54
+overruns = 0
+missing_samples = 1102
+temp_c = 17.43
+
+[[capture]]
+file = "2026-10-21/V1-952hz-s2-063940.bin"
+started = "2026-10-21T06:39:40"
+test = "V1"
+config = "952hz"
+session = 2
+notes = "bench still on a curled blanket, night; board replugged before the night's first capture, chip soft reset by flash between captures"
+power_up = 1
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251837
+duration_s = 599.705
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.933
+overruns = 0
+missing_samples = 0
+temp_c = 25.02
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 553581
+duration_s = 599.709
+odr_nominal_hz = 952.0
+odr_measured_hz = 923.081
+overruns = 0
+missing_samples = 0
+temp_c = 17.43
+
+[[capture]]
+file = "2026-10-21/V1-mid_range-s2-065120.bin"
+started = "2026-10-21T06:51:20"
+test = "V1"
+config = "mid_range"
+session = 2
+notes = "bench still on a curled blanket, night; board replugged before the night's first capture, chip soft reset by flash between captures"
+power_up = 1
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251883
+duration_s = 599.815
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.933
+overruns = 0
+missing_samples = 0
+temp_c = 25.02
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276840
+duration_s = 599.814
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.541
+overruns = 0
+missing_samples = 0
+temp_c = 17.41
+
+[[capture]]
+file = "2026-10-21/V1-16g-s2-070250.bin"
+started = "2026-10-21T07:02:50"
+test = "V1"
+config = "16g"
+session = 2
+notes = "bench still on a curled blanket, night; board replugged before the night's first capture, chip soft reset by flash between captures"
+power_up = 1
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251886
+duration_s = 599.822
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.933
+overruns = 0
+missing_samples = 0
+temp_c = 25.02
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276845
+duration_s = 599.825
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.541
+overruns = 0
+missing_samples = 0
+temp_c = 17.35
+
+[[capture]]
+file = "2026-10-21/V1-xl_lp_off-s2-071420.bin"
+started = "2026-10-21T07:14:20"
+test = "V1"
+config = "xl_lp_off"
+session = 2
+notes = "bench still on a curled blanket, night; board replugged before the night's first capture, chip soft reset by flash between captures"
+power_up = 1
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251881
+duration_s = 599.81
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.933
+overruns = 0
+missing_samples = 0
+temp_c = 25.02
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276838
+duration_s = 599.81
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.541
+overruns = 0
+missing_samples = 0
+temp_c = 17.34
+
+[[capture]]
+file = "2026-10-21/V1-xl_div50-s2-072551.bin"
+started = "2026-10-21T07:25:51"
+test = "V1"
+config = "xl_div50"
+session = 2
+notes = "bench still on a curled blanket, night; board replugged before the night's first capture, chip soft reset by flash between captures"
+power_up = 1
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251887
+duration_s = 599.824
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.933
+overruns = 0
+missing_samples = 0
+temp_c = 24.99
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276843
+duration_s = 599.82
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.541
+overruns = 0
+missing_samples = 0
+temp_c = 17.35
+
+[[capture]]
+file = "2026-10-21/V1-default-s3-073721.bin"
+started = "2026-10-21T07:37:21"
+test = "V1"
+config = "default"
+session = 3
+notes = "bench still on a curled blanket, night; board replugged before the night's first capture, chip soft reset by flash between captures"
+power_up = 1
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251886
+duration_s = 599.821
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.933
+overruns = 0
+missing_samples = 0
+temp_c = 24.99
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276844
+duration_s = 599.823
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.542
+overruns = 0
+missing_samples = 0
+temp_c = 17.42
+
+[[capture]]
+file = "2026-10-21/V1-low_range-s3-074851.bin"
+started = "2026-10-21T07:48:51"
+test = "V1"
+config = "low_range"
+session = 3
+notes = "bench still on a curled blanket, night; board replugged before the night's first capture, chip soft reset by flash between captures"
+power_up = 1
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251885
+duration_s = 599.819
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.933
+overruns = 0
+missing_samples = 0
+temp_c = 24.98
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276844
+duration_s = 599.823
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.541
+overruns = 0
+missing_samples = 0
+temp_c = 17.39
+
+[[capture]]
+file = "2026-10-21/V1-238hz-s3-080026.bin"
+started = "2026-10-21T08:00:26"
+test = "V1"
+config = "238hz"
+session = 3
+notes = "bench still on a curled blanket, night; board replugged before the night's first capture, chip soft reset by flash between captures"
+power_up = 1
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251867
+duration_s = 599.776
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.933
+overruns = 0
+missing_samples = 0
+temp_c = 25.0
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 138412
+duration_s = 599.777
+odr_nominal_hz = 238.0
+odr_measured_hz = 230.771
+overruns = 0
+missing_samples = 0
+temp_c = 17.38
+
+[[capture]]
+file = "2026-10-21/V1-119hz-s3-081156.bin"
+started = "2026-10-21T08:11:56"
+test = "V1"
+config = "119hz"
+session = 3
+notes = "bench still on a curled blanket, night; board replugged before the night's first capture, chip soft reset by flash between captures"
+power_up = 1
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251862
+duration_s = 599.764
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.933
+overruns = 0
+missing_samples = 0
+temp_c = 24.99
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 69204
+duration_s = 599.755
+odr_nominal_hz = 119.0
+odr_measured_hz = 115.385
+overruns = 0
+missing_samples = 0
+temp_c = 17.37
+
+[[capture]]
+file = "2026-10-21/V1-lpf2_strong-s3-082319.bin"
+started = "2026-10-21T08:23:19"
+test = "V1"
+config = "lpf2_strong"
+session = 3
+notes = "bench still on a curled blanket, night; board replugged before the night's first capture, chip soft reset by flash between captures"
+power_up = 1
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251879
+duration_s = 599.805
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.933
+overruns = 0
+missing_samples = 0
+temp_c = 25.0
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276834
+duration_s = 599.801
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.542
+overruns = 0
+missing_samples = 0
+temp_c = 17.39
+
+[[capture]]
+file = "2026-10-21/V1-lpf2_light-s3-083449.bin"
+started = "2026-10-21T08:34:49"
+test = "V1"
+config = "lpf2_light"
+session = 3
+notes = "bench still on a curled blanket, night; board replugged before the night's first capture, chip soft reset by flash between captures"
+power_up = 1
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251879
+duration_s = 599.805
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.933
+overruns = 0
+missing_samples = 0
+temp_c = 25.01
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276835
+duration_s = 599.803
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.542
+overruns = 0
+missing_samples = 0
+temp_c = 17.37
+
+[[capture]]
+file = "2026-10-21/V1-long-s2-084619.bin"
+started = "2026-10-21T08:46:19"
+test = "V1"
+config = "long"
+session = 2
+notes = "bench still on a curled blanket, night; board replugged before the night's first capture, chip soft reset by flash between captures"
+power_up = 1
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 3021875
+duration_s = 7196.076
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.934
+overruns = 0
+missing_samples = 0
+temp_c = 24.97
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 3321292
+duration_s = 7196.075
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.542
+overruns = 0
+missing_samples = 0
+temp_c = 17.37
+
+[[capture]]
+file = "2026-10-22/V1-952hz-s3-030257.bin"
+started = "2026-10-22T03:02:57"
+test = "V1"
+config = "952hz"
+session = 3
+notes = "bench still on a curled blanket, night; board replugged before the night's first capture, chip soft reset by flash between captures"
+power_up = 2
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251839
+duration_s = 599.7
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.94
+overruns = 0
+missing_samples = 0
+temp_c = 24.47
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 553576
+duration_s = 599.699
+odr_nominal_hz = 952.0
+odr_measured_hz = 923.088
+overruns = 0
+missing_samples = 0
+temp_c = 17.26
+
+[[capture]]
+file = "2026-10-22/V1-mid_range-s3-031437.bin"
+started = "2026-10-22T03:14:37"
+test = "V1"
+config = "mid_range"
+session = 3
+notes = "bench still on a curled blanket, night; board replugged before the night's first capture, chip soft reset by flash between captures"
+power_up = 2
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251886
+duration_s = 599.818
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.936
+overruns = 0
+missing_samples = 0
+temp_c = 24.81
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276845
+duration_s = 599.82
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.545
+overruns = 0
+missing_samples = 0
+temp_c = 17.14
+
+[[capture]]
+file = "2026-10-22/V1-16g-s3-032607.bin"
+started = "2026-10-22T03:26:07"
+test = "V1"
+config = "16g"
+session = 3
+notes = "bench still on a curled blanket, night; board replugged before the night's first capture, chip soft reset by flash between captures"
+power_up = 2
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = false
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251051
+duration_s = 599.712
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.933
+overruns = 0
+missing_samples = 789
+temp_c = 25.02
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 275928
+duration_s = 599.713
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.546
+overruns = 0
+missing_samples = 868
+temp_c = 17.13
+
+[[capture]]
+file = "2026-10-22/V1-xl_lp_off-s3-033738.bin"
+started = "2026-10-22T03:37:38"
+test = "V1"
+config = "xl_lp_off"
+session = 3
+notes = "bench still on a curled blanket, night; board replugged before the night's first capture, chip soft reset by flash between captures"
+power_up = 2
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251882
+duration_s = 599.814
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.932
+overruns = 0
+missing_samples = 0
+temp_c = 25.13
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276843
+duration_s = 599.815
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.546
+overruns = 0
+missing_samples = 0
+temp_c = 17.1
+
+[[capture]]
+file = "2026-10-22/V1-xl_div50-s3-034908.bin"
+started = "2026-10-22T03:49:08"
+test = "V1"
+config = "xl_div50"
+session = 3
+notes = "bench still on a curled blanket, night; board replugged before the night's first capture, chip soft reset by flash between captures"
+power_up = 2
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251878
+duration_s = 599.805
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.931
+overruns = 0
+missing_samples = 0
+temp_c = 25.18
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276838
+duration_s = 599.804
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.546
+overruns = 0
+missing_samples = 0
+temp_c = 17.09
+
+[[capture]]
+file = "2026-10-22/V1-default-s4-040039.bin"
+started = "2026-10-22T04:00:39"
+test = "V1"
+config = "default"
+session = 4
+notes = "bench still on a curled blanket, night; board replugged before the night's first capture, chip soft reset by flash between captures"
+power_up = 2
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251883
+duration_s = 599.817
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.931
+overruns = 0
+missing_samples = 0
+temp_c = 25.21
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276845
+duration_s = 599.819
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.546
+overruns = 0
+missing_samples = 0
+temp_c = 17.13
+
+[[capture]]
+file = "2026-10-22/V1-low_range-s4-041209.bin"
+started = "2026-10-22T04:12:09"
+test = "V1"
+config = "low_range"
+session = 4
+notes = "bench still on a curled blanket, night; board replugged before the night's first capture, chip soft reset by flash between captures"
+power_up = 2
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251878
+duration_s = 599.806
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.931
+overruns = 0
+missing_samples = 0
+temp_c = 25.22
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276839
+duration_s = 599.806
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.546
+overruns = 0
+missing_samples = 0
+temp_c = 17.15
+
+[[capture]]
+file = "2026-10-22/V1-238hz-s4-042339.bin"
+started = "2026-10-22T04:23:39"
+test = "V1"
+config = "238hz"
+session = 4
+notes = "bench still on a curled blanket, night; board replugged before the night's first capture, chip soft reset by flash between captures"
+power_up = 2
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251860
+duration_s = 599.763
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.931
+overruns = 0
+missing_samples = 0
+temp_c = 25.26
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 138410
+duration_s = 599.762
+odr_nominal_hz = 238.0
+odr_measured_hz = 230.773
+overruns = 0
+missing_samples = 0
+temp_c = 17.09
+
+[[capture]]
+file = "2026-10-22/V1-119hz-s4-043505.bin"
+started = "2026-10-22T04:35:05"
+test = "V1"
+config = "119hz"
+session = 4
+notes = "bench still on a curled blanket, night; board replugged before the night's first capture, chip soft reset by flash between captures"
+power_up = 2
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251880
+duration_s = 599.811
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.93
+overruns = 0
+missing_samples = 0
+temp_c = 25.27
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 69210
+duration_s = 599.801
+odr_nominal_hz = 119.0
+odr_measured_hz = 115.387
+overruns = 0
+missing_samples = 0
+temp_c = 17.07
+
+[[capture]]
+file = "2026-10-22/V1-lpf2_strong-s4-044628.bin"
+started = "2026-10-22T04:46:28"
+test = "V1"
+config = "lpf2_strong"
+session = 4
+notes = "bench still on a curled blanket, night; board replugged before the night's first capture, chip soft reset by flash between captures"
+power_up = 2
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251871
+duration_s = 599.79
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.931
+overruns = 0
+missing_samples = 0
+temp_c = 25.25
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276833
+duration_s = 599.792
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.546
+overruns = 0
+missing_samples = 0
+temp_c = 17.11
+
+[[capture]]
+file = "2026-10-22/V1-lpf2_light-s4-045759.bin"
+started = "2026-10-22T04:57:59"
+test = "V1"
+config = "lpf2_light"
+session = 4
+notes = "bench still on a curled blanket, night; board replugged before the night's first capture, chip soft reset by flash between captures"
+power_up = 2
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251874
+duration_s = 599.797
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.931
+overruns = 0
+missing_samples = 0
+temp_c = 25.25
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276835
+duration_s = 599.797
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.546
+overruns = 0
+missing_samples = 0
+temp_c = 17.09
+
+[[capture]]
+file = "2026-10-22/V1-long-s3-050929.bin"
+started = "2026-10-22T05:09:29"
+test = "V1"
+config = "long"
+session = 3
+notes = "bench still on a curled blanket, night; board replugged before the night's first capture, chip soft reset by flash between captures"
+power_up = 2
+fw = "none-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 3021903
+duration_s = 7196.191
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.931
+overruns = 0
+missing_samples = 0
+temp_c = 25.24
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 3321380
+duration_s = 7196.193
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.547
+overruns = 0
+missing_samples = 0
+temp_c = 17.05
+
+[[capture]]
+file = "2026-10-23/V1-16g-s4-035710.bin"
+started = "2026-10-23T03:57:10"
+test = "V1"
+config = "16g"
+session = 4
+notes = "bench still on a curled blanket, night; board power-up 3, chip soft reset by flash between captures"
+power_up = 3
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = false
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 250561
+duration_s = 599.813
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.934
+overruns = 0
+missing_samples = 1322
+temp_c = 24.97
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 275389
+duration_s = 599.815
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.546
+overruns = 0
+missing_samples = 1454
+temp_c = 17.08
+
+[[capture]]
+file = "2026-10-23/V1-16g-s4-040854.bin"
+started = "2026-10-23T04:08:54"
+test = "V1"
+config = "16g"
+session = 4
+notes = "bench still on a curled blanket, night; board power-up 3, chip soft reset by flash between captures"
+power_up = 3
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = false
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251396
+duration_s = 599.765
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.934
+overruns = 0
+missing_samples = 467
+temp_c = 24.94
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276307
+duration_s = 599.764
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.547
+overruns = 0
+missing_samples = 513
+temp_c = 17.06
+
+[[capture]]
+file = "2026-10-23/V1-palm_208hz-s1-042031.bin"
+started = "2026-10-23T04:20:31"
+test = "V1"
+config = "palm_208hz"
+session = 1
+notes = "bench still on a curled blanket, night; board power-up 3, chip soft reset by flash between captures"
+power_up = 3
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = false
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 125376
+duration_s = 599.86
+odr_nominal_hz = 208.0
+odr_measured_hz = 209.967
+overruns = 0
+missing_samples = 576
+temp_c = 24.93
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 275598
+duration_s = 599.861
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.547
+overruns = 0
+missing_samples = 1267
+temp_c = 17.02
+
+[[capture]]
+file = "2026-10-23/V1-palm_208hz-s1-043155.bin"
+started = "2026-10-23T04:31:55"
+test = "V1"
+config = "palm_208hz"
+session = 1
+notes = "bench still on a curled blanket, night; board power-up 3, chip soft reset by flash between captures"
+power_up = 3
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = false
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 124042
+duration_s = 599.812
+odr_nominal_hz = 208.0
+odr_measured_hz = 209.967
+overruns = 0
+missing_samples = 1900
+temp_c = 24.91
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 272658
+duration_s = 599.813
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.547
+overruns = 0
+missing_samples = 4185
+temp_c = 17.0
+
+[[capture]]
+file = "2026-10-23/V1-palm_833hz-s1-044326.bin"
+started = "2026-10-23T04:43:26"
+test = "V1"
+config = "palm_833hz"
+session = 1
+notes = "bench still on a curled blanket, night; board power-up 3, chip soft reset by flash between captures"
+power_up = 3
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = false
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 503697
+duration_s = 599.741
+odr_nominal_hz = 833.0
+odr_measured_hz = 839.869
+overruns = 0
+missing_samples = 8
+temp_c = 24.9
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276805
+duration_s = 599.739
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.547
+overruns = 0
+missing_samples = 4
+temp_c = 17.0
+
+[[capture]]
+file = "2026-10-23/V1-palm_lp1_light-s1-045451.bin"
+started = "2026-10-23T04:54:51"
+test = "V1"
+config = "palm_lp1_light"
+session = 1
+notes = "bench still on a curled blanket, night; board power-up 3, chip soft reset by flash between captures"
+power_up = 3
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251860
+duration_s = 599.757
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.935
+overruns = 0
+missing_samples = 0
+temp_c = 24.87
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276818
+duration_s = 599.758
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.548
+overruns = 0
+missing_samples = 0
+temp_c = 16.98
+
+[[capture]]
+file = "2026-10-23/V1-palm_lp1_aggressive-s1-050614.bin"
+started = "2026-10-23T05:06:14"
+test = "V1"
+config = "palm_lp1_aggressive"
+session = 1
+notes = "bench still on a curled blanket, night; board power-up 3, chip soft reset by flash between captures"
+power_up = 3
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251854
+duration_s = 599.743
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.935
+overruns = 0
+missing_samples = 0
+temp_c = 24.87
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276810
+duration_s = 599.741
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.548
+overruns = 0
+missing_samples = 0
+temp_c = 16.96
+
+[[capture]]
+file = "2026-10-23/V1-palm_xl_div50-s1-051738.bin"
+started = "2026-10-23T05:17:38"
+test = "V1"
+config = "palm_xl_div50"
+session = 1
+notes = "bench still on a curled blanket, night; board power-up 3, chip soft reset by flash between captures"
+power_up = 3
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251866
+duration_s = 599.771
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.935
+overruns = 0
+missing_samples = 0
+temp_c = 24.87
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276825
+duration_s = 599.773
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.548
+overruns = 0
+missing_samples = 0
+temp_c = 16.95
+
+[[capture]]
+file = "2026-10-23/V1-palm_low_range-s1-052901.bin"
+started = "2026-10-23T05:29:01"
+test = "V1"
+config = "palm_low_range"
+session = 1
+notes = "bench still on a curled blanket, night; board power-up 3, chip soft reset by flash between captures"
+power_up = 3
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251863
+duration_s = 599.764
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.935
+overruns = 0
+missing_samples = 0
+temp_c = 24.86
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276821
+duration_s = 599.764
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.548
+overruns = 0
+missing_samples = 0
+temp_c = 16.94
+
+[[capture]]
+file = "2026-10-23/V1-long-s4-054024.bin"
+started = "2026-10-23T05:40:24"
+test = "V1"
+config = "long"
+session = 4
+notes = "bench still on a curled blanket, night; board power-up 3, chip soft reset by flash between captures"
+power_up = 3
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 3021923
+duration_s = 7196.15
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.936
+overruns = 0
+missing_samples = 0
+temp_c = 24.79
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 3321374
+duration_s = 7196.149
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.549
+overruns = 0
+missing_samples = 0
+temp_c = 16.89
+
+[[capture]]
+file = "2026-10-23/V1-palm_833hz-s2-074248.bin"
+started = "2026-10-23T07:42:48"
+test = "V1"
+config = "palm_833hz"
+session = 2
+notes = "bench still on a curled blanket, night; board power-up 3, chip soft reset by flash between captures"
+power_up = 3
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 503698
+duration_s = 599.73
+odr_nominal_hz = 833.0
+odr_measured_hz = 839.873
+overruns = 0
+missing_samples = 0
+temp_c = 24.74
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276806
+duration_s = 599.73
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.549
+overruns = 0
+missing_samples = 0
+temp_c = 16.88
+
+[[capture]]
+file = "2026-10-23/V1-palm_lp1_light-s2-075414.bin"
+started = "2026-10-23T07:54:14"
+test = "V1"
+config = "palm_lp1_light"
+session = 2
+notes = "bench still on a curled blanket, night; board power-up 3, chip soft reset by flash between captures"
+power_up = 3
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251861
+duration_s = 599.757
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.936
+overruns = 0
+missing_samples = 0
+temp_c = 24.73
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276818
+duration_s = 599.756
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.549
+overruns = 0
+missing_samples = 0
+temp_c = 16.9
+
+[[capture]]
+file = "2026-10-23/V1-palm_lp1_aggressive-s2-080537.bin"
+started = "2026-10-23T08:05:37"
+test = "V1"
+config = "palm_lp1_aggressive"
+session = 2
+notes = "bench still on a curled blanket, night; board power-up 3, chip soft reset by flash between captures"
+power_up = 3
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251853
+duration_s = 599.738
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.937
+overruns = 0
+missing_samples = 0
+temp_c = 24.72
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276811
+duration_s = 599.741
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.549
+overruns = 0
+missing_samples = 0
+temp_c = 16.87
+
+[[capture]]
+file = "2026-10-24/V1-16g-s4-041215.bin"
+started = "2026-10-24T04:12:15"
+test = "V1"
+config = "16g"
+session = 4
+notes = "bench still on a curled blanket, night; board power-up 4, chip soft reset by flash between captures"
+power_up = 4
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251869
+duration_s = 599.83
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.899
+overruns = 0
+missing_samples = 0
+temp_c = 27.93
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276854
+duration_s = 599.832
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.551
+overruns = 0
+missing_samples = 0
+temp_c = 16.69
+
+[[capture]]
+file = "2026-10-24/V1-palm_208hz-s1-042346.bin"
+started = "2026-10-24T04:23:46"
+test = "V1"
+config = "palm_208hz"
+session = 1
+notes = "bench still on a curled blanket, night; board power-up 4, chip soft reset by flash between captures"
+power_up = 4
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 125939
+duration_s = 599.853
+odr_nominal_hz = 208.0
+odr_measured_hz = 209.948
+overruns = 0
+missing_samples = 0
+temp_c = 28.16
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276864
+duration_s = 599.853
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.552
+overruns = 0
+missing_samples = 0
+temp_c = 16.66
+
+[[capture]]
+file = "2026-10-24/V1-palm_208hz-s2-043508.bin"
+started = "2026-10-24T04:35:08"
+test = "V1"
+config = "palm_208hz"
+session = 2
+notes = "bench still on a curled blanket, night; board power-up 4, chip soft reset by flash between captures"
+power_up = 4
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 125926
+duration_s = 599.793
+odr_nominal_hz = 208.0
+odr_measured_hz = 209.947
+overruns = 0
+missing_samples = 0
+temp_c = 28.29
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276837
+duration_s = 599.794
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.552
+overruns = 0
+missing_samples = 0
+temp_c = 16.6
+
+[[capture]]
+file = "2026-10-24/V1-palm_xl_div50-s2-044638.bin"
+started = "2026-10-24T04:46:38"
+test = "V1"
+config = "palm_xl_div50"
+session = 2
+notes = "bench still on a curled blanket, night; board power-up 4, chip soft reset by flash between captures"
+power_up = 4
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251852
+duration_s = 599.797
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.894
+overruns = 0
+missing_samples = 0
+temp_c = 28.37
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276839
+duration_s = 599.798
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.552
+overruns = 0
+missing_samples = 0
+temp_c = 16.6
+
+[[capture]]
+file = "2026-10-24/V1-palm_low_range-s2-045809.bin"
+started = "2026-10-24T04:58:09"
+test = "V1"
+config = "palm_low_range"
+session = 2
+notes = "bench still on a curled blanket, night; board power-up 4, chip soft reset by flash between captures"
+power_up = 4
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251850
+duration_s = 599.793
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.893
+overruns = 0
+missing_samples = 0
+temp_c = 28.41
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276837
+duration_s = 599.794
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.552
+overruns = 0
+missing_samples = 0
+temp_c = 16.63
+
+[[capture]]
+file = "2026-10-24/V1-long-s5-050932.bin"
+started = "2026-10-24T05:09:32"
+test = "V1"
+config = "long"
+session = 5
+notes = "bench still on a curled blanket, night; board power-up 4, chip soft reset by flash between captures"
+power_up = 4
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.accel_tilted]
+finger = "breakout turned 0.52 deg on its tape over the hold (components 6.8 mg, norm 0.5 mg)"
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 8687018
+duration_s = 20688.657
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.893
+overruns = 0
+missing_samples = 0
+temp_c = 28.46
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 9548910
+duration_s = 20688.655
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.553
+overruns = 0
+missing_samples = 0
+temp_c = 16.59
+
+[[capture]]
+file = "2026-10-25/I6-952hz+palm_208hz-s0-022309.bin"
+started = "2026-10-25T02:23:09"
+test = "I6"
+config = "952hz+palm_208hz"
+session = 0
+notes = "pair firmware check before night 5"
+power_up = 5
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 12611
+duration_s = 60.062
+odr_nominal_hz = 208.0
+odr_measured_hz = 209.95
+overruns = 0
+missing_samples = 0
+temp_c = 27.79
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 55443
+duration_s = 60.062
+odr_nominal_hz = 952.0
+odr_measured_hz = 923.086
+overruns = 0
+missing_samples = 0
+temp_c = 17.31
+
+[[capture]]
+file = "2026-10-25/V1-952hz+palm_208hz-s5-024049.bin"
+started = "2026-10-25T02:40:49"
+test = "V1"
+config = "952hz+palm_208hz"
+session = 5
+notes = "bench still on a curled blanket, night; board power-up 5, chip soft reset by flash between captures"
+power_up = 5
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 125908
+duration_s = 599.699
+odr_nominal_hz = 208.0
+odr_measured_hz = 209.95
+overruns = 0
+missing_samples = 0
+temp_c = 27.78
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 553583
+duration_s = 599.702
+odr_nominal_hz = 952.0
+odr_measured_hz = 923.095
+overruns = 0
+missing_samples = 0
+temp_c = 16.98
+
+[[capture]]
+file = "2026-10-25/V1-16g+palm_833hz-s5-025211.bin"
+started = "2026-10-25T02:52:11"
+test = "V1"
+config = "16g+palm_833hz"
+session = 5
+notes = "bench still on a curled blanket, night; board power-up 5, chip soft reset by flash between captures"
+power_up = 5
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 503682
+duration_s = 599.762
+odr_nominal_hz = 833.0
+odr_measured_hz = 839.802
+overruns = 0
+missing_samples = 0
+temp_c = 27.74
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276821
+duration_s = 599.763
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.549
+overruns = 0
+missing_samples = 0
+temp_c = 16.86
+
+[[capture]]
+file = "2026-10-25/V1-mid_range+palm_lp1_light-s5-020333.bin"
+started = "2026-10-25T02:03:33"
+test = "V1"
+config = "mid_range+palm_lp1_light"
+session = 5
+notes = "bench still on a curled blanket, night; board power-up 5, chip soft reset by flash between captures"
+power_up = 5
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251842
+duration_s = 599.763
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.901
+overruns = 0
+missing_samples = 0
+temp_c = 27.72
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276821
+duration_s = 599.763
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.549
+overruns = 0
+missing_samples = 0
+temp_c = 16.85
+
+[[capture]]
+file = "2026-10-25/V1-xl_div50+palm_lp1_aggressive-s5-021454.bin"
+started = "2026-10-25T02:14:54"
+test = "V1"
+config = "xl_div50+palm_lp1_aggressive"
+session = 5
+notes = "bench still on a curled blanket, night; board power-up 5, chip soft reset by flash between captures"
+power_up = 5
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251829
+duration_s = 599.732
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.901
+overruns = 0
+missing_samples = 0
+temp_c = 27.72
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276806
+duration_s = 599.731
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.549
+overruns = 0
+missing_samples = 0
+temp_c = 16.87
+
+[[capture]]
+file = "2026-10-25/V1-xl_lp_off+palm_xl_div50-s5-022615.bin"
+started = "2026-10-25T02:26:15"
+test = "V1"
+config = "xl_lp_off+palm_xl_div50"
+session = 5
+notes = "bench still on a curled blanket, night; board power-up 5, chip soft reset by flash between captures"
+power_up = 5
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251845
+duration_s = 599.769
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.901
+overruns = 0
+missing_samples = 0
+temp_c = 27.69
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276825
+duration_s = 599.772
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.549
+overruns = 0
+missing_samples = 0
+temp_c = 16.92
+
+[[capture]]
+file = "2026-10-25/V1-low_range+palm_low_range-s5-023736.bin"
+started = "2026-10-25T02:37:36"
+test = "V1"
+config = "low_range+palm_low_range"
+session = 5
+notes = "bench still on a curled blanket, night; board power-up 5, chip soft reset by flash between captures"
+power_up = 5
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251832
+duration_s = 599.738
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.902
+overruns = 0
+missing_samples = 0
+temp_c = 27.69
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276810
+duration_s = 599.739
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.549
+overruns = 0
+missing_samples = 0
+temp_c = 16.9
+
+[[capture]]
+file = "2026-10-25/V1-119hz+palm_208hz-s6-024857.bin"
+started = "2026-10-25T02:48:57"
+test = "V1"
+config = "119hz+palm_208hz"
+session = 6
+notes = "bench still on a curled blanket, night; board power-up 5, chip soft reset by flash between captures"
+power_up = 5
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 125922
+duration_s = 599.765
+odr_nominal_hz = 208.0
+odr_measured_hz = 209.95
+overruns = 0
+missing_samples = 0
+temp_c = 27.75
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 69206
+duration_s = 599.763
+odr_nominal_hz = 119.0
+odr_measured_hz = 115.387
+overruns = 0
+missing_samples = 0
+temp_c = 16.9
+
+[[capture]]
+file = "2026-10-25/V1-238hz+palm_833hz-s6-030016.bin"
+started = "2026-10-25T03:00:16"
+test = "V1"
+config = "238hz+palm_833hz"
+session = 6
+notes = "bench still on a curled blanket, night; board power-up 5, chip soft reset by flash between captures"
+power_up = 5
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 503623
+duration_s = 599.691
+odr_nominal_hz = 833.0
+odr_measured_hz = 839.802
+overruns = 0
+missing_samples = 0
+temp_c = 27.72
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 138393
+duration_s = 599.685
+odr_nominal_hz = 238.0
+odr_measured_hz = 230.775
+overruns = 0
+missing_samples = 0
+temp_c = 16.89
+
+[[capture]]
+file = "2026-10-25/V1-lpf2_light+palm_lp1_light-s6-031137.bin"
+started = "2026-10-25T03:11:37"
+test = "V1"
+config = "lpf2_light+palm_lp1_light"
+session = 6
+notes = "bench still on a curled blanket, night; board power-up 5, chip soft reset by flash between captures"
+power_up = 5
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251826
+duration_s = 599.725
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.901
+overruns = 0
+missing_samples = 0
+temp_c = 27.72
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276805
+duration_s = 599.728
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.549
+overruns = 0
+missing_samples = 0
+temp_c = 16.88
+
+[[capture]]
+file = "2026-10-25/V1-lpf2_strong+palm_lp1_aggressive-s6-032258.bin"
+started = "2026-10-25T03:22:58"
+test = "V1"
+config = "lpf2_strong+palm_lp1_aggressive"
+session = 6
+notes = "bench still on a curled blanket, night; board power-up 5, chip soft reset by flash between captures"
+power_up = 5
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251831
+duration_s = 599.736
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.902
+overruns = 0
+missing_samples = 0
+temp_c = 27.69
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276810
+duration_s = 599.739
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.549
+overruns = 0
+missing_samples = 0
+temp_c = 16.86
+
+[[capture]]
+file = "2026-10-25/V1-xl_div50+palm_xl_div50-s6-033419.bin"
+started = "2026-10-25T03:34:19"
+test = "V1"
+config = "xl_div50+palm_xl_div50"
+session = 6
+notes = "bench still on a curled blanket, night; board power-up 5, chip soft reset by flash between captures"
+power_up = 5
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251842
+duration_s = 599.762
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.902
+overruns = 0
+missing_samples = 0
+temp_c = 27.66
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276820
+duration_s = 599.76
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.549
+overruns = 0
+missing_samples = 0
+temp_c = 16.85
+
+[[capture]]
+file = "2026-10-25/V1-952hz+palm_low_range-s6-034540.bin"
+started = "2026-10-25T03:45:40"
+test = "V1"
+config = "952hz+palm_low_range"
+session = 6
+notes = "bench still on a curled blanket, night; board power-up 5, chip soft reset by flash between captures"
+power_up = 5
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251809
+duration_s = 599.683
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.902
+overruns = 0
+missing_samples = 0
+temp_c = 27.65
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 553570
+duration_s = 599.686
+odr_nominal_hz = 952.0
+odr_measured_hz = 923.098
+overruns = 0
+missing_samples = 0
+temp_c = 16.86
+
+[[capture]]
+file = "2026-10-25/V1-long-s6-035702.bin"
+started = "2026-10-25T03:57:02"
+test = "V1"
+config = "long"
+session = 6
+notes = "bench still on a curled blanket, night; board power-up 5; 240-min segments back to back without reflash"
+power_up = 5
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = false
+
+[capture.accel_tilted]
+finger = "breakout turned 0.50 deg on its tape over the hold (components 6.2 mg, norm 0.9 mg)"
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 6042438
+duration_s = 14392.089
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.902
+overruns = 0
+missing_samples = 824
+temp_c = 27.66
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 6641763
+duration_s = 14392.083
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.55
+overruns = 0
+missing_samples = 905
+temp_c = 16.81
+
+[[capture]]
+file = "2026-10-25/V1-long-s7-075816.bin"
+started = "2026-10-25T07:58:16"
+test = "V1"
+config = "long"
+session = 7
+notes = "bench still on a curled blanket, night; board power-up 5; 240-min segments back to back without reflash"
+power_up = 5
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = false
+
+[capture.accel_tilted]
+finger = "breakout turned 0.31 deg on its tape over the hold (components 3.7 mg, norm 0.3 mg)"
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 6040425
+duration_s = 14392.075
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.901
+overruns = 0
+missing_samples = 2828
+temp_c = 27.68
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 6639553
+duration_s = 14392.072
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.55
+overruns = 0
+missing_samples = 3110
+temp_c = 16.8
+
+[[capture]]
+file = "2026-10-25/V2-default-s1-144004.bin"
+started = "2026-10-25T14:40:04"
+test = "V2"
+config = "default"
+session = 1
+notes = "V2 session 1, face down on the leveled tabletop"
+power_up = 6
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = false
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 36123
+duration_s = 90.036
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.965
+overruns = 0
+missing_samples = 1690
+temp_c = 22.33
+up = [
+    0.0,
+    0.0,
+    1.0,
+]
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 39700
+duration_s = 90.038
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.528
+overruns = 0
+missing_samples = 1856
+temp_c = 18.4
+up = [
+    0.0,
+    0.0,
+    -1.0,
+]
+
+[[capture]]
+file = "2026-10-25/V2-default-s1-144221.bin"
+started = "2026-10-25T14:42:21"
+test = "V2"
+config = "default"
+session = 1
+notes = "V2 session 1, face down on the leveled tabletop; repeat of 144004 which dropped samples"
+power_up = 6
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = false
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37368
+duration_s = 90.065
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.95
+overruns = 0
+missing_samples = 456
+temp_c = 23.51
+up = [
+    0.0,
+    0.0,
+    1.0,
+]
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41069
+duration_s = 90.065
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.532
+overruns = 0
+missing_samples = 500
+temp_c = 18.12
+up = [
+    0.0,
+    0.0,
+    -1.0,
+]
+
+[[capture]]
+file = "2026-10-25/V2-default-s1-144434.bin"
+started = "2026-10-25T14:44:34"
+test = "V2"
+config = "default"
+session = 1
+notes = "V2 session 1, face down on the leveled tabletop; repeat of 144221 which dropped samples"
+power_up = 6
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37786
+duration_s = 89.977
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.942
+overruns = 0
+missing_samples = 0
+temp_c = 24.22
+up = [
+    0.0,
+    0.0,
+    1.0,
+]
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41527
+duration_s = 89.974
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.532
+overruns = 0
+missing_samples = 0
+temp_c = 18.13
+up = [
+    0.0,
+    0.0,
+    -1.0,
+]
+
+[[capture]]
+file = "2026-10-25/V2-default-s1-145217.bin"
+started = "2026-10-25T14:52:17"
+test = "V2"
+config = "default"
+session = 1
+notes = "V2 session 1, finger breakout face down, STM32 board face up, on the leveled tabletop; no typing"
+power_up = 6
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37785
+duration_s = 89.975
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.939
+overruns = 0
+missing_samples = 0
+temp_c = 24.52
+up = [
+    0.0,
+    0.0,
+    1.0,
+]
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41526
+duration_s = 89.973
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.528
+overruns = 0
+missing_samples = 0
+temp_c = 18.39
+up = [
+    0.0,
+    0.0,
+    -1.0,
+]
+
+[[capture]]
+file = "2026-10-25/V2-default-s1-145627.bin"
+started = "2026-10-25T14:56:27"
+test = "V2"
+config = "default"
+session = 1
+notes = "V2 session 1, finger breakout face up, STM32 board face down, on the leveled tabletop"
+power_up = 6
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37786
+duration_s = 89.977
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.939
+overruns = 0
+missing_samples = 0
+temp_c = 24.51
+up = [
+    0.0,
+    0.0,
+    -1.0,
+]
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41529
+duration_s = 89.978
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.533
+overruns = 0
+missing_samples = 0
+temp_c = 17.95
+up = [
+    0.0,
+    0.0,
+    1.0,
+]
+
+[[capture]]
+file = "2026-10-25/V2-default-s1-145905.bin"
+excluded = "shaken 55-70 s (phone alarm while holding the boards); repeated as 150155"
+started = "2026-10-25T14:59:05"
+test = "V2"
+config = "default"
+session = 1
+notes = "V2 session 1, finger breakout face up, STM32 board face down, repositioned, on the leveled tabletop"
+power_up = 6
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37783
+duration_s = 89.971
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.937
+overruns = 0
+missing_samples = 0
+temp_c = 24.68
+up = [
+    0.0,
+    0.0,
+    -1.0,
+]
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41526
+duration_s = 89.971
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.537
+overruns = 0
+missing_samples = 0
+temp_c = 17.68
+up = [
+    0.0,
+    0.0,
+    1.0,
+]
+
+[[capture]]
+file = "2026-10-25/V2-default-s1-150155.bin"
+started = "2026-10-25T15:01:55"
+test = "V2"
+config = "default"
+session = 1
+notes = "V2 session 1, finger breakout face up, STM32 board face down, repositioned, on the leveled tabletop; repeat of 145905 (phone alarm)"
+power_up = 6
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37784
+duration_s = 89.974
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.932
+overruns = 0
+missing_samples = 0
+temp_c = 25.07
+up = [
+    0.0,
+    0.0,
+    -1.0,
+]
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41529
+duration_s = 89.977
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.538
+overruns = 0
+missing_samples = 0
+temp_c = 17.6
+up = [
+    0.0,
+    0.0,
+    1.0,
+]
+
+[[capture]]
+file = "2026-10-25/V2-default-s1-151757.bin"
+started = "2026-10-25T15:17:57"
+test = "V2"
+config = "default"
+session = 1
+notes = "V2 session 1, both boards on edge against the table leg, -x up, plumb by phone level"
+power_up = 6
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37787
+duration_s = 89.975
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.963
+overruns = 0
+missing_samples = 0
+temp_c = 22.43
+up = [
+    1.0,
+    0.0,
+    0.0,
+]
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41528
+duration_s = 89.975
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.541
+overruns = 0
+missing_samples = 0
+temp_c = 17.35
+up = [
+    -1.0,
+    0.0,
+    0.0,
+]
+
+[[capture]]
+file = "2026-10-25/V2-default-s1-152140.bin"
+started = "2026-10-25T15:21:40"
+test = "V2"
+config = "default"
+session = 1
+notes = "V2 session 1, both boards on edge against the table leg, finger -x / palm +x up, repositioned, plumb by phone level"
+power_up = 6
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37785
+duration_s = 89.972
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.954
+overruns = 0
+missing_samples = 0
+temp_c = 23.18
+up = [
+    1.0,
+    0.0,
+    0.0,
+]
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41528
+duration_s = 89.975
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.542
+overruns = 0
+missing_samples = 0
+temp_c = 17.37
+up = [
+    -1.0,
+    0.0,
+    0.0,
+]
+
+[[capture]]
+file = "2026-10-25/V2-default-s1-153415.bin"
+excluded = "placement leans about 1.2 deg sideways (y reads -24 mg palm, -20 mg finger with x up); redo"
+started = "2026-10-25T15:34:15"
+test = "V2"
+config = "default"
+session = 1
+notes = "V2 session 1, both boards on edge against the table leg, finger +x / palm -x up, plumb by phone level"
+power_up = 6
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37788
+duration_s = 89.981
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.945
+overruns = 0
+missing_samples = 0
+temp_c = 24.01
+up = [
+    -1.0,
+    0.0,
+    0.0,
+]
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41530
+duration_s = 89.981
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.529
+overruns = 0
+missing_samples = 0
+temp_c = 18.24
+up = [
+    1.0,
+    0.0,
+    0.0,
+]
+
+[[capture]]
+file = "2026-10-25/V2-default-s1-153923.bin"
+excluded = "placement leans about 1 deg back and 1.2 deg sideways (z +18 mg, y -20 mg vs the plumb 154449); redo"
+started = "2026-10-25T15:39:23"
+test = "V2"
+config = "default"
+session = 1
+notes = "V2 session 1, both boards on edge against the table leg, finger +x / palm -x up, repositioned, plumb by phone level"
+power_up = 6
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37786
+duration_s = 89.975
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.951
+overruns = 0
+missing_samples = 0
+temp_c = 23.49
+up = [
+    -1.0,
+    0.0,
+    0.0,
+]
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41527
+duration_s = 89.974
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.532
+overruns = 0
+missing_samples = 0
+temp_c = 18.02
+up = [
+    1.0,
+    0.0,
+    0.0,
+]
+
+[[capture]]
+file = "2026-10-25/V2-default-s1-154449.bin"
+started = "2026-10-25T15:44:49"
+test = "V2"
+config = "default"
+session = 1
+notes = "V2 session 1, both boards on edge against the table leg, finger +x / palm -x up, retaped, plumb by phone level"
+power_up = 6
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37786
+duration_s = 89.975
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.949
+overruns = 0
+missing_samples = 0
+temp_c = 23.67
+up = [
+    -1.0,
+    0.0,
+    0.0,
+]
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41527
+duration_s = 89.975
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.53
+overruns = 0
+missing_samples = 0
+temp_c = 18.22
+up = [
+    1.0,
+    0.0,
+    0.0,
+]
+
+[[capture]]
+file = "2026-10-25/V2-default-s1-155319.bin"
+excluded = "placement leans about 1.5-2 deg sideways (x reads -26 mg palm, +35 mg finger past their offsets); redo"
+started = "2026-10-25T15:53:19"
+test = "V2"
+config = "default"
+session = 1
+notes = "V2 session 1, both boards on edge against the table leg, finger -y / palm +y up, plumb by phone level"
+power_up = 6
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37786
+duration_s = 89.976
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.944
+overruns = 0
+missing_samples = 0
+temp_c = 24.05
+up = [
+    0.0,
+    -1.0,
+    0.0,
+]
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41527
+duration_s = 89.974
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.533
+overruns = 0
+missing_samples = 0
+temp_c = 18.01
+up = [
+    0.0,
+    -1.0,
+    0.0,
+]
+
+[[capture]]
+file = "2026-10-25/V2-default-s1-160355.bin"
+started = "2026-10-25T16:03:55"
+test = "V2"
+config = "default"
+session = 1
+notes = "V2 session 1, both boards on edge against the table leg, -y up, retaped, plumb by phone level"
+power_up = 6
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37785
+duration_s = 89.975
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.94
+overruns = 0
+missing_samples = 0
+temp_c = 24.45
+up = [
+    0.0,
+    -1.0,
+    0.0,
+]
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41526
+duration_s = 89.973
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.526
+overruns = 0
+missing_samples = 0
+temp_c = 18.57
+up = [
+    0.0,
+    -1.0,
+    0.0,
+]
+
+[[capture]]
+file = "2026-10-25/V2-default-s1-161258.bin"
+started = "2026-10-25T16:12:58"
+test = "V2"
+config = "default"
+session = 1
+notes = "V2 session 1, both boards on edge against the table leg, -y up, repositioned, plumb by phone level"
+power_up = 6
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37785
+duration_s = 89.976
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.936
+overruns = 0
+missing_samples = 0
+temp_c = 24.76
+up = [
+    0.0,
+    -1.0,
+    0.0,
+]
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41527
+duration_s = 89.976
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.524
+overruns = 0
+missing_samples = 0
+temp_c = 18.73
+up = [
+    0.0,
+    -1.0,
+    0.0,
+]
+
+[[capture]]
+file = "2026-10-25/V2-default-s1-162240.bin"
+started = "2026-10-25T16:22:40"
+test = "V2"
+config = "default"
+session = 1
+notes = "V2 session 1, both boards on edge against the table leg, +y up, plumb by phone level"
+power_up = 6
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37786
+duration_s = 89.976
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.948
+overruns = 0
+missing_samples = 0
+temp_c = 23.75
+up = [
+    0.0,
+    1.0,
+    0.0,
+]
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41528
+duration_s = 89.976
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.534
+overruns = 0
+missing_samples = 0
+temp_c = 17.95
+up = [
+    0.0,
+    1.0,
+    0.0,
+]
+
+[[capture]]
+file = "2026-10-25/V2-default-s2-162911.bin"
+excluded = "knocked 30-35 s (31 mg palm, 48 mg finger); labels corrected to finger +z / palm -z from the readings; repeated"
+started = "2026-10-25T16:29:11"
+test = "V2"
+config = "default"
+session = 2
+notes = "V2 session 2, retaped and re-leveled, finger breakout face down, STM32 board face up, on the tabletop"
+power_up = 6
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37787
+duration_s = 89.977
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.954
+overruns = 0
+missing_samples = 0
+temp_c = 23.27
+up = [
+    0.0,
+    0.0,
+    -1.0,
+]
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41528
+duration_s = 89.976
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.537
+overruns = 0
+missing_samples = 0
+temp_c = 17.69
+up = [
+    0.0,
+    0.0,
+    1.0,
+]
+
+[[capture]]
+file = "2026-10-25/V2-default-s2-163208.bin"
+started = "2026-10-25T16:32:08"
+test = "V2"
+config = "default"
+session = 2
+notes = "V2 session 2, retaped and re-leveled, finger breakout face up, STM32 board face down, on the tabletop; repeat of 162911 (knock)"
+power_up = 6
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37785
+duration_s = 89.974
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.942
+overruns = 0
+missing_samples = 0
+temp_c = 24.2
+up = [
+    0.0,
+    0.0,
+    -1.0,
+]
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41527
+duration_s = 89.973
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.541
+overruns = 0
+missing_samples = 0
+temp_c = 17.42
+up = [
+    0.0,
+    0.0,
+    1.0,
+]
+
+[[capture]]
+file = "2026-10-25/V2-default-s2-163616.bin"
+started = "2026-10-25T16:36:16"
+test = "V2"
+config = "default"
+session = 2
+notes = "V2 session 2, retaped and re-leveled, finger breakout face down, STM32 board face up, on the tabletop"
+power_up = 6
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37786
+duration_s = 89.98
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.929
+overruns = 0
+missing_samples = 0
+temp_c = 25.39
+up = [
+    0.0,
+    0.0,
+    1.0,
+]
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41529
+duration_s = 89.977
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.539
+overruns = 0
+missing_samples = 0
+temp_c = 17.6
+up = [
+    0.0,
+    0.0,
+    -1.0,
+]
+
+[[capture]]
+file = "2026-10-25/V2-default-s2-164347.bin"
+started = "2026-10-25T16:43:47"
+test = "V2"
+config = "default"
+session = 2
+notes = "V2 session 2, retaped, both boards on edge against the table leg, finger -x / palm +x up, plumb by phone level"
+power_up = 6
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37787
+duration_s = 89.978
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.947
+overruns = 0
+missing_samples = 0
+temp_c = 23.77
+up = [
+    1.0,
+    0.0,
+    0.0,
+]
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41527
+duration_s = 89.974
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.531
+overruns = 0
+missing_samples = 0
+temp_c = 18.15
+up = [
+    -1.0,
+    0.0,
+    0.0,
+]
+
+[[capture]]
+file = "2026-10-25/V2-default-s2-165110.bin"
+started = "2026-10-25T16:51:10"
+test = "V2"
+config = "default"
+session = 2
+notes = "V2 session 2, retaped, both boards on edge against the table leg, -y up, plumb by phone level"
+power_up = 6
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37785
+duration_s = 89.973
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.949
+overruns = 0
+missing_samples = 0
+temp_c = 23.67
+up = [
+    0.0,
+    -1.0,
+    0.0,
+]
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41526
+duration_s = 89.971
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.538
+overruns = 0
+missing_samples = 0
+temp_c = 17.66
+up = [
+    0.0,
+    -1.0,
+    0.0,
+]
+
+[[capture]]
+file = "2026-10-25/V2-default-s2-170639.bin"
+started = "2026-10-25T17:06:39"
+test = "V2"
+config = "default"
+session = 2
+notes = "V2 session 2, retaped, both boards on edge against the table leg, +y up, plumb by phone level"
+power_up = 6
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37787
+duration_s = 89.975
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.963
+overruns = 0
+missing_samples = 0
+temp_c = 22.48
+up = [
+    0.0,
+    1.0,
+    0.0,
+]
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41529
+duration_s = 89.977
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.542
+overruns = 0
+missing_samples = 0
+temp_c = 17.32
+up = [
+    0.0,
+    1.0,
+    0.0,
+]
+
+[[capture]]
+file = "2026-10-25/V2-default-s2-171725.bin"
+started = "2026-10-25T17:17:25"
+test = "V2"
+config = "default"
+session = 2
+notes = "V2 session 2, retaped, both boards on edge against the table leg, finger +x / palm -x up, plumb by phone level"
+power_up = 6
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37786
+duration_s = 89.976
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.946
+overruns = 0
+missing_samples = 0
+temp_c = 23.93
+up = [
+    -1.0,
+    0.0,
+    0.0,
+]
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41527
+duration_s = 89.975
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.527
+overruns = 0
+missing_samples = 0
+temp_c = 18.46
+up = [
+    1.0,
+    0.0,
+    0.0,
+]
+
+[[capture]]
+file = "2026-10-26/I6-default-s7-014555.bin"
+started = "2026-10-26T01:45:55"
+test = "I6"
+config = "default"
+session = 7
+notes = "firmware check before night 6 long holds"
+power_up = 7
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 25239
+duration_s = 60.094
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.973
+overruns = 0
+missing_samples = 0
+temp_c = 21.61
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 27737
+duration_s = 60.093
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.554
+overruns = 0
+missing_samples = 0
+temp_c = 16.36
+
+[[capture]]
+file = "2026-10-26/V1-long-s8-034516.bin"
+started = "2026-10-26T03:45:16"
+test = "V1"
+config = "long"
+session = 8
+notes = "bench still on a curled blanket, night; board power-up 7; 240-min segments back to back without reflash"
+power_up = 7
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.accel_tilted]
+palm = "both boards turned 0.12 deg in one 100-s step at 138 min (knocked or moved)"
+finger = "both boards turned 0.12 deg in one 100-s step at 138 min (knocked or moved)"
+
+[capture.accel_noisy]
+palm = "accel z noise 3.5x the other holds at 1 s and 10-15x at 10 s, z only, palm only; the LSM6DSL has shown it on and off since 2026-10-25 14:40"
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 6043546
+duration_s = 14392.105
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.921
+overruns = 0
+missing_samples = 0
+temp_c = 26.08
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 6642413
+duration_s = 14392.12
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.531
+overruns = 0
+missing_samples = 0
+temp_c = 18.19
+
+[[capture]]
+file = "2026-10-26/V1-long-s9-074629.bin"
+started = "2026-10-26T07:46:29"
+test = "V1"
+config = "long"
+session = 9
+notes = "bench still on a curled blanket, night; board power-up 7; 240-min segments back to back without reflash"
+power_up = 7
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.accel_noisy]
+palm = "accel z noise 3.5x the other holds at 1 s and 10-15x at 10 s, z only, palm only; the LSM6DSL has shown it on and off since 2026-10-25 14:40"
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 2051469
+duration_s = 4885.445
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.914
+overruns = 0
+missing_samples = 0
+temp_c = 26.59
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 2254786
+duration_s = 4885.442
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.531
+overruns = 0
+missing_samples = 0
+temp_c = 18.17
+
+[[capture]]
+file = "2026-10-26/V2-default-s3-192314.bin"
+started = "2026-10-26T19:23:14"
+test = "V2"
+config = "default"
+session = 3
+notes = "V2 session 3, retaped and re-leveled, both boards flipped from the session-2 face-down hold, on the tabletop; up relabeled after capture (given as finger +z / palm -z, user confirmed the placement was the opposite)"
+power_up = 7
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37788
+duration_s = 89.974
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.978
+overruns = 0
+missing_samples = 0
+temp_c = 21.21
+up = [
+    0.0,
+    0.0,
+    1.0,
+]
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41529
+duration_s = 89.976
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.548
+overruns = 0
+missing_samples = 0
+temp_c = 16.89
+up = [
+    0.0,
+    0.0,
+    -1.0,
+]
+
+[[capture]]
+file = "2026-10-26/V2-default-s3-192726.bin"
+started = "2026-10-26T19:27:26"
+test = "V2"
+config = "default"
+session = 3
+notes = "V2 session 3, retaped and re-leveled, both boards flipped from 192314, on the tabletop"
+power_up = 7
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37786
+duration_s = 89.975
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.952
+overruns = 0
+missing_samples = 0
+temp_c = 23.41
+up = [
+    0.0,
+    0.0,
+    -1.0,
+]
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41526
+duration_s = 89.971
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.539
+overruns = 0
+missing_samples = 0
+temp_c = 17.62
+up = [
+    0.0,
+    0.0,
+    1.0,
+]
+
+[[capture]]
+file = "2026-10-26/V2-default-s3-193917.bin"
+started = "2026-10-26T19:39:17"
+test = "V2"
+config = "default"
+session = 3
+notes = "V2 session 3, retaped, both boards on edge against the table leg, finger -x / palm +x up, plumb by phone level"
+power_up = 7
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37785
+duration_s = 89.973
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.948
+overruns = 0
+missing_samples = 0
+temp_c = 23.71
+up = [
+    1.0,
+    0.0,
+    0.0,
+]
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41527
+duration_s = 89.973
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.539
+overruns = 0
+missing_samples = 0
+temp_c = 17.64
+up = [
+    -1.0,
+    0.0,
+    0.0,
+]
+
+[[capture]]
+file = "2026-10-26/V2-default-s3-194601.bin"
+started = "2026-10-26T19:46:01"
+test = "V2"
+config = "default"
+session = 3
+notes = "V2 session 3, retaped, both boards on edge against the table leg, finger +x / palm -x up, plumb by phone level"
+power_up = 7
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37786
+duration_s = 89.976
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.947
+overruns = 0
+missing_samples = 0
+temp_c = 23.86
+up = [
+    -1.0,
+    0.0,
+    0.0,
+]
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41527
+duration_s = 89.975
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.529
+overruns = 0
+missing_samples = 0
+temp_c = 18.41
+up = [
+    1.0,
+    0.0,
+    0.0,
+]
+
+[[capture]]
+file = "2026-10-26/V2-default-s3-200448.bin"
+started = "2026-10-26T20:04:48"
+test = "V2"
+config = "default"
+session = 3
+notes = "V2 session 3, retaped, both boards on edge against the table leg, +y up, plumb by phone level; palm up relabeled after capture (given as -y, user confirmed +y)"
+power_up = 7
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37785
+duration_s = 89.972
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.953
+overruns = 0
+missing_samples = 0
+temp_c = 23.32
+up = [
+    0.0,
+    1.0,
+    0.0,
+]
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41527
+duration_s = 89.974
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.533
+overruns = 0
+missing_samples = 0
+temp_c = 18.06
+up = [
+    0.0,
+    1.0,
+    0.0,
+]
+
+[[capture]]
+file = "2026-10-26/V2-default-s3-202034.bin"
+started = "2026-10-26T20:20:34"
+test = "V2"
+config = "default"
+session = 3
+notes = "V2 session 3, retaped, both boards on edge against the table leg, -y up, plumb by phone level"
+power_up = 7
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37786
+duration_s = 89.976
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.944
+overruns = 0
+missing_samples = 0
+temp_c = 24.08
+up = [
+    0.0,
+    -1.0,
+    0.0,
+]
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41528
+duration_s = 89.977
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.529
+overruns = 0
+missing_samples = 0
+temp_c = 18.38
+up = [
+    0.0,
+    -1.0,
+    0.0,
+]
+
+[[capture]]
+file = "2026-10-28/V3-v3-s1-010100.bin"
+started = "2026-10-28T01:01:00"
+test = "V3"
+config = "v3"
+session = 1
+notes = "rig: palm LSM6DSL 15 cm, palm_lsm9 15 cm, finger 18.5 cm on the arm, pivot tightened"
+excluded = "motion per the procedure not possible on the 1-DOF arm rig (rig cannot be flicked about three axes); V3 procedure to be revised before session 1"
+power_up = 8
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 75552
+duration_s = 179.904
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.952
+overruns = 0
+missing_samples = 0
+temp_c = 23.41
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 83034
+duration_s = 179.907
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.533
+overruns = 0
+missing_samples = 0
+temp_c = 18.14
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 84333
+duration_s = 179.905
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.759
+overruns = 0
+missing_samples = 0
+temp_c = 19.34
+
+[[capture]]
+file = "2026-10-28/V3-v3-s1-011043.bin"
+started = "2026-10-28T01:10:43"
+test = "V3"
+config = "v3"
+session = 1
+notes = "1-DOF rig, box on its base, hinge horizontal (arm swings vertically), arm free; palm LSM6DSL 15 cm, palm_lsm9 15 cm, finger 18.5 cm; 10 round trips A-B-A pushed by hand"
+excluded = "board reset 3 times on a hard stop impact (restarts in the stream); stopped and redone"
+power_up = 8
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = false
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 27385
+duration_s = 65.207
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.953
+overruns = 0
+missing_samples = 0
+temp_c = 23.33
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 30095
+duration_s = 65.204
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.534
+overruns = 0
+missing_samples = 0
+temp_c = 18.04
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 30566
+duration_s = 65.204
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.76
+overruns = 0
+missing_samples = 0
+temp_c = 19.27
+
+[[capture]]
+file = "2026-10-28/V3-v3-s1-011436.bin"
+started = "2026-10-28T01:14:36"
+test = "V3"
+config = "v3"
+session = 1
+notes = "1-DOF rig, box on its base, hinge horizontal (arm swings vertically), arm free; palm LSM6DSL 15 cm, palm_lsm9 15 cm, finger 18.5 cm; 10 round trips A-B-A pushed by hand; redo of 011043"
+excluded = "board reset about 2 s after the 22nd push (hard stop impact); 11 round trips before it"
+power_up = 8
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = false
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 78391
+duration_s = 186.665
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.95
+overruns = 0
+missing_samples = 0
+temp_c = 23.57
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 86152
+duration_s = 186.663
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.533
+overruns = 0
+missing_samples = 0
+temp_c = 18.11
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 87500
+duration_s = 186.662
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.758
+overruns = 0
+missing_samples = 0
+temp_c = 19.44
+
+[[capture]]
+file = "2026-10-28/V3-v3-s1-012045.bin"
+started = "2026-10-28T01:20:45"
+test = "V3"
+config = "v3"
+session = 1
+notes = "recorded as the post-fix reset test, adopted as session 1 (delay fit only): 1-DOF rig, box on its base, hinge horizontal (arm swings vertically), arm free; palm LSM6DSL 15 cm, palm_lsm9 15 cm, finger 18.5 cm; 28 hard pushes about 2 s apart (no 2 s rests), wires secured after the resets of 011043 and 011436"
+power_up = 8
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 31479
+duration_s = 74.957
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.946
+overruns = 0
+missing_samples = 0
+temp_c = 23.92
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 34596
+duration_s = 74.957
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.532
+overruns = 0
+missing_samples = 0
+temp_c = 18.18
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 35138
+duration_s = 74.958
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.759
+overruns = 0
+missing_samples = 0
+temp_c = 19.41
+
+[[capture]]
+file = "2026-10-28/V3-v3_board-s1-012531.bin"
+started = "2026-10-28T01:25:31"
+test = "V3"
+config = "v3_board"
+session = 1
+notes = "1-DOF rig, box on its base, hinge horizontal (arm swings vertically), arm free; palm LSM6DSL 15 cm, palm_lsm9 15 cm, finger 18.5 cm; hard pushes A-B-A into the stops; wires secured"
+excluded = "redone at the author's request soon after the start"
+power_up = 8
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 40942
+duration_s = 97.491
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.947
+overruns = 0
+missing_samples = 0
+temp_c = 23.85
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 44997
+duration_s = 97.493
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.531
+overruns = 0
+missing_samples = 0
+temp_c = 18.3
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 45701
+duration_s = 97.492
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.756
+overruns = 0
+missing_samples = 0
+temp_c = 19.63
+
+[[capture]]
+file = "2026-10-28/V3-v3_board-s1-012722.bin"
+started = "2026-10-28T01:27:22"
+test = "V3"
+config = "v3_board"
+session = 1
+notes = "1-DOF rig, box on its base, hinge horizontal (arm swings vertically), arm free; palm LSM6DSL 15 cm, palm_lsm9 15 cm, finger 18.5 cm; hard pushes A-B-A into the stops; wires secured; redo of 012531"
+power_up = 8
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 78402
+duration_s = 186.695
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.941
+overruns = 0
+missing_samples = 0
+temp_c = 24.33
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 86166
+duration_s = 186.697
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.522
+overruns = 0
+missing_samples = 0
+temp_c = 19.02
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 87517
+duration_s = 186.699
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.755
+overruns = 0
+missing_samples = 0
+temp_c = 19.7
+
+[[capture]]
+file = "2026-10-28/V4-default-s1-013309.bin"
+started = "2026-10-28T01:33:09"
+test = "V4"
+config = "default"
+session = 1
+notes = "hinge horizontal (box on its base, arm swings vertically; the procedure's on-edge orientation); hold at stop A; rig firmware (3 sensors); palm LSM6DSL 15 cm, palm_lsm9 15 cm, finger 18.5 cm; theta 171.0 deg"
+excluded = "table knocked during the hold (author)"
+power_up = 8
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 9645
+duration_s = 22.965
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.949
+overruns = 0
+missing_samples = 0
+temp_c = 23.68
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 10599
+duration_s = 22.963
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.528
+overruns = 0
+missing_samples = 0
+temp_c = 18.5
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 10765
+duration_s = 22.963
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.759
+overruns = 0
+missing_samples = 0
+temp_c = 19.32
+
+[[capture]]
+file = "2026-10-28/V4-default-s1-013340.bin"
+started = "2026-10-28T01:33:40"
+test = "V4"
+config = "default"
+session = 1
+notes = "hinge horizontal (box on its base, arm swings vertically; the procedure's on-edge orientation); hold at stop A; rig firmware (3 sensors); palm LSM6DSL 15 cm, palm_lsm9 15 cm, finger 18.5 cm; theta 171.0 deg; redo after a knock"
+power_up = 8
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37774
+duration_s = 89.946
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.951
+overruns = 0
+missing_samples = 0
+temp_c = 23.52
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41515
+duration_s = 89.949
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.53
+overruns = 0
+missing_samples = 0
+temp_c = 18.42
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42166
+duration_s = 89.95
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.758
+overruns = 0
+missing_samples = 0
+temp_c = 19.4
+
+[[capture]]
+file = "2026-10-28/V4-default-s1-013852.bin"
+started = "2026-10-28T01:38:52"
+test = "V4"
+config = "default"
+session = 1
+notes = "hinge horizontal (box on its base, arm swings vertically; the procedure's on-edge orientation); hold at stop B; rig firmware (3 sensors); palm LSM6DSL 15 cm, palm_lsm9 15 cm, finger 18.5 cm; theta 171.0 deg"
+excluded = "started before the arm was moved to stop B (still at A)"
+power_up = 8
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 10053
+duration_s = 23.936
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.952
+overruns = 0
+missing_samples = 0
+temp_c = 23.4
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 11048
+duration_s = 23.935
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.532
+overruns = 0
+missing_samples = 0
+temp_c = 18.24
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 11221
+duration_s = 23.936
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.759
+overruns = 0
+missing_samples = 0
+temp_c = 19.33
+
+[[capture]]
+file = "2026-10-28/V4-default-s1-013957.bin"
+started = "2026-10-28T01:39:57"
+test = "V4"
+config = "default"
+session = 1
+notes = "hinge horizontal (box on its base, arm swings vertically; the procedure's on-edge orientation); hold at stop B; rig firmware (3 sensors); palm LSM6DSL 15 cm, palm_lsm9 15 cm, finger 18.5 cm; theta 171.0 deg; redo of 013852"
+power_up = 8
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37819
+duration_s = 90.053
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.952
+overruns = 0
+missing_samples = 0
+temp_c = 23.47
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41564
+duration_s = 90.054
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.533
+overruns = 0
+missing_samples = 0
+temp_c = 18.15
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42216
+duration_s = 90.055
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.767
+overruns = 0
+missing_samples = 0
+temp_c = 18.76
+
+[[capture]]
+file = "2026-10-28/V4-default-s1-014823.bin"
+started = "2026-10-28T01:48:23"
+test = "V4"
+config = "default"
+session = 1
+notes = "hinge horizontal (box on its base, arm swings vertically; the procedure's on-edge orientation); 10 sweeps A-B-A by hand, >=3 s at A between; rig firmware (3 sensors); palm LSM6DSL 15 cm, palm_lsm9 15 cm, finger 18.5 cm; theta 171.0 deg at first contact, rests about 5 deg further under the arm's weight (author)"
+excluded = "redone at the author's request"
+power_up = 8
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 21288
+duration_s = 50.691
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.938
+overruns = 0
+missing_samples = 0
+temp_c = 24.65
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 23396
+duration_s = 50.69
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.528
+overruns = 0
+missing_samples = 0
+temp_c = 18.5
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 23762
+duration_s = 50.69
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.75
+overruns = 0
+missing_samples = 0
+temp_c = 20.11
+
+[[capture]]
+file = "2026-10-28/V4-default-s1-014928.bin"
+started = "2026-10-28T01:49:28"
+test = "V4"
+config = "default"
+session = 1
+notes = "hinge horizontal (box on its base, arm swings vertically; the procedure's on-edge orientation); 10 sweeps A-B-A by hand, >=3 s at A between; rig firmware (3 sensors); palm LSM6DSL 15 cm, palm_lsm9 15 cm, finger 18.5 cm; theta 171.0 deg at first contact, rests about 5 deg further under the arm's weight (author); redo of 014823"
+power_up = 8
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 95607
+duration_s = 227.672
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.929
+overruns = 0
+missing_samples = 0
+temp_c = 25.32
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 105077
+duration_s = 227.671
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.525
+overruns = 0
+missing_samples = 0
+temp_c = 18.72
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 106722
+duration_s = 227.671
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.75
+overruns = 0
+missing_samples = 0
+temp_c = 20.11
+
+[[capture]]
+file = "2026-10-28/V4-default-s1-015758.bin"
+started = "2026-10-28T01:57:58"
+test = "V4"
+config = "default"
+session = 1
+notes = "tilted: box turned 56.3 deg (phone) from the hinge-horizontal position, tilt axis perpendicular to the hinge axis (author); hold at stop A; theta_rest 171 deg here (author, visual: arm does not sink at B); rig firmware (3 sensors); palm LSM6DSL 15 cm, palm_lsm9 15 cm, finger 18.5 cm"
+power_up = 8
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37819
+duration_s = 90.054
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.946
+overruns = 0
+missing_samples = 0
+temp_c = 23.96
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41563
+duration_s = 90.053
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.529
+overruns = 0
+missing_samples = 0
+temp_c = 18.45
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42215
+duration_s = 90.054
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.763
+overruns = 0
+missing_samples = 0
+temp_c = 19.09
+
+[[capture]]
+file = "2026-10-28/V4-default-s1-020038.bin"
+started = "2026-10-28T02:00:38"
+test = "V4"
+config = "default"
+session = 1
+notes = "tilted: box turned 56.3 deg (phone) from the hinge-horizontal position, tilt axis perpendicular to the hinge axis (author); hold at stop B; theta_rest 171 deg here (author, visual: arm does not sink at B); rig firmware (3 sensors); palm LSM6DSL 15 cm, palm_lsm9 15 cm, finger 18.5 cm"
+power_up = 8
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37774
+duration_s = 89.946
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.95
+overruns = 0
+missing_samples = 0
+temp_c = 23.56
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41515
+duration_s = 89.948
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.532
+overruns = 0
+missing_samples = 0
+temp_c = 18.16
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42166
+duration_s = 89.949
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.768
+overruns = 0
+missing_samples = 0
+temp_c = 18.72
+
+[[capture]]
+file = "2026-10-28/V4-default-s1-020429.bin"
+started = "2026-10-28T02:04:29"
+test = "V4"
+config = "default"
+session = 1
+notes = "tilted: box turned 56.3 deg (phone) from the hinge-horizontal position, tilt axis perpendicular to the hinge axis (author); 10 sweeps A-B-A by hand, >=3 s at A between; theta_rest 171 deg here (author, visual); rig firmware (3 sensors); palm LSM6DSL 15 cm, palm_lsm9 15 cm, finger 18.5 cm"
+excluded = "redone at the author's request"
+power_up = 8
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 9060
+duration_s = 21.572
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.95
+overruns = 0
+missing_samples = 0
+temp_c = 23.63
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 9958
+duration_s = 21.574
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.534
+overruns = 0
+missing_samples = 0
+temp_c = 18.04
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 10114
+duration_s = 21.574
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.764
+overruns = 0
+missing_samples = 0
+temp_c = 19.03
+
+[[capture]]
+file = "2026-10-28/V4-default-s1-020504.bin"
+started = "2026-10-28T02:05:04"
+test = "V4"
+config = "default"
+session = 1
+notes = "tilted: box turned 56.3 deg (phone) from the hinge-horizontal position, tilt axis perpendicular to the hinge axis (author); 10 sweeps A-B-A by hand, >=3 s at A between; theta_rest 171 deg here (author, visual); rig firmware (3 sensors); palm LSM6DSL 15 cm, palm_lsm9 15 cm, finger 18.5 cm; redo of 020429"
+power_up = 8
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 86328
+duration_s = 205.572
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.935
+overruns = 0
+missing_samples = 0
+temp_c = 24.82
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 94880
+duration_s = 205.575
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.53
+overruns = 0
+missing_samples = 0
+temp_c = 18.32
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 96364
+duration_s = 205.574
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.752
+overruns = 0
+missing_samples = 0
+temp_c = 19.91
+
+[[capture]]
+file = "2026-10-28/V4-default-s1-021404.bin"
+started = "2026-10-28T02:14:04"
+test = "V4"
+config = "default"
+session = 1
+notes = "hinge vertical (box on its side, arm swings horizontally; the procedure's flat orientation); hold at stop A; theta_rest 171 deg here (author); rig firmware (3 sensors); palm LSM6DSL 15 cm, palm_lsm9 15 cm, finger 18.5 cm"
+power_up = 8
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37819
+duration_s = 90.053
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.951
+overruns = 0
+missing_samples = 0
+temp_c = 23.52
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41563
+duration_s = 90.052
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.535
+overruns = 0
+missing_samples = 0
+temp_c = 18.07
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42215
+duration_s = 90.053
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.768
+overruns = 0
+missing_samples = 0
+temp_c = 18.65
+
+[[capture]]
+file = "2026-10-28/V4-default-s1-021630.bin"
+started = "2026-10-28T02:16:30"
+test = "V4"
+config = "default"
+session = 1
+notes = "hinge vertical (box on its side, arm swings horizontally; the procedure's flat orientation); hold at stop B; theta_rest 171 deg here (author); rig firmware (3 sensors); palm LSM6DSL 15 cm, palm_lsm9 15 cm, finger 18.5 cm"
+power_up = 8
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37819
+duration_s = 90.053
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.95
+overruns = 0
+missing_samples = 0
+temp_c = 23.55
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41564
+duration_s = 90.054
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.535
+overruns = 0
+missing_samples = 0
+temp_c = 18.02
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42215
+duration_s = 90.054
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.765
+overruns = 0
+missing_samples = 0
+temp_c = 18.95
+
+[[capture]]
+file = "2026-10-28/V4-default-s1-021901.bin"
+started = "2026-10-28T02:19:01"
+test = "V4"
+config = "default"
+session = 1
+notes = "hinge vertical (box on its side, arm swings horizontally; the procedure's flat orientation); 10 sweeps A-B-A by hand, >=3 s at A between; theta_rest 171 deg here (author); rig firmware (3 sensors); palm LSM6DSL 15 cm, palm_lsm9 15 cm, finger 18.5 cm"
+power_up = 8
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 92490
+duration_s = 220.237
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.952
+overruns = 0
+missing_samples = 0
+temp_c = 23.46
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 101648
+duration_s = 220.237
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.535
+overruns = 0
+missing_samples = 0
+temp_c = 17.96
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 103239
+duration_s = 220.235
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.764
+overruns = 0
+missing_samples = 0
+temp_c = 18.96
+
+[[capture]]
+file = "2026-10-28/V4-default-s1-022324.bin"
+started = "2026-10-28T02:23:24"
+test = "V4"
+config = "default"
+session = 1
+notes = "base rotation: arm taped at stop A, whole box turned by hand about varied axes, starting from the hinge-vertical position (box on its side); rig firmware (3 sensors); palm LSM6DSL 15 cm, palm_lsm9 15 cm, finger 18.5 cm"
+excluded = "redone at the author's request"
+power_up = 8
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 9105
+duration_s = 21.679
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.95
+overruns = 0
+missing_samples = 0
+temp_c = 23.57
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 10007
+duration_s = 21.68
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.536
+overruns = 0
+missing_samples = 0
+temp_c = 17.93
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 10165
+duration_s = 21.682
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.766
+overruns = 0
+missing_samples = 0
+temp_c = 18.77
+
+[[capture]]
+file = "2026-10-28/V4-default-s1-022401.bin"
+started = "2026-10-28T02:24:01"
+test = "V4"
+config = "default"
+session = 1
+notes = "base rotation: arm taped at stop A, whole box turned by hand about varied axes, starting from the hinge-vertical position (box on its side); rig firmware (3 sensors); palm LSM6DSL 15 cm, palm_lsm9 15 cm, finger 18.5 cm; redo of 022324"
+power_up = 8
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 44113
+duration_s = 105.043
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.941
+overruns = 0
+missing_samples = 0
+temp_c = 24.31
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 48482
+duration_s = 105.043
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.533
+overruns = 0
+missing_samples = 0
+temp_c = 18.1
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 49242
+duration_s = 105.045
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.761
+overruns = 0
+missing_samples = 0
+temp_c = 19.21
+
+[[capture]]
+file = "2026-10-28/V1rig-palm_lsm9_default-s1-033519.bin"
+started = "2026-10-28T03:35:19"
+test = "V1rig"
+config = "palm_lsm9_default"
+session = 1
+notes = "rig: three sensors on the V4 arm, arm taped at A, box resting still on the table, night; board power-up 8, chip soft reset by flash between captures"
+power_up = 8
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = false
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251749
+duration_s = 599.728
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.939
+overruns = 0
+missing_samples = 101
+temp_c = 24.54
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276685
+duration_s = 599.726
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.537
+overruns = 0
+missing_samples = 112
+temp_c = 17.8
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 281009
+duration_s = 599.728
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.748
+overruns = 0
+missing_samples = 113
+temp_c = 20.19
+
+[[capture]]
+file = "2026-10-28/V1rig-palm_lsm9_low_range-s1-034716.bin"
+started = "2026-10-28T03:47:16"
+test = "V1rig"
+config = "palm_lsm9_low_range"
+session = 1
+notes = "rig: three sensors on the V4 arm, arm taped at A, box resting still on the table, night; board power-up 8, chip soft reset by flash between captures"
+power_up = 8
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251832
+duration_s = 599.684
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.94
+overruns = 0
+missing_samples = 0
+temp_c = 24.46
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276778
+duration_s = 599.684
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.538
+overruns = 0
+missing_samples = 0
+temp_c = 17.73
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 281102
+duration_s = 599.684
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.749
+overruns = 0
+missing_samples = 0
+temp_c = 20.11
+
+[[capture]]
+file = "2026-10-28/V1rig-palm_lsm9_238hz-s1-035859.bin"
+started = "2026-10-28T03:58:59"
+test = "V1rig"
+config = "palm_lsm9_238hz"
+session = 1
+notes = "rig: three sensors on the V4 arm, arm taped at A, box resting still on the table, night; board power-up 8, chip soft reset by flash between captures"
+power_up = 8
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251859
+duration_s = 599.748
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.94
+overruns = 0
+missing_samples = 0
+temp_c = 24.44
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276808
+duration_s = 599.749
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.538
+overruns = 0
+missing_samples = 0
+temp_c = 17.74
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 140566
+duration_s = 599.746
+odr_nominal_hz = 238.0
+odr_measured_hz = 234.374
+overruns = 0
+missing_samples = 0
+temp_c = 20.12
+
+[[capture]]
+file = "2026-10-28/V1rig-palm_lsm9_119hz-s1-041042.bin"
+started = "2026-10-28T04:10:42"
+test = "V1rig"
+config = "palm_lsm9_119hz"
+session = 1
+notes = "rig: three sensors on the V4 arm, arm taped at A, box resting still on the table, night; board power-up 8, chip soft reset by flash between captures"
+power_up = 8
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251875
+duration_s = 599.785
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.941
+overruns = 0
+missing_samples = 0
+temp_c = 24.39
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276825
+duration_s = 599.785
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.539
+overruns = 0
+missing_samples = 0
+temp_c = 17.68
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 70287
+duration_s = 599.775
+odr_nominal_hz = 119.0
+odr_measured_hz = 117.187
+overruns = 0
+missing_samples = 0
+temp_c = 20.08
+
+[[capture]]
+file = "2026-10-28/V1rig-palm_lsm9_lpf2_strong-s1-042224.bin"
+started = "2026-10-28T04:22:24"
+test = "V1rig"
+config = "palm_lsm9_lpf2_strong"
+session = 1
+notes = "rig: three sensors on the V4 arm, arm taped at A, box resting still on the table, night; board power-up 8, chip soft reset by flash between captures"
+power_up = 8
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251828
+duration_s = 599.674
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.94
+overruns = 0
+missing_samples = 0
+temp_c = 24.44
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276774
+duration_s = 599.675
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.539
+overruns = 0
+missing_samples = 0
+temp_c = 17.74
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 281097
+duration_s = 599.673
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.749
+overruns = 0
+missing_samples = 0
+temp_c = 20.07
+
+[[capture]]
+file = "2026-10-28/V1rig-palm_lsm9_lpf2_light-s1-043408.bin"
+started = "2026-10-28T04:34:08"
+test = "V1rig"
+config = "palm_lsm9_lpf2_light"
+session = 1
+notes = "rig: three sensors on the V4 arm, arm taped at A, box resting still on the table, night; board power-up 8, chip soft reset by flash between captures"
+power_up = 8
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251826
+duration_s = 599.672
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.938
+overruns = 0
+missing_samples = 0
+temp_c = 24.62
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276773
+duration_s = 599.673
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.538
+overruns = 0
+missing_samples = 0
+temp_c = 17.77
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 281097
+duration_s = 599.675
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.747
+overruns = 0
+missing_samples = 0
+temp_c = 20.2
+
+[[capture]]
+file = "2026-10-28/V1rig-palm_lsm9_952hz-s1-044551.bin"
+started = "2026-10-28T04:45:51"
+test = "V1rig"
+config = "palm_lsm9_952hz"
+session = 1
+notes = "rig: three sensors on the V4 arm, arm taped at A, box resting still on the table, night; board power-up 8, chip soft reset by flash between captures"
+power_up = 8
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251830
+duration_s = 599.682
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.938
+overruns = 0
+missing_samples = 0
+temp_c = 24.64
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276776
+duration_s = 599.68
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.538
+overruns = 0
+missing_samples = 0
+temp_c = 17.83
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 562198
+duration_s = 599.681
+odr_nominal_hz = 952.0
+odr_measured_hz = 937.494
+overruns = 0
+missing_samples = 0
+temp_c = 20.23
+
+[[capture]]
+file = "2026-10-28/V1rig-palm_lsm9_mid_range-s1-045735.bin"
+started = "2026-10-28T04:57:35"
+test = "V1rig"
+config = "palm_lsm9_mid_range"
+session = 1
+notes = "rig: three sensors on the V4 arm, arm taped at A, box resting still on the table, night; board power-up 8, chip soft reset by flash between captures"
+power_up = 8
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251827
+duration_s = 599.675
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.937
+overruns = 0
+missing_samples = 0
+temp_c = 24.65
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276775
+duration_s = 599.677
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.538
+overruns = 0
+missing_samples = 0
+temp_c = 17.76
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 281097
+duration_s = 599.675
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.747
+overruns = 0
+missing_samples = 0
+temp_c = 20.24
+
+[[capture]]
+file = "2026-10-28/V1rig-palm_lsm9_16g-s1-050919.bin"
+started = "2026-10-28T05:09:19"
+test = "V1rig"
+config = "palm_lsm9_16g"
+session = 1
+notes = "rig: three sensors on the V4 arm, arm taped at A, box resting still on the table, night; board power-up 8, chip soft reset by flash between captures"
+power_up = 8
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251827
+duration_s = 599.674
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.938
+overruns = 0
+missing_samples = 0
+temp_c = 24.59
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276773
+duration_s = 599.673
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.538
+overruns = 0
+missing_samples = 0
+temp_c = 17.73
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 281096
+duration_s = 599.673
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.747
+overruns = 0
+missing_samples = 0
+temp_c = 20.21
+
+[[capture]]
+file = "2026-10-28/V1rig-palm_lsm9_xl_lp_off-s1-052103.bin"
+started = "2026-10-28T05:21:03"
+test = "V1rig"
+config = "palm_lsm9_xl_lp_off"
+session = 1
+notes = "rig: three sensors on the V4 arm, arm taped at A, box resting still on the table, night; board power-up 8, chip soft reset by flash between captures"
+power_up = 8
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251826
+duration_s = 599.671
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.939
+overruns = 0
+missing_samples = 0
+temp_c = 24.56
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276774
+duration_s = 599.675
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.538
+overruns = 0
+missing_samples = 0
+temp_c = 17.73
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 281096
+duration_s = 599.673
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.747
+overruns = 0
+missing_samples = 0
+temp_c = 20.18
+
+[[capture]]
+file = "2026-10-28/V1rig-palm_lsm9_xl_div50-s1-053246.bin"
+started = "2026-10-28T05:32:46"
+test = "V1rig"
+config = "palm_lsm9_xl_div50"
+session = 1
+notes = "rig: three sensors on the V4 arm, arm taped at A, box resting still on the table, night; board power-up 8, chip soft reset by flash between captures"
+power_up = 8
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 251826
+duration_s = 599.671
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.938
+overruns = 0
+missing_samples = 0
+temp_c = 24.58
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 276772
+duration_s = 599.67
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.539
+overruns = 0
+missing_samples = 0
+temp_c = 17.73
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 281096
+duration_s = 599.673
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.747
+overruns = 0
+missing_samples = 0
+temp_c = 20.18
+
+[[capture]]
+file = "2026-10-28/V1rig-long-s1-054430.bin"
+started = "2026-10-28T05:44:30"
+test = "V1rig"
+config = "long"
+session = 1
+notes = "rig: three sensors on the V4 arm, arm taped at A, box resting still on the table, night; board power-up 8; 240-min segments back to back without reflash"
+power_up = 8
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = false
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 6042774
+duration_s = 14392.13
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.938
+overruns = 0
+missing_samples = 1023
+temp_c = 24.7
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 6641385
+duration_s = 14392.137
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.537
+overruns = 0
+missing_samples = 1125
+temp_c = 17.85
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 6745110
+duration_s = 14392.13
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.746
+overruns = 0
+missing_samples = 1141
+temp_c = 20.35
+
+[[capture]]
+file = "2026-10-28/V1rig-long-s2-094718.bin"
+started = "2026-10-28T09:47:18"
+test = "V1rig"
+config = "long"
+session = 2
+notes = "rig: three sensors on the V4 arm, arm taped at A, box resting still on the table, night; board power-up 8; 240-min segments back to back without reflash"
+power_up = 8
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = false
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 6043564
+duration_s = 14392.086
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.927
+overruns = 0
+missing_samples = 66
+temp_c = 25.58
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 6642282
+duration_s = 14392.096
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.528
+overruns = 0
+missing_samples = 72
+temp_c = 18.54
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 6745958
+duration_s = 14392.088
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.732
+overruns = 0
+missing_samples = 74
+temp_c = 21.4
+
+[[capture]]
+file = "2026-10-28/V1rig-long-s3-135017.bin"
+started = "2026-10-28T13:50:17"
+test = "V1rig"
+config = "long"
+excluded = "92 s stub: night 7 stopped 1.5 min into the third long hold"
+session = 3
+notes = "rig: three sensors on the V4 arm, arm taped at A, box resting still on the table, night; board power-up 8; 240-min segments back to back without reflash"
+power_up = 8
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 38636
+duration_s = 92.006
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.919
+overruns = 0
+missing_samples = 0
+temp_c = 26.21
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 42465
+duration_s = 92.009
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.521
+overruns = 0
+missing_samples = 0
+temp_c = 19.08
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 43128
+duration_s = 92.009
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.725
+overruns = 0
+missing_samples = 0
+temp_c = 21.89
+
+[[capture]]
+file = "2026-10-28/V2-default-s1-202002.bin"
+started = "2026-10-28T20:20:02"
+test = "V2"
+config = "default"
+session = 1
+notes = "V2 session 1, palm_lsm9 breakout detached from the V4 arm on long wires, taped against the table with straight angles as on the bench; palm and finger stay on the rig (no up declared); given as +z, relabeled -z from the reading"
+power_up = 8
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37776
+duration_s = 89.95
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.955
+overruns = 0
+missing_samples = 0
+temp_c = 23.13
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41516
+duration_s = 89.95
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.535
+overruns = 0
+missing_samples = 0
+temp_c = 17.99
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42166
+duration_s = 89.947
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.774
+overruns = 0
+missing_samples = 0
+temp_c = 18.15
+up = [
+    0.0,
+    0.0,
+    -1.0,
+]
+
+[[capture]]
+file = "2026-10-28/V2-default-s1-202425.bin"
+started = "2026-10-28T20:24:25"
+test = "V2"
+config = "default"
+session = 1
+notes = "V2 session 1, palm_lsm9 breakout detached from the V4 arm on long wires, taped against the table with straight angles as on the bench; palm and finger stay on the rig (no up declared)"
+power_up = 8
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37776
+duration_s = 89.952
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.947
+overruns = 0
+missing_samples = 0
+temp_c = 23.85
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41516
+duration_s = 89.95
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.532
+overruns = 0
+missing_samples = 0
+temp_c = 18.19
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42167
+duration_s = 89.95
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.773
+overruns = 0
+missing_samples = 0
+temp_c = 18.19
+up = [
+    0.0,
+    0.0,
+    1.0,
+]
+
+[[capture]]
+file = "2026-10-28/V2-default-s1-203057.bin"
+started = "2026-10-28T20:30:57"
+test = "V2"
+config = "default"
+session = 1
+notes = "V2 session 1, palm_lsm9 breakout detached from the V4 arm on long wires, taped against the table with straight angles as on the bench; palm and finger stay on the rig (no up declared)"
+power_up = 8
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37777
+duration_s = 89.957
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.935
+overruns = 0
+missing_samples = 0
+temp_c = 24.83
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41518
+duration_s = 89.957
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.523
+overruns = 0
+missing_samples = 0
+temp_c = 18.92
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42165
+duration_s = 89.955
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.726
+overruns = 0
+missing_samples = 0
+temp_c = 21.85
+up = [
+    1.0,
+    0.0,
+    0.0,
+]
+
+[[capture]]
+file = "2026-10-28/V2-default-s1-203523.bin"
+started = "2026-10-28T20:35:23"
+test = "V2"
+config = "default"
+session = 1
+notes = "V2 session 1, palm_lsm9 breakout detached from the V4 arm on long wires, taped against the table with straight angles as on the bench; palm and finger stay on the rig (no up declared); USB unplugged by accident after 203057, so power-up 9"
+power_up = 9
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37777
+duration_s = 89.953
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.951
+overruns = 0
+missing_samples = 0
+temp_c = 23.5
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41517
+duration_s = 89.954
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.527
+overruns = 0
+missing_samples = 0
+temp_c = 18.56
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42168
+duration_s = 89.955
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.758
+overruns = 0
+missing_samples = 0
+temp_c = 19.38
+up = [
+    -1.0,
+    0.0,
+    0.0,
+]
+
+[[capture]]
+file = "2026-10-28/V2-default-s1-204607.bin"
+started = "2026-10-28T20:46:07"
+test = "V2"
+config = "default"
+session = 1
+notes = "V2 session 1, palm_lsm9 breakout detached from the V4 arm on long wires, taped against the table with straight angles as on the bench; palm and finger stay on the rig (no up declared)"
+power_up = 9
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37775
+duration_s = 89.952
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.934
+overruns = 0
+missing_samples = 0
+temp_c = 24.98
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41517
+duration_s = 89.955
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.518
+overruns = 0
+missing_samples = 0
+temp_c = 19.29
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42167
+duration_s = 89.953
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.755
+overruns = 0
+missing_samples = 0
+temp_c = 19.61
+up = [
+    0.0,
+    1.0,
+    0.0,
+]
+
+[[capture]]
+file = "2026-10-28/V2-default-s1-205041.bin"
+started = "2026-10-28T20:50:41"
+test = "V2"
+config = "default"
+session = 1
+notes = "V2 session 1, palm_lsm9 breakout detached from the V4 arm on long wires, taped against the table with straight angles as on the bench; palm and finger stay on the rig (no up declared)"
+power_up = 9
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37775
+duration_s = 89.952
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.934
+overruns = 0
+missing_samples = 0
+temp_c = 24.97
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41516
+duration_s = 89.953
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.521
+overruns = 0
+missing_samples = 0
+temp_c = 19.05
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42167
+duration_s = 89.954
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.753
+overruns = 0
+missing_samples = 0
+temp_c = 19.77
+up = [
+    0.0,
+    -1.0,
+    0.0,
+]
+
+[[capture]]
+file = "2026-10-28/V2-default-s1-205413.bin"
+started = "2026-10-28T20:54:13"
+test = "V2"
+config = "default"
+session = 1
+notes = "V2 session 1, palm_lsm9 breakout detached from the V4 arm on long wires, taped against the table with straight angles as on the bench, re-taped repeat of 202002; palm and finger stay on the rig (no up declared); given as +z, relabeled -z from the reading"
+power_up = 9
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37775
+duration_s = 89.952
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.935
+overruns = 0
+missing_samples = 0
+temp_c = 24.89
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41516
+duration_s = 89.953
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.52
+overruns = 0
+missing_samples = 0
+temp_c = 19.12
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42167
+duration_s = 89.953
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.756
+overruns = 0
+missing_samples = 0
+temp_c = 19.54
+up = [
+    0.0,
+    0.0,
+    -1.0,
+]
+
+[[capture]]
+file = "2026-10-28/V2-default-s1-212956.bin"
+started = "2026-10-28T21:29:56"
+test = "V2"
+config = "default"
+session = 1
+notes = "V2 session 1, palm_lsm9 breakout detached from the V4 arm on long wires, taped against the table with straight angles as on the bench, re-taped repeat of 202425; palm and finger stay on the rig (no up declared)"
+power_up = 9
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37775
+duration_s = 89.951
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.94
+overruns = 0
+missing_samples = 0
+temp_c = 24.39
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41516
+duration_s = 89.951
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.527
+overruns = 0
+missing_samples = 0
+temp_c = 18.52
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42167
+duration_s = 89.951
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.766
+overruns = 0
+missing_samples = 0
+temp_c = 18.78
+up = [
+    0.0,
+    0.0,
+    1.0,
+]
+
+[[capture]]
+file = "2026-10-28/V2-default-s1-215413.bin"
+started = "2026-10-28T21:54:13"
+test = "V2"
+config = "default"
+session = 1
+notes = "V2 session 1 extra, palm_lsm9 breakout detached from the V4 arm on long wires, tilted about 50 deg (phone) to check the z axis between 0 and 1 g; no up declared, so not in the V2 fit; palm and finger stay on the rig"
+power_up = 9
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = false
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37775
+duration_s = 89.963
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.939
+overruns = 0
+missing_samples = 5
+temp_c = 24.53
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41515
+duration_s = 89.963
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.524
+overruns = 0
+missing_samples = 6
+temp_c = 18.74
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42168
+duration_s = 89.966
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.756
+overruns = 0
+missing_samples = 5
+temp_c = 19.57
+
+[[capture]]
+file = "2026-10-28/V2-default-s2-220142.bin"
+started = "2026-10-28T22:01:42"
+test = "V2"
+config = "default"
+session = 2
+notes = "V2 session 2, power cycled, palm_lsm9 breakout detached from the V4 arm on long wires, re-taped against the table with straight angles as on the bench; palm and finger stay on the rig (no up declared); given as +z, relabeled -z from the reading"
+power_up = 10
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37776
+duration_s = 89.95
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.954
+overruns = 0
+missing_samples = 0
+temp_c = 23.3
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41517
+duration_s = 89.953
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.532
+overruns = 0
+missing_samples = 0
+temp_c = 18.09
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42169
+duration_s = 89.954
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.772
+overruns = 0
+missing_samples = 0
+temp_c = 18.22
+up = [
+    0.0,
+    0.0,
+    -1.0,
+]
+
+[[capture]]
+file = "2026-10-28/V2-default-s2-222105.bin"
+started = "2026-10-28T22:21:05"
+test = "V2"
+config = "default"
+session = 2
+notes = "V2 session 2, palm_lsm9 breakout detached from the V4 arm on long wires, re-taped against the table with straight angles as on the bench; palm and finger stay on the rig (no up declared)"
+power_up = 10
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = false
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37776
+duration_s = 89.991
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.943
+overruns = 0
+missing_samples = 16
+temp_c = 24.17
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41517
+duration_s = 89.989
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.536
+overruns = 0
+missing_samples = 17
+temp_c = 17.85
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42169
+duration_s = 89.99
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.776
+overruns = 0
+missing_samples = 17
+temp_c = 17.95
+up = [
+    0.0,
+    0.0,
+    1.0,
+]
+
+[[capture]]
+file = "2026-10-28/V2-default-s2-222449.bin"
+started = "2026-10-28T22:24:49"
+test = "V2"
+config = "default"
+session = 2
+notes = "V2 session 2, palm_lsm9 breakout detached from the V4 arm on long wires, re-taped against the table with straight angles as on the bench; palm and finger stay on the rig (no up declared)"
+power_up = 10
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37776
+duration_s = 89.953
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.943
+overruns = 0
+missing_samples = 0
+temp_c = 24.22
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41516
+duration_s = 89.951
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.531
+overruns = 0
+missing_samples = 0
+temp_c = 18.2
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42168
+duration_s = 89.949
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.787
+overruns = 0
+missing_samples = 0
+temp_c = 17.12
+up = [
+    0.0,
+    1.0,
+    0.0,
+]
+
+[[capture]]
+file = "2026-10-28/V2-default-s2-222735.bin"
+excluded = "taped loosely, the long wires likely pulled the breakout over time (author, after re-taping); repeated as 223114"
+started = "2026-10-28T22:27:35"
+test = "V2"
+config = "default"
+session = 2
+notes = "V2 session 2, palm_lsm9 breakout detached from the V4 arm on long wires, re-taped against the table with straight angles as on the bench; palm and finger stay on the rig (no up declared)"
+power_up = 10
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37775
+duration_s = 89.95
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.944
+overruns = 0
+missing_samples = 0
+temp_c = 24.11
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41516
+duration_s = 89.951
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.53
+overruns = 0
+missing_samples = 0
+temp_c = 18.24
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42168
+duration_s = 89.95
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.785
+overruns = 0
+missing_samples = 0
+temp_c = 17.28
+up = [
+    0.0,
+    -1.0,
+    0.0,
+]
+
+[[capture]]
+file = "2026-10-28/V2-default-s2-223114.bin"
+started = "2026-10-28T22:31:14"
+test = "V2"
+config = "default"
+session = 2
+notes = "V2 session 2, palm_lsm9 breakout detached from the V4 arm on long wires, re-taped against the table with straight angles as on the bench, retry of 222735; palm and finger stay on the rig (no up declared)"
+power_up = 10
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37775
+duration_s = 89.95
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.943
+overruns = 0
+missing_samples = 0
+temp_c = 24.15
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41516
+duration_s = 89.951
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.53
+overruns = 0
+missing_samples = 0
+temp_c = 18.22
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42170
+duration_s = 89.954
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.786
+overruns = 0
+missing_samples = 0
+temp_c = 17.19
+up = [
+    0.0,
+    -1.0,
+    0.0,
+]
+
+[[capture]]
+file = "2026-10-28/V2-default-s2-223504.bin"
+started = "2026-10-28T22:35:04"
+test = "V2"
+config = "default"
+session = 2
+notes = "V2 session 2, palm_lsm9 breakout detached from the V4 arm on long wires, re-taped against the table with straight angles as on the bench; palm and finger stay on the rig (no up declared); given as +x, relabeled -x from the reading"
+power_up = 10
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = false
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37776
+duration_s = 89.96
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.944
+overruns = 0
+missing_samples = 3
+temp_c = 24.13
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41515
+duration_s = 89.958
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.529
+overruns = 0
+missing_samples = 4
+temp_c = 18.33
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42167
+duration_s = 89.956
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.774
+overruns = 0
+missing_samples = 3
+temp_c = 18.17
+up = [
+    -1.0,
+    0.0,
+    0.0,
+]
+
+[[capture]]
+file = "2026-10-28/V2-default-s2-223833.bin"
+started = "2026-10-28T22:38:33"
+test = "V2"
+config = "default"
+session = 2
+notes = "V2 session 2, palm_lsm9 breakout detached from the V4 arm on long wires, re-taped against the table with straight angles as on the bench; palm and finger stay on the rig (no up declared)"
+power_up = 10
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37776
+duration_s = 89.951
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.95
+overruns = 0
+missing_samples = 0
+temp_c = 23.51
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41517
+duration_s = 89.953
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.53
+overruns = 0
+missing_samples = 0
+temp_c = 18.2
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42167
+duration_s = 89.95
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.769
+overruns = 0
+missing_samples = 0
+temp_c = 18.48
+up = [
+    1.0,
+    0.0,
+    0.0,
+]
+
+[[capture]]
+file = "2026-10-29/V2-default-s3-234729.bin"
+started = "2026-10-29T23:47:29"
+test = "V2"
+config = "default"
+session = 3
+notes = "V2 session 3, new power-up, palm_lsm9 breakout detached from the V4 arm on long wires, re-taped against the table with straight angles as on the bench; palm and finger not on the rig (no up declared)"
+power_up = 13
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37823
+duration_s = 90.055
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.986
+overruns = 0
+missing_samples = 0
+temp_c = 20.49
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41565
+duration_s = 90.052
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.555
+overruns = 0
+missing_samples = 0
+temp_c = 16.44
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42217
+duration_s = 90.053
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.793
+overruns = 0
+missing_samples = 0
+temp_c = 16.66
+up = [
+    1.0,
+    0.0,
+    0.0,
+]
+
+[[capture]]
+file = "2026-10-29/V2-default-s3-235047.bin"
+started = "2026-10-29T23:50:47"
+test = "V2"
+config = "default"
+session = 3
+notes = "V2 session 3, palm_lsm9 breakout detached from the V4 arm on long wires, re-taped against the table with straight angles as on the bench; palm and finger not on the rig (no up declared)"
+power_up = 13
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37776
+duration_s = 89.948
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.964
+overruns = 0
+missing_samples = 0
+temp_c = 22.43
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41517
+duration_s = 89.95
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.547
+overruns = 0
+missing_samples = 0
+temp_c = 17.09
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42168
+duration_s = 89.949
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.787
+overruns = 0
+missing_samples = 0
+temp_c = 17.1
+up = [
+    -1.0,
+    0.0,
+    0.0,
+]
+
+[[capture]]
+file = "2026-10-29/V2-default-s3-235342.bin"
+excluded = "repeat of a session-3 ±x hold; the session counts the first +x (234729) and -x (235047), reinstated by the author after the box holds' z was traced to this power-up's z zero level, not a lean"
+started = "2026-10-29T23:53:42"
+test = "V2"
+config = "default"
+session = 3
+notes = "V2 session 3, palm_lsm9 breakout detached from the V4 arm on long wires, re-taped against the table with straight angles as on the bench, redo of 235047; palm and finger not on the rig (no up declared)"
+power_up = 13
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37776
+duration_s = 89.95
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.954
+overruns = 0
+missing_samples = 0
+temp_c = 23.22
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41516
+duration_s = 89.949
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.542
+overruns = 0
+missing_samples = 0
+temp_c = 17.51
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42169
+duration_s = 89.952
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.782
+overruns = 0
+missing_samples = 0
+temp_c = 17.44
+up = [
+    -1.0,
+    0.0,
+    0.0,
+]
+
+[[capture]]
+file = "2026-10-29/V2-default-s3-235817.bin"
+started = "2026-10-29T23:58:17"
+test = "V2"
+config = "default"
+session = 3
+notes = "V2 session 3, palm_lsm9 breakout detached from the V4 arm on long wires, re-taped against the table with straight angles as on the bench; palm and finger not on the rig (no up declared); given as +z, relabeled -z from the reading"
+power_up = 13
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37820
+duration_s = 90.056
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.949
+overruns = 0
+missing_samples = 0
+temp_c = 23.71
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41565
+duration_s = 90.056
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.537
+overruns = 0
+missing_samples = 0
+temp_c = 17.88
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42217
+duration_s = 90.054
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.783
+overruns = 0
+missing_samples = 0
+temp_c = 17.39
+up = [
+    0.0,
+    0.0,
+    -1.0,
+]
+
+[[capture]]
+file = "2026-10-30/V2-default-s3-000109.bin"
+started = "2026-10-30T00:01:09"
+test = "V2"
+config = "default"
+session = 3
+notes = "V2 session 3, palm_lsm9 breakout detached from the V4 arm on long wires, re-taped against the table with straight angles as on the bench; palm and finger not on the rig (no up declared)"
+power_up = 13
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37774
+duration_s = 89.947
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.947
+overruns = 0
+missing_samples = 0
+temp_c = 23.84
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41515
+duration_s = 89.948
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.536
+overruns = 0
+missing_samples = 0
+temp_c = 17.94
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42167
+duration_s = 89.947
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.788
+overruns = 0
+missing_samples = 0
+temp_c = 17.14
+up = [
+    0.0,
+    0.0,
+    1.0,
+]
+
+[[capture]]
+file = "2026-10-30/V2-default-s3-000632.bin"
+excluded = "repeat of a session-3 ±x hold; the session counts the first +x (234729) and -x (235047), reinstated by the author after the box holds' z was traced to this power-up's z zero level, not a lean"
+started = "2026-10-30T00:06:32"
+test = "V2"
+config = "default"
+session = 3
+notes = "V2 session 3, palm_lsm9 breakout detached from the V4 arm on long wires, re-taped on another surface, redo of 234729; palm and finger not on the rig (no up declared)"
+power_up = 13
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37775
+duration_s = 89.95
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.944
+overruns = 0
+missing_samples = 0
+temp_c = 24.13
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41516
+duration_s = 89.952
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.525
+overruns = 0
+missing_samples = 0
+temp_c = 18.76
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42163
+duration_s = 89.95
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.729
+overruns = 0
+missing_samples = 0
+temp_c = 21.68
+up = [
+    1.0,
+    0.0,
+    0.0,
+]
+
+[[capture]]
+file = "2026-10-30/V2-default-s3-001137.bin"
+excluded = "repeat of a session-3 ±x hold; the session counts the first +x (234729) and -x (235047), reinstated by the author after the box holds' z was traced to this power-up's z zero level, not a lean"
+started = "2026-10-30T00:11:37"
+test = "V2"
+config = "default"
+session = 3
+notes = "V2 session 3, palm_lsm9 breakout detached from the V4 arm on long wires, re-taped, 1 min settle before the hold, redo of 000632; palm and finger not on the rig (no up declared)"
+power_up = 13
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37776
+duration_s = 89.952
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.944
+overruns = 0
+missing_samples = 0
+temp_c = 24.09
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41517
+duration_s = 89.954
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.526
+overruns = 0
+missing_samples = 0
+temp_c = 18.69
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42166
+duration_s = 89.951
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.755
+overruns = 0
+missing_samples = 0
+temp_c = 19.71
+up = [
+    1.0,
+    0.0,
+    0.0,
+]
+
+[[capture]]
+file = "2026-10-30/V2-default-s3-002042.bin"
+excluded = "repeat of a session-3 ±x hold; the session counts the first +x (234729) and -x (235047), reinstated by the author after the box holds' z was traced to this power-up's z zero level, not a lean"
+started = "2026-10-30T00:20:42"
+test = "V2"
+config = "default"
+session = 3
+notes = "V2 session 3, palm_lsm9 breakout detached from the V4 arm on long wires, taped against a straight surface (not the bent box); palm and finger not on the rig (no up declared)"
+power_up = 13
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37775
+duration_s = 89.95
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.942
+overruns = 0
+missing_samples = 0
+temp_c = 24.27
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41516
+duration_s = 89.952
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.523
+overruns = 0
+missing_samples = 0
+temp_c = 18.89
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42166
+duration_s = 89.951
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.754
+overruns = 0
+missing_samples = 0
+temp_c = 19.75
+up = [
+    1.0,
+    0.0,
+    0.0,
+]
+
+[[capture]]
+file = "2026-10-30/V2-default-s3-002426.bin"
+started = "2026-10-30T00:24:26"
+test = "V2"
+config = "default"
+session = 3
+notes = "V2 session 3, palm_lsm9 breakout detached from the V4 arm on long wires, re-taped against the table with straight angles; palm and finger not on the rig (no up declared); given as +y, relabeled -y from the reading"
+power_up = 13
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37775
+duration_s = 89.951
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.941
+overruns = 0
+missing_samples = 0
+temp_c = 24.33
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41517
+duration_s = 89.954
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.525
+overruns = 0
+missing_samples = 0
+temp_c = 18.75
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42168
+duration_s = 89.953
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.765
+overruns = 0
+missing_samples = 0
+temp_c = 18.86
+up = [
+    0.0,
+    -1.0,
+    0.0,
+]
+
+[[capture]]
+file = "2026-10-30/V2-default-s3-003003.bin"
+started = "2026-10-30T00:30:03"
+test = "V2"
+config = "default"
+session = 3
+notes = "V2 session 3, palm_lsm9 breakout detached from the V4 arm on long wires, re-taped against the table with straight angles; palm and finger not on the rig (no up declared)"
+power_up = 13
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37775
+duration_s = 89.951
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.94
+overruns = 0
+missing_samples = 0
+temp_c = 24.44
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41515
+duration_s = 89.949
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.528
+overruns = 0
+missing_samples = 0
+temp_c = 18.56
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42166
+duration_s = 89.95
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.759
+overruns = 0
+missing_samples = 0
+temp_c = 19.4
+up = [
+    0.0,
+    1.0,
+    0.0,
+]
+
+[[capture]]
+file = "2026-10-30/V4-default-s2-004418.bin"
+started = "2026-10-30T00:44:18"
+test = "V4"
+config = "default"
+session = 2
+notes = "hinge vertical (box on its side, arm swings horizontally; the procedure's flat orientation); hold at stop A; theta_rest 171 deg here (author); rig firmware (3 sensors); palm LSM6DSL 15 cm, palm_lsm9 15 cm (re-mounted on the arm after its V2), finger 18.5 cm; session 2, rig re-placed; pivot screwed in (author)"
+power_up = 13
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37778
+duration_s = 89.954
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.961
+overruns = 0
+missing_samples = 0
+temp_c = 22.68
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41516
+duration_s = 89.95
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.535
+overruns = 0
+missing_samples = 0
+temp_c = 18.0
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42167
+duration_s = 89.951
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.765
+overruns = 0
+missing_samples = 0
+temp_c = 18.85
+
+[[capture]]
+file = "2026-10-30/V4-default-s2-004704.bin"
+started = "2026-10-30T00:47:04"
+test = "V4"
+config = "default"
+session = 2
+notes = "hinge vertical (box on its side, arm swings horizontally; the procedure's flat orientation); hold at stop B; theta_rest 171 deg here (author); rig firmware (3 sensors); palm LSM6DSL 15 cm, palm_lsm9 15 cm (re-mounted on the arm after its V2), finger 18.5 cm; session 2, rig re-placed; pivot screwed in (author)"
+power_up = 13
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37777
+duration_s = 89.954
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.948
+overruns = 0
+missing_samples = 0
+temp_c = 23.76
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41517
+duration_s = 89.952
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.534
+overruns = 0
+missing_samples = 0
+temp_c = 18.13
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42167
+duration_s = 89.952
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.763
+overruns = 0
+missing_samples = 0
+temp_c = 18.98
+
+[[capture]]
+file = "2026-10-30/V4-default-s2-005050.bin"
+excluded = "pivot not screwed in, while hold A (004418) and the first hold B (004704) were; sessions 2 and 3 keep the pivot screwed in (author)"
+started = "2026-10-30T00:50:50"
+test = "V4"
+config = "default"
+session = 2
+notes = "hinge vertical (box on its side, arm swings horizontally; the procedure's flat orientation); hold at stop B; theta_rest 171 deg here (author); rig firmware (3 sensors); palm LSM6DSL 15 cm, palm_lsm9 15 cm (re-mounted on the arm after its V2), finger 18.5 cm; session 2, rig re-placed; pivot not screwed in, as in session 1; redo of 004704"
+power_up = 13
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37775
+duration_s = 89.95
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.944
+overruns = 0
+missing_samples = 0
+temp_c = 24.07
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41516
+duration_s = 89.95
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.533
+overruns = 0
+missing_samples = 0
+temp_c = 18.11
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42166
+duration_s = 89.949
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.764
+overruns = 0
+missing_samples = 0
+temp_c = 18.88
+
+[[capture]]
+file = "2026-10-30/V4-default-s2-005421.bin"
+excluded = "started with the arm at stop B instead of A (author); stopped after 28 s and redone"
+started = "2026-10-30T00:54:21"
+test = "V4"
+config = "default"
+session = 2
+notes = "hinge vertical (box on its side, arm swings horizontally; the procedure's flat orientation); 10 sweeps A-B-A by hand, >=3 s at A between; theta_rest 171 deg here (author); rig firmware (3 sensors); palm LSM6DSL 15 cm, palm_lsm9 15 cm (re-mounted on the arm after its V2), finger 18.5 cm; session 2, rig re-placed; pivot screwed in (author)"
+power_up = 13
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 11638
+duration_s = 27.711
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.945
+overruns = 0
+missing_samples = 0
+temp_c = 24.03
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 12789
+duration_s = 27.708
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.534
+overruns = 0
+missing_samples = 0
+temp_c = 18.04
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 12990
+duration_s = 27.709
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.762
+overruns = 0
+missing_samples = 0
+temp_c = 19.07
+
+[[capture]]
+file = "2026-10-30/V4-default-s2-005505.bin"
+started = "2026-10-30T00:55:05"
+test = "V4"
+config = "default"
+session = 2
+notes = "hinge vertical (box on its side, arm swings horizontally; the procedure's flat orientation); 10 sweeps A-B-A by hand, >=3 s at A between; theta_rest 171 deg here (author); rig firmware (3 sensors); palm LSM6DSL 15 cm, palm_lsm9 15 cm (re-mounted on the arm after its V2), finger 18.5 cm; session 2, rig re-placed; pivot screwed in (author); redo of 005421"
+power_up = 13
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 53179
+duration_s = 126.632
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.941
+overruns = 0
+missing_samples = 0
+temp_c = 24.32
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 58445
+duration_s = 126.631
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.531
+overruns = 0
+missing_samples = 0
+temp_c = 18.24
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 59361
+duration_s = 126.632
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.758
+overruns = 0
+missing_samples = 0
+temp_c = 19.35
+
+[[capture]]
+file = "2026-10-30/V4-default-s2-010137.bin"
+started = "2026-10-30T01:01:37"
+test = "V4"
+config = "default"
+session = 2
+notes = "base rotation: arm taped at stop A, whole box turned by hand about varied axes, starting from the hinge-vertical position (box on its side); rig firmware (3 sensors); palm LSM6DSL 15 cm, palm_lsm9 15 cm (re-mounted on the arm after its V2), finger 18.5 cm; session 2; pivot screwed in (author)"
+power_up = 13
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 41442
+duration_s = 98.684
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.934
+overruns = 0
+missing_samples = 0
+temp_c = 24.93
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 45547
+duration_s = 98.686
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.522
+overruns = 0
+missing_samples = 0
+temp_c = 18.9
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 46261
+duration_s = 98.688
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.752
+overruns = 0
+missing_samples = 0
+temp_c = 19.84
+
+[[capture]]
+file = "2026-10-30/V4-default-s2-010630.bin"
+excluded = "box placed the other way round from session 1 (up at hold A read where session 1's hold B did), found after the session-2 scores; hinge horizontal redone with the box placed as in session 1 (author)"
+started = "2026-10-30T01:06:30"
+test = "V4"
+config = "default"
+session = 2
+notes = "hinge horizontal (box on its base, arm swings vertically; the procedure's on-edge orientation); hold at stop A; rig firmware (3 sensors); palm LSM6DSL 15 cm, palm_lsm9 15 cm (re-mounted on the arm after its V2), finger 18.5 cm; theta 171.0 deg; session 2; pivot screwed in (author)"
+power_up = 13
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37776
+duration_s = 89.953
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.94
+overruns = 0
+missing_samples = 0
+temp_c = 24.49
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41516
+duration_s = 89.951
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.527
+overruns = 0
+missing_samples = 0
+temp_c = 18.57
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42167
+duration_s = 89.952
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.763
+overruns = 0
+missing_samples = 0
+temp_c = 18.97
+
+[[capture]]
+file = "2026-10-30/V4-default-s2-010912.bin"
+excluded = "box placed the other way round from session 1 (up at hold A read where session 1's hold B did), found after the session-2 scores; hinge horizontal redone with the box placed as in session 1 (author)"
+started = "2026-10-30T01:09:12"
+test = "V4"
+config = "default"
+session = 2
+notes = "hinge horizontal (box on its base, arm swings vertically; the procedure's on-edge orientation); hold at stop B; rig firmware (3 sensors); palm LSM6DSL 15 cm, palm_lsm9 15 cm (re-mounted on the arm after its V2), finger 18.5 cm; theta 171.0 deg; session 2; pivot screwed in (author)"
+power_up = 13
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37775
+duration_s = 89.95
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.945
+overruns = 0
+missing_samples = 0
+temp_c = 24.0
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41517
+duration_s = 89.953
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.531
+overruns = 0
+missing_samples = 0
+temp_c = 18.22
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42166
+duration_s = 89.95
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.758
+overruns = 0
+missing_samples = 0
+temp_c = 19.35
+
+[[capture]]
+file = "2026-10-30/V4-default-s2-011159.bin"
+excluded = "stop B blocked during the sweeps (author); redone"
+started = "2026-10-30T01:11:59"
+test = "V4"
+config = "default"
+session = 2
+notes = "hinge horizontal (box on its base, arm swings vertically; the procedure's on-edge orientation); 10 sweeps A-B-A by hand, >=3 s at A between; rig firmware (3 sensors); palm LSM6DSL 15 cm, palm_lsm9 15 cm (re-mounted on the arm after its V2), finger 18.5 cm; theta 171.0 deg at first contact, rests about 5 deg further under the arm's weight (author); session 2; pivot screwed in (author)"
+power_up = 13
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 16941
+duration_s = 40.339
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.94
+overruns = 0
+missing_samples = 0
+temp_c = 24.41
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 18619
+duration_s = 40.34
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.528
+overruns = 0
+missing_samples = 0
+temp_c = 18.45
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 18910
+duration_s = 40.339
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.752
+overruns = 0
+missing_samples = 0
+temp_c = 19.82
+
+[[capture]]
+file = "2026-10-30/V4-default-s2-011253.bin"
+excluded = "box placed the other way round from session 1 (up at hold A read where session 1's hold B did), found after the session-2 scores; hinge horizontal redone with the box placed as in session 1 (author)"
+started = "2026-10-30T01:12:53"
+test = "V4"
+config = "default"
+session = 2
+notes = "hinge horizontal (box on its base, arm swings vertically; the procedure's on-edge orientation); 10 sweeps A-B-A by hand, >=3 s at A between; rig firmware (3 sensors); palm LSM6DSL 15 cm, palm_lsm9 15 cm (re-mounted on the arm after its V2), finger 18.5 cm; theta 171.0 deg at first contact, rests about 5 deg further under the arm's weight (author); session 2; pivot screwed in (author); redo of 011159"
+power_up = 13
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 58883
+duration_s = 140.216
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.937
+overruns = 0
+missing_samples = 0
+temp_c = 24.71
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 64715
+duration_s = 140.218
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.524
+overruns = 0
+missing_samples = 0
+temp_c = 18.85
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 65729
+duration_s = 140.22
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.751
+overruns = 0
+missing_samples = 0
+temp_c = 19.95
+
+[[capture]]
+file = "2026-10-30/V4-default-s2-012011.bin"
+excluded = "box placed at a different heading from session 1 (hold A 39 deg from session 1's A), found after the session-2 scores; tilted redone with the box placed as in session 1 (author)"
+started = "2026-10-30T01:20:11"
+test = "V4"
+config = "default"
+session = 2
+notes = "tilted: box turned 61.6 deg (phone) from the hinge-horizontal position (56.3 in session 1), tilt axis perpendicular to the hinge axis (author); hold at stop A; theta_rest 171 deg here (author); rig firmware (3 sensors); palm LSM6DSL 15 cm, palm_lsm9 15 cm (re-mounted on the arm after its V2), finger 18.5 cm; session 2; pivot screwed in (author)"
+power_up = 13
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37775
+duration_s = 89.951
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.941
+overruns = 0
+missing_samples = 0
+temp_c = 24.39
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41516
+duration_s = 89.952
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.526
+overruns = 0
+missing_samples = 0
+temp_c = 18.65
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42166
+duration_s = 89.951
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.755
+overruns = 0
+missing_samples = 0
+temp_c = 19.6
+
+[[capture]]
+file = "2026-10-30/V4-default-s2-012402.bin"
+excluded = "box placed at a different heading from session 1 (hold A 39 deg from session 1's A), found after the session-2 scores; tilted redone with the box placed as in session 1 (author)"
+started = "2026-10-30T01:24:02"
+test = "V4"
+config = "default"
+session = 2
+notes = "tilted: box turned 61.6 deg (phone) from the hinge-horizontal position (56.3 in session 1), tilt axis perpendicular to the hinge axis (author); hold at stop B; theta_rest 171 deg here (author); rig firmware (3 sensors); palm LSM6DSL 15 cm, palm_lsm9 15 cm (re-mounted on the arm after its V2), finger 18.5 cm; session 2; pivot screwed in (author)"
+power_up = 13
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37775
+duration_s = 89.95
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.945
+overruns = 0
+missing_samples = 0
+temp_c = 24.06
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41515
+duration_s = 89.949
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.529
+overruns = 0
+missing_samples = 0
+temp_c = 18.43
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42164
+duration_s = 89.946
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.759
+overruns = 0
+missing_samples = 0
+temp_c = 19.31
+
+[[capture]]
+file = "2026-10-30/V4-default-s2-013409.bin"
+excluded = "box placed at a different heading from session 1 (hold A 39 deg from session 1's A), found after the session-2 scores; tilted redone with the box placed as in session 1 (author)"
+started = "2026-10-30T01:34:09"
+test = "V4"
+config = "default"
+session = 2
+notes = "tilted: box turned 61.6 deg (phone) from the hinge-horizontal position (56.3 in session 1), tilt axis perpendicular to the hinge axis (author); 10 sweeps A-B-A by hand, >=3 s at A between; theta_rest 171 deg here (author); rig firmware (3 sensors); palm LSM6DSL 15 cm, palm_lsm9 15 cm (re-mounted on the arm after its V2), finger 18.5 cm; session 2; pivot screwed in (author)"
+power_up = 13
+fw = "none"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 61412
+duration_s = 146.235
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.949
+overruns = 0
+missing_samples = 0
+temp_c = 23.7
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 67494
+duration_s = 146.236
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.535
+overruns = 0
+missing_samples = 0
+temp_c = 17.96
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 68551
+duration_s = 146.236
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.762
+overruns = 0
+missing_samples = 0
+temp_c = 19.02
+
+[[capture]]
+file = "2026-10-30/V3-v3-s2-014114.bin"
+started = "2026-10-30T01:41:14"
+test = "V3"
+config = "v3"
+session = 2
+notes = "1-DOF rig, box on its base, hinge horizontal (arm swings vertically), arm free; palm LSM6DSL 15 cm, palm_lsm9 15 cm (re-mounted on the arm after its V2), finger 18.5 cm; hard pushes A-B-A into the stops about 2 s apart; session 2; pivot screwed in (author)"
+power_up = 13
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 32971
+duration_s = 78.511
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.943
+overruns = 0
+missing_samples = 0
+temp_c = 24.18
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 36236
+duration_s = 78.511
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.527
+overruns = 0
+missing_samples = 0
+temp_c = 18.62
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 36805
+duration_s = 78.514
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.756
+overruns = 0
+missing_samples = 0
+temp_c = 19.45
+
+[[capture]]
+file = "2026-10-30/V3-v3_board-s2-014407.bin"
+started = "2026-10-30T01:44:07"
+test = "V3"
+config = "v3_board"
+session = 2
+notes = "1-DOF rig, box on its base, hinge horizontal (arm swings vertically), arm free; palm LSM6DSL 15 cm, palm_lsm9 15 cm (re-mounted on the arm after its V2), finger 18.5 cm; hard pushes A-B-A into the stops about 2 s apart; session 2; pivot screwed in (author)"
+power_up = 13
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 27675
+duration_s = 65.898
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.95
+overruns = 0
+missing_samples = 0
+temp_c = 23.61
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 30416
+duration_s = 65.9
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.53
+overruns = 0
+missing_samples = 0
+temp_c = 18.34
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 30892
+duration_s = 65.899
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.763
+overruns = 0
+missing_samples = 0
+temp_c = 18.96
+
+[[capture]]
+file = "2026-10-30/V4-default-s2-021312.bin"
+started = "2026-10-30T02:13:12"
+test = "V4"
+config = "default"
+session = 2
+notes = "hinge horizontal (box on its base, arm swings vertically; the procedure's on-edge orientation); hold at stop A; rig firmware (3 sensors); palm LSM6DSL 15 cm, palm_lsm9 15 cm (re-mounted on the arm after its V2), finger 18.5 cm; theta 171.0 deg; session 2; pivot screwed in (author); box placed as in session 1, checked live against session 1's hold A (redo of 010630)"
+power_up = 13
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37818
+duration_s = 90.054
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.939
+overruns = 0
+missing_samples = 0
+temp_c = 24.55
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41565
+duration_s = 90.057
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.53
+overruns = 0
+missing_samples = 0
+temp_c = 18.39
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42215
+duration_s = 90.057
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.747
+overruns = 0
+missing_samples = 0
+temp_c = 20.22
+
+[[capture]]
+file = "2026-10-30/V4-default-s2-021536.bin"
+excluded = "arm held at first contact by the screwed pivot, 4.6 deg from session 1's seat at B; redone as 021939 with the arm set where session 1's B was, checked live (author)"
+started = "2026-10-30T02:15:36"
+test = "V4"
+config = "default"
+session = 2
+notes = "hinge horizontal (box on its base, arm swings vertically; the procedure's on-edge orientation); hold at stop B; rig firmware (3 sensors); palm LSM6DSL 15 cm, palm_lsm9 15 cm (re-mounted on the arm after its V2), finger 18.5 cm; theta 171.0 deg; session 2; pivot screwed in (author); box placed as in session 1, checked live against session 1's hold A (redo of 010912)"
+power_up = 13
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37774
+duration_s = 89.948
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.94
+overruns = 0
+missing_samples = 0
+temp_c = 24.41
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41515
+duration_s = 89.949
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.529
+overruns = 0
+missing_samples = 0
+temp_c = 18.4
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42164
+duration_s = 89.947
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.754
+overruns = 0
+missing_samples = 0
+temp_c = 19.67
+
+[[capture]]
+file = "2026-10-30/V4-default-s2-021939.bin"
+started = "2026-10-30T02:19:39"
+test = "V4"
+config = "default"
+session = 2
+notes = "hinge horizontal (box on its base, arm swings vertically; the procedure's on-edge orientation); hold at stop B; rig firmware (3 sensors); palm LSM6DSL 15 cm, palm_lsm9 15 cm (re-mounted on the arm after its V2), finger 18.5 cm; theta 171.0 deg; session 2; pivot screwed in (author); box placed as in session 1, arm set where session 1's hold B was, checked live (redo of 021536)"
+power_up = 13
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37775
+duration_s = 89.949
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.948
+overruns = 0
+missing_samples = 0
+temp_c = 23.81
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41515
+duration_s = 89.948
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.532
+overruns = 0
+missing_samples = 0
+temp_c = 18.14
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42166
+duration_s = 89.949
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.768
+overruns = 0
+missing_samples = 0
+temp_c = 18.57
+
+[[capture]]
+file = "2026-10-30/V4-default-s2-022834.bin"
+excluded = "stopped and redone: the author was unsure whether to sweep or push (author)"
+started = "2026-10-30T02:28:34"
+test = "V4"
+config = "default"
+session = 2
+notes = "hinge horizontal (box on its base, arm swings vertically; the procedure's on-edge orientation); 10 sweeps A-B-A by hand, >=3 s at A between; rig firmware (3 sensors); palm LSM6DSL 15 cm, palm_lsm9 15 cm (re-mounted on the arm after its V2), finger 18.5 cm; theta 171.0 deg at first contact, rests about 5 deg further under the arm's weight (author); session 2; pivot screwed in (author); box placed as in session 1, checked live (redo of 011253)"
+power_up = 13
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 15446
+duration_s = 36.778
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.951
+overruns = 0
+missing_samples = 0
+temp_c = 23.52
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 16976
+duration_s = 36.779
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.535
+overruns = 0
+missing_samples = 0
+temp_c = 17.94
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 17243
+duration_s = 36.782
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.762
+overruns = 0
+missing_samples = 0
+temp_c = 18.99
+
+[[capture]]
+file = "2026-10-30/V4-default-s2-022943.bin"
+excluded = "swept about twice as fast as session 1 without pausing at B (one rest at B usable); redone slower with about 1 s at B"
+started = "2026-10-30T02:29:43"
+test = "V4"
+config = "default"
+session = 2
+notes = "hinge horizontal (box on its base, arm swings vertically; the procedure's on-edge orientation); 10 sweeps A-B-A by hand, >=3 s at A between; rig firmware (3 sensors); palm LSM6DSL 15 cm, palm_lsm9 15 cm (re-mounted on the arm after its V2), finger 18.5 cm; theta 171.0 deg at first contact, rests about 5 deg further under the arm's weight (author); session 2; pivot screwed in (author); box placed as in session 1, checked live (redo of 011253)"
+power_up = 13
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 49864
+duration_s = 118.737
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.943
+overruns = 0
+missing_samples = 0
+temp_c = 24.15
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 54802
+duration_s = 118.737
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.531
+overruns = 0
+missing_samples = 0
+temp_c = 18.23
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 55661
+duration_s = 118.74
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.754
+overruns = 0
+missing_samples = 0
+temp_c = 19.66
+
+[[capture]]
+file = "2026-10-30/V4-default-s2-023306.bin"
+started = "2026-10-30T02:33:06"
+test = "V4"
+config = "default"
+session = 2
+notes = "hinge horizontal (box on its base, arm swings vertically; the procedure's on-edge orientation); 10 sweeps A-B-A by hand, >=3 s at A between, about 1 s at B; rig firmware (3 sensors); palm LSM6DSL 15 cm, palm_lsm9 15 cm (re-mounted on the arm after its V2), finger 18.5 cm; theta 171.0 deg at first contact, rests about 5 deg further under the arm's weight (author); session 2; pivot screwed in (author); box placed as in session 1, checked live (redo of 022943)"
+power_up = 13
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 78722
+duration_s = 187.459
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.938
+overruns = 0
+missing_samples = 0
+temp_c = 24.58
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 86519
+duration_s = 187.461
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.526
+overruns = 0
+missing_samples = 0
+temp_c = 18.64
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 87872
+duration_s = 187.458
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.751
+overruns = 0
+missing_samples = 0
+temp_c = 19.89
+
+[[capture]]
+file = "2026-10-30/V4-default-s2-024920.bin"
+started = "2026-10-30T02:49:20"
+test = "V4"
+config = "default"
+session = 2
+notes = "tilted (box tilted as in session 1, gravity 38 deg from the hinge axis); hold at stop A; rig firmware (3 sensors); palm LSM6DSL 15 cm, palm_lsm9 15 cm (re-mounted on the arm after its V2), finger 18.5 cm; theta 171.0 deg; session 2; pivot screwed in (author); box placed as in session 1, checked live against session 1's hold A (redo of 012011)"
+power_up = 13
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37774
+duration_s = 89.948
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.945
+overruns = 0
+missing_samples = 0
+temp_c = 24.03
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41516
+duration_s = 89.951
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.528
+overruns = 0
+missing_samples = 0
+temp_c = 18.37
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42165
+duration_s = 89.95
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.75
+overruns = 0
+missing_samples = 0
+temp_c = 19.99
+
+[[capture]]
+file = "2026-10-30/V4-default-s2-025509.bin"
+started = "2026-10-30T02:55:09"
+test = "V4"
+config = "default"
+session = 2
+notes = "tilted (box tilted as in session 1, gravity 38 deg from the hinge axis at A); hold at stop B; rig firmware (3 sensors); palm LSM6DSL 15 cm, palm_lsm9 15 cm (re-mounted on the arm after its V2), finger 18.5 cm; theta 171.0 deg; session 2; pivot screwed in (author); arm taped about 11 deg short of stop B, at session 1's tilted hold-B position (session 1's 020038 was not at the stop either), checked live (redo of 012402)"
+power_up = 13
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 37819
+duration_s = 90.054
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.948
+overruns = 0
+missing_samples = 0
+temp_c = 23.75
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 41564
+duration_s = 90.054
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.532
+overruns = 0
+missing_samples = 0
+temp_c = 18.21
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 42215
+duration_s = 90.054
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.764
+overruns = 0
+missing_samples = 0
+temp_c = 18.92
+
+[[capture]]
+file = "2026-10-30/V4-default-s2-025841.bin"
+started = "2026-10-30T02:58:41"
+test = "V4"
+config = "default"
+session = 2
+notes = "tilted (box tilted as in session 1, gravity 38 deg from the hinge axis at A); 10 sweeps A-B-A by hand, >=3 s at A between, about 1 s at B; rig firmware (3 sensors); palm LSM6DSL 15 cm, palm_lsm9 15 cm (re-mounted on the arm after its V2), finger 18.5 cm; theta 171.0 deg; session 2; pivot screwed in (author); box placed as in session 1, checked live (redo of 013409)"
+power_up = 13
+fw = "a5743ed-dirty"
+uid = "203938345332500b003c002f"
+clean = true
+
+[capture.sensors.palm]
+chip = "LSM6DSL"
+samples = 74326
+duration_s = 176.989
+odr_nominal_hz = 416.0
+odr_measured_hz = 419.942
+overruns = 0
+missing_samples = 0
+temp_c = 24.22
+
+[capture.sensors.finger]
+chip = "LSM9DS1"
+samples = 81687
+duration_s = 176.99
+odr_nominal_hz = 476.0
+odr_measured_hz = 461.53
+overruns = 0
+missing_samples = 0
+temp_c = 18.33
+
+[capture.sensors.palm_lsm9]
+chip = "LSM9DS1"
+samples = 82965
+duration_s = 176.989
+odr_nominal_hz = 476.0
+odr_measured_hz = 468.752
+overruns = 0
+missing_samples = 0
+temp_c = 19.81

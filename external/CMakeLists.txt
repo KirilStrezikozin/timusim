@@ -1,6 +1,7 @@
 add_subdirectory(eigen)
 add_subdirectory(tl)
 add_subdirectory(fmt)
+add_subdirectory(fusion)
 
 # Build the platform-independent LSM6DSL sensor driver library here, since it is
 # included as a Git submodule.

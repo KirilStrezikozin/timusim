@@ -8,3 +8,12 @@
 [submodule "external/lsm9ds1-pid"]
 	path = external/lsm9ds1-pid
 	url = https://github.com/STMicroelectronics/lsm9ds1-pid.git
+[submodule "external/imusim"]
+	path = external/imusim
+	url = https://github.com/eeetem/imusim.git
+[submodule "external/wimusim"]
+	path = external/wimusim
+	url = https://github.com/STRCWearlab/WIMUSim.git
+[submodule "external/gnss-ins-sim"]
+	path = external/gnss-ins-sim
+	url = https://github.com/Aceinna/gnss-ins-sim.git

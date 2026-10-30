@@ -1,0 +1,36 @@
+# Joint oscillator starting values. torque_density is fitted on V5 session 1 and K refitted
+# there too, since postural muscle stiffness exceeds these passive values (Lakie et al. 2012).
+#
+# Wrist flexion: Lakie et al. 2012, J Physiol 590.11, model values (J, k, c, 120 ms muscle filter).
+# Lakie gives flexion-extension only, so wrist deviation has no source value and stays off.
+# Index finger: Tsakonas et al. 2023, Healthc Technol Lett, Table 1 means over 23 subjects
+# (passive free response); their DIP values are not used, DIP follows PIP through dip_per_pip.
+# The finger joints' 120 ms muscle filter is Lakie's wrist value, assumed until the fit.
+
+[wrist_flex]
+inertia = 0.0025
+stiffness = 7.5
+damping = 0.03
+muscle_tau_s = 0.12
+torque_density = 0.0
+
+[mcp_flex]
+inertia = 2.333e-5
+stiffness = 0.03662
+damping = 1.028e-3
+muscle_tau_s = 0.12
+torque_density = 0.0
+
+[pip_flex]
+inertia = 5.938e-6
+stiffness = 0.01438
+damping = 3.94e-4
+muscle_tau_s = 0.12
+torque_density = 0.0
+
+[mcp_abd]
+inertia = 5.724e-5
+stiffness = 0.1154
+damping = 2.948e-3
+muscle_tau_s = 0.12
+torque_density = 0.0

@@ -1,0 +1,35 @@
+[project]
+name = "timusim-compare-wimusim"
+version = "0.1.0"
+description = "Still holds through WIMUSim for the timusim comparison"
+license = "Apache-2.0"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "matplotlib>=3.10",
+    "numpy>=2.2",
+    "pybullet>=3.2.6",
+    "pytorch3d",
+    "scipy>=1.15",
+    "torch>=2.6,<2.7",
+    "tqdm>=4.66",
+    "wandb>=0.19",
+]
+
+[tool.uv]
+package = false
+extra-build-dependencies = { pytorch3d = [{ requirement = "torch", match-runtime = true }] }
+
+[tool.uv.sources]
+torch = { index = "pytorch-cpu" }
+pytorch3d = { git = "https://github.com/facebookresearch/pytorch3d.git", tag = "v0.7.9" }
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+# pytorch3d's setup.py imports torch, so it is built against the torch installed here.
+[[tool.uv.dependency-metadata]]
+name = "pytorch3d"
+version = "0.7.9"
+requires-dist = ["iopath"]

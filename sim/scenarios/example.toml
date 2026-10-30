@@ -1,0 +1,42 @@
+# Trying the CLI only: the geometry is a placeholder, not a measured hand.
+name = "example"
+seed = 1
+
+[realism]
+chip_transfer = true
+noise = true
+
+[geometry]
+palm_sensor = [0.0, 0.05, 0.02]
+mcp = [0.0, 0.09, 0.0]
+proximal_m = 0.045
+middle_m = 0.025
+finger_sensor = [0.0, 0.01, 0.008]
+dip_per_pip = 0.7
+
+[palm]
+chip = { odr_hz = 476, accel_range_g = 4, gyro_range_dps = 2000 }
+
+[finger]
+chip = { odr_hz = 476, accel_range_g = 4, gyro_range_dps = 2000 }
+
+[start]
+joints_deg = { mcp_flex = 0, pip_flex = 0 }
+
+[[moves]]
+hold_s = 5
+
+[[moves]]
+duration_s = 1.0
+joints_deg = { mcp_flex = 60, pip_flex = 70 }
+
+[[moves]]
+hold_s = 2
+
+[[moves]]
+duration_s = 1.5
+palm = { axis = [0, 1, 0], deg = 90 }
+joints_deg = { mcp_flex = 0, pip_flex = 0 }
+
+[[moves]]
+hold_s = 5

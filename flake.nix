@@ -83,6 +83,39 @@
             '';
           };
 
+          matlab = pkgs.mkShell {
+            nativeBuildInputs =
+              with pkgs;
+              [
+                python312
+                uv
+
+                tree
+                pre-commit
+
+                distrobox
+              ]
+              ++ (mkFormatterInputs pkgs)
+              ++ (mkLspsInputs pkgs);
+
+            # Wheels from PyPI (numpy, scipy) link against these at runtime.
+            LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [
+              pkgs.stdenv.cc.cc.lib
+              pkgs.zlib
+            ];
+
+            UV_PYTHON = "${pkgs.python312}/bin/python3";
+            UV_PYTHON_DOWNLOADS = "never";
+
+            shellHook = ''
+              # Packages from a Python elsewhere on PYTHONPATH shadow the venv's.
+              unset PYTHONPATH
+              if [ -f .venv/bin/activate ]; then
+                source .venv/bin/activate
+              fi
+            '';
+          };
+
           default = platformio;
         };
 

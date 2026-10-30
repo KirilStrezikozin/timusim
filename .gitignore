@@ -17,3 +17,6 @@ data/*
 /figures/
 
 .env*
+
+/external/matlab/
+/external/matlab_*.zip

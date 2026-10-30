@@ -1,0 +1,36 @@
+# V5 phases: 60 s with the hand resting on the table, then a 60 s free hold.
+# The geometry is a placeholder until the hand is measured; torque densities come from the
+# session-1 fit, so with the literature file alone this scenario has no tremor yet.
+name = "free_hold"
+seed = 1
+tremor_file = "../params/tremor_literature.toml"
+
+[geometry]
+palm_sensor = [0.0, 0.05, 0.02]
+mcp = [0.0, 0.09, 0.0]
+proximal_m = 0.045
+middle_m = 0.025
+finger_sensor = [0.0, 0.01, 0.008]
+dip_per_pip = 0.7
+
+[[masses]]
+kg = 0.008
+at = "finger"
+
+[[masses]]
+kg = 0.124
+at = "palm"
+
+[start]
+support = 0.0
+joints_deg = { mcp_flex = 10, pip_flex = 10 }
+
+[[moves]]
+hold_s = 60
+
+[[moves]]
+duration_s = 1.0
+support = 1.0
+
+[[moves]]
+hold_s = 60
