@@ -75,7 +75,7 @@ def _(cap: capture.Capture, sensor):
 
 @app.cell
 def _(cap: capture.Capture, sensor):
-    sensor_id: int = next(i for i, s in cap.sensors.items() if s.name == sensor.value)
+    sensor_id: int = cap.stream(sensor.value).id
     params_text: str = fit.params_toml([fit.fit_capture(cap, sensor_id)], source="notebook")
     mo.md(f"```toml\n{params_text}```")
     return

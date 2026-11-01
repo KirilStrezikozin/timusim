@@ -2,7 +2,11 @@
 # there too, since postural muscle stiffness exceeds these passive values (Lakie et al. 2012).
 #
 # Wrist flexion: Lakie et al. 2012, J Physiol 590.11, model values (J, k, c, 120 ms muscle filter).
-# Lakie gives flexion-extension only, so wrist deviation has no source value and stays off.
+# Wrist deviation and forearm pronation-supination (sway_ry, the hand turned about the forearm
+# axis at the wrist): Lakie's flexion values times Peaden & Charles 2014 (J Biomech 47, Table 2)
+# ratios to flexion, the mean of their male and female ratios. Inertia: deviation I_Hx / I_Hz
+# 1.123, pronation (I_Hy + I_Ay) / I_Hz 0.566; stiffness K_gg / K_bb 3.043, K_aa / K_bb 0.961;
+# damping B_gg / B_bb 3.068, B_aa / B_bb 0.997. Their coupling terms are left out.
 # Index finger: Tsakonas et al. 2023, Healthc Technol Lett, Table 1 means over 23 subjects
 # (passive free response); their DIP values are not used, DIP follows PIP through dip_per_pip.
 # The finger joints' 120 ms muscle filter is Lakie's wrist value, assumed until the fit.
@@ -11,6 +15,37 @@
 inertia = 0.0025
 stiffness = 7.5
 damping = 0.03
+muscle_tau_s = 0.12
+torque_density = 0.0
+
+[wrist_dev]
+inertia = 0.002808
+stiffness = 22.82
+damping = 0.0920
+muscle_tau_s = 0.12
+torque_density = 0.0
+
+[sway_ry]
+inertia = 0.001416
+stiffness = 7.21
+damping = 0.0299
+muscle_tau_s = 0.12
+torque_density = 0.0
+
+# Slow wander of the held hand (sway_rx about the flexion axis, sway_rz about the deviation axis):
+# no source value. The wrist's inertia, stiffness for a 1 Hz resonance, critical damping; the fit
+# picks the resonance from 0.5, 1 and 2 Hz and the level.
+[sway_rx]
+inertia = 0.0025
+stiffness = 0.0987
+damping = 0.0314
+muscle_tau_s = 0.12
+torque_density = 0.0
+
+[sway_rz]
+inertia = 0.002808
+stiffness = 0.1109
+damping = 0.0353
 muscle_tau_s = 0.12
 torque_density = 0.0
 

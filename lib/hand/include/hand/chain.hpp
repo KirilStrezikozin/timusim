@@ -16,6 +16,7 @@
 #ifndef HAND_CHAIN_HPP
 #define HAND_CHAIN_HPP
 
+#include <optional>
 #include <Eigen/Geometry>
 
 namespace hand {
@@ -50,7 +51,11 @@ struct State {
     Vec3 wrist_acc       = Vec3::Zero();
     Joints joints_vel{};
     Joints joints_acc{};
+    /* 1 while the hand rests on the table, 0 off it: Geometry::contact_pivot then stays still. */
+    double contact = 0.0;
 };
+
+enum class FingerSegment { Middle, Distal };
 
 /* Lengths in m. Segment frames match the palm frame with the finger straight. */
 struct Geometry {
@@ -58,14 +63,21 @@ struct Geometry {
     Vec3 mcp;           /* MCP centre, palm frame */
     double proximal_m;  /* MCP -> PIP */
     double middle_m;    /* PIP -> DIP */
-    Vec3 finger_sensor; /* from DIP, distal segment frame */
+    Vec3 finger_sensor; /* from the segment's proximal joint (PIP or DIP), segment frame */
     double dip_per_pip; /* DIP flexion = dip_per_pip * PIP flexion */
-    /* Roll of the distal segment about its length at 90 deg MCP flexion, growing with the
+    FingerSegment finger_segment = FingerSegment::Distal;
+    /* Roll of the sensor's segment about its length at 90 deg MCP flexion, growing with the
      * square of the flexion (the glove's fingers: about 5 deg). */
     double twist_at_90_rad = 0.0;
+    /* The point of the hand (palm frame, after the wrist joints) that the table holds while
+     * State::contact is 1: the hand rocks about it rather than about the wrist. */
+    Vec3 contact_pivot = Vec3::Zero();
+    /* The finger, lying on the table too, is held at its own point (the sensor's segment frame,
+     * from its proximal joint); unset leaves it to the hand's. */
+    std::optional<Vec3> finger_contact_pivot = std::nullopt;
 
     Mat3 palm_mount   = Mat3::Identity(); /* sensor frame -> palm frame */
-    Mat3 finger_mount = Mat3::Identity(); /* sensor frame -> distal segment frame */
+    Mat3 finger_mount = Mat3::Identity(); /* sensor frame -> finger segment frame */
     /* Positive flexion curls the finger toward the palm. */
     Vec3 flex_axis = -Vec3::UnitX();
     Vec3 abd_axis  = Vec3::UnitZ();
@@ -144,19 +156,33 @@ inline HandTruth evaluate(const Geometry &g, const State &s) {
     const Joints &q = s.pose.joints, &qd = s.joints_vel, &qdd = s.joints_acc;
     Link hand = detail::rotate(palm, g.flex_axis, q.wrist_flex, qd.wrist_flex, qdd.wrist_flex);
     hand      = detail::rotate(hand, g.abd_axis, q.wrist_dev, qd.wrist_dev, qdd.wrist_dev);
+    if (s.contact > 0.0) {
+        /* A translation of the whole hand that cancels the pivot's motion; rates are unchanged. */
+        const Link pivot = detail::translate(hand, g.contact_pivot);
+        hand.vel -= s.contact * pivot.vel;
+        hand.acc -= s.contact * pivot.acc;
+    }
     Link l    = detail::translate(hand, g.mcp);
     l      = detail::rotate(l, g.abd_axis, q.mcp_abd, qd.mcp_abd, qdd.mcp_abd);
     l      = detail::rotate(l, g.flex_axis, q.mcp_flex, qd.mcp_flex, qdd.mcp_flex);
     l      = detail::translate(l, Vec3(0.0, g.proximal_m, 0.0));
     l      = detail::rotate(l, g.flex_axis, q.pip_flex, qd.pip_flex, qdd.pip_flex);
-    l      = detail::translate(l, Vec3(0.0, g.middle_m, 0.0));
-    l      = detail::rotate(
-        l, g.flex_axis, g.dip_per_pip * q.pip_flex, g.dip_per_pip * qd.pip_flex, g.dip_per_pip * qdd.pip_flex
-    );
+    if (g.finger_segment == FingerSegment::Distal) {
+        l = detail::translate(l, Vec3(0.0, g.middle_m, 0.0));
+        l = detail::rotate(
+            l, g.flex_axis, g.dip_per_pip * q.pip_flex, g.dip_per_pip * qd.pip_flex, g.dip_per_pip * qdd.pip_flex
+        );
+    }
     if (g.twist_at_90_rad != 0.0) {
         const double k = g.twist_at_90_rad / (M_PI / 2 * M_PI / 2);
         const double m = q.mcp_flex, md = qd.mcp_flex, mdd = qdd.mcp_flex;
         l = detail::rotate(l, Vec3::UnitY(), k * m * m, 2 * k * m * md, 2 * k * ((md * md) + (m * mdd)));
+    }
+
+    if (s.contact > 0.0 && g.finger_contact_pivot) {
+        const Link pivot = detail::translate(l, *g.finger_contact_pivot);
+        l.vel -= s.contact * pivot.vel;
+        l.acc -= s.contact * pivot.acc;
     }
 
     return HandTruth{

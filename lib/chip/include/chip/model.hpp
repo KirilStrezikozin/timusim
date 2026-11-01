@@ -232,6 +232,12 @@ class Model {
         }
     };
 
+    template<typename Key, typename Value>
+    static Value or_default(const std::map<Key, Value> &table, const Key &key, const Value &fallback) {
+        const auto it = table.find(key);
+        return it == table.end() ? fallback : it->second;
+    }
+
     static Noise scaled(Noise noise, const std::map<double, Vec3> &by_fs, double fs) {
         const auto it = by_fs.find(fs);
         if (it == by_fs.end()) { return noise; }
@@ -246,18 +252,13 @@ class Model {
         : params_(params), odr_hz_(path.nominal_odr_hz * params.odr_scale),
           oversample_(path.oversample), rng_(seed), accel_lsb_(path.accel_lsb_g),
           gyro_lsb_(path.gyro_lsb_dps), negate_z_(path.negate_z) {
-        auto by_fs = [](const std::map<double, Vec3> &table, double fs, const Vec3 &fallback)
-        {
-            const auto it = table.find(fs);
-            return it == table.end() ? fallback : it->second;
-        };
-        this->accel_density_ = by_fs(params.accel_density_by_fs, path.accel_fs_g, params.accel.white_density);
-        this->gyro_density_  = by_fs(params.gyro_density_by_fs, path.gyro_fs_dps, params.gyro.white_density);
-        this->gyro_offset_   = by_fs(params.gyro_offset_by_fs, path.gyro_fs_dps, params.gyro_offset);
+        this->accel_density_ = or_default(params.accel_density_by_fs, path.accel_fs_g, params.accel.white_density);
+        this->gyro_density_  = or_default(params.gyro_density_by_fs, path.gyro_fs_dps, params.gyro.white_density);
+        this->gyro_offset_   = or_default(params.gyro_offset_by_fs, path.gyro_fs_dps, params.gyro_offset);
         const double fs      = this->internal_hz();
         const double odr     = this->odr_hz_;
         const auto lpf1      = params.gyro_lpf1_by_odr.find(static_cast<int>(std::lround(path.nominal_odr_hz)));
-        const auto lpf2  = params.gyro_lpf2_by_bw.find(path.gyro_bw);
+        const FilterShape lpf2 = or_default(params.gyro_lpf2_by_bw, path.gyro_bw, params.gyro_lpf2);
         this->cutoffs_   = Cutoffs{
               .accel_aa  = path.cutoffs.accel_aa,
               .accel_lp  = path.cutoffs.accel_lp * params.odr_scale,
@@ -273,9 +274,7 @@ class Model {
             this->gyro_lpf1_hz_[i] = c.gyro_lpf1 * lpf1_fit.cutoff_scale;
             this->gyro_lpf1_[i]    = LowPass(lpf1_fit.shape, this->gyro_lpf1_hz_[i], fs);
             this->accel_lp_[i]  = LowPass(params.accel_lp, c.accel_lp, odr);
-            this->gyro_lpf2_[i] = LowPass(
-                lpf2 == params.gyro_lpf2_by_bw.end() ? params.gyro_lpf2 : lpf2->second, c.gyro_lpf2, odr
-            );
+            this->gyro_lpf2_[i] = LowPass(lpf2, c.gyro_lpf2, odr);
         }
 
         this->accel_noise_ = scaled(params.accel, params.accel_drift_scale_by_fs, path.accel_fs_g);

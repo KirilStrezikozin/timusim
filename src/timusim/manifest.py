@@ -10,6 +10,11 @@ DATA_DIR = pathlib.Path(__file__).resolve().parents[2] / "data"
 MANIFEST_PATH = DATA_DIR / "manifest.toml"
 
 
+def path(data_dir: pathlib.Path) -> pathlib.Path:
+    """The manifest of a data directory."""
+    return data_dir / MANIFEST_PATH.name
+
+
 def load(path: pathlib.Path = MANIFEST_PATH) -> list[dict[str, typing.Any]]:
     if not path.exists():
         return []

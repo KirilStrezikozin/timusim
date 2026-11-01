@@ -10,7 +10,7 @@ import typing
 import numpy as np
 import serial
 
-from timusim import bench, capture, compare, manifest, v1, v2, v3, v4
+from timusim import bench, capture, compare, gyrocal, manifest, rig, v1, v2, v3, v4
 
 
 def summarize(cap: capture.Capture) -> dict[str, typing.Any]:
@@ -153,18 +153,33 @@ def capture_main(argv: list[str] | None = None) -> int:
             name: {k: v for k, v in s.items() if v is not None} for name, s in summary["sensors"].items()
         },
     }
-    manifest.append(entry, path=args.data_dir / manifest.MANIFEST_PATH.name)
+    manifest.append(entry, path=manifest.path(args.data_dir))
     _print_summary(summary)
     return 0
+
+
+def _print_hold(s: capture.SensorStream) -> None:
+    keep = s.longest_run(s.t_s >= v2.SETTLE_S)
+    a, w = s.accel_g[keep], s.gyro_dps[keep]
+    m = a.mean(axis=0)
+    axis = int(np.argmax(np.abs(m)))
+    lean = np.degrees(np.arccos(abs(m[axis]) / np.linalg.norm(m)))
+    n = int(10 * s.odr_hz)
+    spread = np.ptp([a[i : i + n].mean(axis=0) for i in range(0, len(a) - n, n)], axis=0) if len(a) > n else np.zeros(3)
+    print(f"  hold {s.name}: mean g {np.round(m, 4)} norm {np.linalg.norm(m):.4f}, nearest {'+-'[int(m[axis] < 0)]}{'xyz'[axis]}, "
+          f"lean {lean:.2f} deg; 10-s means spread {np.round(1e3 * spread, 2)} mg, gyro sd {np.round(w.std(axis=0), 3)} dps")
 
 
 def inspect_main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Summarize a capture file and its gaps.")
     parser.add_argument("path", type=pathlib.Path)
+    parser.add_argument("--hold", metavar="SENSOR", help="V2 check of a still hold: mean, lean from the nearest axis, steadiness")
     args = parser.parse_args(argv)
 
     cap = capture.read_capture(args.path)
     _print_summary(summarize(cap))
+    if args.hold:
+        _print_hold(cap.stream(args.hold))
     for s in cap.sensors.values():
         for start, end in s.gaps.missing_ranges[:10]:
             print(f"  {s.name}: missing samples {start}..{end - 1}")
@@ -411,14 +426,21 @@ def _rig_main(test: str, argv: list[str] | None) -> int:
         "--check", action="store_true",
         help="score session 1 against itself, to exercise the pipeline; not a result (writes to <work-dir>/check)",
     )
+    parser.add_argument(
+        "--gyro-cal", metavar="SENSOR", action="append", choices=rig.SENSORS,
+        help="replay this sensor with its GyroCal gain (data/gyrocal) in place of the hinge-axis gain; repeat",
+    )
     args = parser.parse_args(argv)
 
     work_dir = args.work_dir or args.data_dir / test.lower()
     if args.check:
         work_dir = work_dir / "check"
-    results = module.run(args.data_dir, work_dir, report_sessions=(lambda s: s == 1) if args.check else (lambda s: s > 1))
+    gyro_cal = {n: args.data_dir / gyrocal.WORK_DIR / f"params-{n}.toml" for n in args.gyro_cal or ()}
+    results = module.run(
+        args.data_dir, work_dir, report_sessions=(lambda s: s == 1) if args.check else (lambda s: s > 1), gyro_cal=gyro_cal,
+    )
     for r in results:
-        where = getattr(r, "config", None) or getattr(r, "orientation", "") or "base_rotation"
+        where = r.group or "base_rotation"
         verdict = "-" if r.passed is None else "PASS" if r.passed else "FAIL"
         print(f"  {r.sensor:9s} {where:16s} {r.metric:26s} real {r.real_mean:9.4g} sd {r.real_sd:8.3g} "
               f"sim {r.sim_mean:9.4g}  {verdict:4s} window {r.window:.3g} n {r.n_real}")
@@ -435,3 +457,31 @@ def v3_main(argv: list[str] | None = None) -> int:
 
 def v4_main(argv: list[str] | None = None) -> int:
     return _rig_main("V4", argv)
+
+
+def gyrocal_main(argv: list[str] | None = None) -> int:
+    return gyrocal.run(argv)
+
+
+def protocol_main(argv: list[str] | None = None) -> int:
+    from timusim import protocol
+
+    return protocol.run(argv)
+
+
+def reproduce_main(argv: list[str] | None = None) -> int:
+    from timusim import reproduce
+
+    return reproduce.run(argv)
+
+
+def place_main(argv: list[str] | None = None) -> int:
+    from timusim import place
+
+    return place.run(argv)
+
+
+def v5_main(argv: list[str] | None = None) -> int:
+    from timusim import v5
+
+    return v5.run(argv)

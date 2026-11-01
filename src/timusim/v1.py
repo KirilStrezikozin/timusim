@@ -9,7 +9,7 @@ import typing
 
 import numpy as np
 
-from timusim import bench, capture, fit, manifest, sim
+from timusim import acceptance, bench, capture, fit, manifest, sim
 
 SENSOR = "finger"
 CHIP = {"finger": "lsm9ds1", "palm": "lsm6dsl", "palm_lsm9": "lsm9ds1"}
@@ -72,7 +72,7 @@ def usable(entry: dict[str, typing.Any], sensor: str) -> bool:
 
 def entries(data_dir: pathlib.Path = manifest.DATA_DIR, test: str = "V1", sensor: str = SENSOR) -> list[Entry]:
     out = []
-    for e in manifest.load(data_dir / manifest.MANIFEST_PATH.name):
+    for e in manifest.load(manifest.path(data_dir)):
         if e.get("test") == test and usable(e, sensor):
             out.append(
                 Entry(
@@ -120,18 +120,7 @@ def still_scenario(
     mount = f"{{ axis = [{axis[0]:.9f}, {axis[1]:.9f}, {axis[2]:.9f}], deg = {angle:.9f} }}"
     chip = chip_table(header)
     rate = f"\nodr_scale = {odr_scale:.9f}" if odr_scale is not None else ""
-    return f"""name = "v1-still"
-seed = {seed}
-[geometry]
-palm_sensor = [0.0, 0.0, 0.0]
-mcp = [0.0, 0.0, 0.0]
-proximal_m = 0.0
-middle_m = 0.0
-finger_sensor = [0.0, 0.0, 0.0]
-dip_per_pip = 0.0
-palm_mount = {mount}
-finger_mount = {mount}
-[palm]
+    return sim.point_scenario("v1-still", seed, mount) + f"""[palm]
 chip = {chip}
 params = "{params}"{rate}
 [finger]
@@ -179,11 +168,9 @@ def score(real: list[dict[str, float]], simulated: list[dict[str, float]]) -> li
         s = np.array([x[metric] for x in simulated if metric in x])
         if len(s) == 0:
             continue
-        sd = float(r.std(ddof=1)) if len(r) > 1 else 0.0
         tol = tolerance(metric)
-        rel = 10 * np.log10(1 + tol) if metric.endswith(DB_METRICS) else tol * abs(float(r.mean()))
-        window = max(rel, 2 * sd)
-        out.append(Score(metric, float(r.mean()), sd, float(s.mean()), window, abs(s.mean() - r.mean()) <= window))
+        v = acceptance.judge(r, s, absolute=10 * np.log10(1 + tol)) if metric.endswith(DB_METRICS) else acceptance.judge(r, s, relative=tol)
+        out.append(Score(metric, v.real_mean, v.real_sd, v.sim_mean, v.window, v.passed))
     return out
 
 
@@ -217,7 +204,7 @@ def run(
     lpf2_by_bw: dict[int, fit.Shape] = {}
     for path, f in zip(lpf2, lpf2_fits):
         cap = capture.read_capture(path)
-        bw = int(next(s for s in cap.sensors.values() if s.name == sensor).header["gyro_bw"]) & 3
+        bw = int(cap.stream(sensor).header["gyro_bw"]) & 3
         lpf2_by_bw[bw] = fit.vote(a.shape.odr_stage for a in f.gyro)
     ranged = voters[len(fits):] + lpf2_fits
     long_fits = fit.fit_files([e.path for e in long_runs], sensor)
@@ -257,9 +244,7 @@ def score_configs(
     def simulate(scen: pathlib.Path, out: pathlib.Path) -> dict[str, float]:
         sim.run(scen, out, truth=False)
         scap = capture.read_capture(out)
-        # The sim has palm and finger slots, both running this chip; palm_lsm9 takes the finger's.
-        slot = "finger" if sensor == "palm_lsm9" else sensor
-        ssid = next(i for i, s in scap.sensors.items() if s.name == slot)
+        ssid = scap.stream(sim.slot(sensor)).id
         return metric_rows(bench.still_metrics(scap, ssid, trim_s=60.0))
 
     results: dict[str, list[Score]] = {}
@@ -269,7 +254,7 @@ def score_configs(
             real_rows, sims = pending.setdefault(config, ([], []))
             for k, e in enumerate(x for x in reported if x.config == config):
                 cap = capture.read_capture(e.path)
-                sid = next(i for i, s in cap.sensors.items() if s.name == sensor)
+                sid = cap.stream(sensor).id
                 real = bench.still_metrics(cap, sid, trim_s=60.0)
                 real_rows.append(metric_rows(real))
                 up = np.array([a.bias for a in real.accel])

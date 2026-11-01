@@ -11,6 +11,10 @@ __pycache__/
 
 data/*
 !data/manifest.toml
+!data/firmware/
+data/firmware/*
+!data/firmware/*.diff
+!data/firmware/README.md
 
 *.log
 *.pdf
@@ -20,3 +24,4 @@ data/*
 
 /external/matlab/
 /external/matlab_*.zip
+/paper/

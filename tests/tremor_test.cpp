@@ -9,6 +9,7 @@
 #include <vector>
 
 #include "hand/chain.hpp"
+#include "hand/jolt.hpp"
 #include "hand/motion.hpp"
 
 namespace {
@@ -226,9 +227,193 @@ void composed_motion() {
     check(worst_acc / scale_acc < 0.01, "composed motion: acceleration matches finite differences", worst_acc / scale_acc);
 }
 
+/* A drive at 12 Hz on an otherwise silent wrist (8.7 Hz resonance) and deviation: the rate peaks
+ * at the drive, the variance follows the band-pass times the joint transfer, both DOF move
+ * together, and Gate::None keeps the full drive on the table. */
+void shared_drive() {
+    hand::Oscillator quiet = WRIST;
+    quiet.torque_density   = 0.0;
+    hand::Tremor::Oscillators osc{};
+    osc[hand::WRIST_FLEX] = quiet;
+    osc[hand::WRIST_DEV]  = quiet;
+    hand::SharedDrive d{.frequency_hz = 12.0, .bandwidth_hz = 1.0};
+    d.gain[hand::WRIST_FLEX] = 0.01;
+    d.gain[hand::WRIST_DEV]  = 0.01;
+
+    auto motion_with = [&](const hand::SharedDrive &drive, double support, double seconds) {
+        hand::Pose start;
+        start.support = support;
+        hand::Trajectory tr(start);
+        tr.hold(seconds);
+        return hand::Motion(tr, osc, 5, {drive});
+    };
+    const double fs = 200.0;
+    auto m          = motion_with(d, 1.0, 400.0);
+    std::vector<double> rate, angle;
+    double same = 0.0, sq = 0.0;
+    for (int i = static_cast<int>(10 * fs); i < static_cast<int>(400 * fs); ++i) {
+        const auto s = m.at(i / fs);
+        rate.push_back(s.joints_vel.wrist_flex);
+        angle.push_back(s.pose.joints.wrist_flex);
+        same += s.joints_vel.wrist_flex * s.joints_vel.wrist_dev;
+        sq += s.joints_vel.wrist_flex * s.joints_vel.wrist_flex;
+    }
+    const double fp = peak_hz(std::vector<double>(rate.begin(), rate.begin() + static_cast<long>(80 * fs)), fs);
+    check(std::abs(fp - 12.0) < 0.5, "shared drive: rate peaks at the drive (12 Hz), Hz", fp);
+    check(std::abs(same / sq - 1.0) < 1e-9, "shared drive: two identical DOF move together", same / sq);
+
+    double var = 0.0;
+    for (double a : angle) { var += a * a; }
+    var /= static_cast<double>(angle.size());
+    double expected = 0.0;
+    const double df = 0.001, w0 = 2 * M_PI * 12.0, zeta = 1.0 / 24.0;
+    for (double f = df / 2; f < 500.0; f += df) {
+        const double w      = 2 * M_PI * f;
+        const double band   = std::pow(2 * zeta * w0 * w, 2) / (std::pow(w0 * w0 - w * w, 2) + std::pow(2 * zeta * w0 * w, 2));
+        const double muscle = 1.0 / (1.0 + (w * quiet.muscle_tau_s * w * quiet.muscle_tau_s));
+        const double joint  = 1.0 / (std::pow(quiet.stiffness - (quiet.inertia * w * w), 2) + std::pow(quiet.damping * w, 2));
+        expected += 0.01 * 0.01 * band * muscle * joint * df;
+    }
+    check(std::abs(var / expected - 1) < 0.15, "shared drive: angle variance matches band-pass x muscle x joint", var / expected);
+
+    auto rms = [&](const hand::SharedDrive &drive, double support) {
+        auto mm  = motion_with(drive, support, 120.0);
+        double v = 0.0;
+        for (int i = static_cast<int>(10 * fs); i < static_cast<int>(120 * fs); ++i) {
+            const double q = mm.at(i / fs).joints_vel.wrist_flex;
+            v += q * q;
+        }
+        return std::sqrt(v);
+    };
+    hand::SharedDrive body = d;
+    body.gate              = hand::SharedDrive::Gate::None;
+    check(std::abs(rms(d, 0.3) / rms(d, 1.0) - 0.3) < 0.03, "shared drive: supported drive scales with support",
+          rms(d, 0.3) / rms(d, 1.0));
+    check(std::abs(rms(body, 0.3) / rms(body, 1.0) - 1.0) < 1e-9, "shared drive: unsupported drive ignores support",
+          rms(body, 0.3) / rms(body, 1.0));
+}
+
+/* A speed-gated drive moves the wrist only while the script moves it; a jolt peaks at its
+ * frequency, is silent at rest and scales with the gate. */
+void speed_gate_and_jolt() {
+    hand::Oscillator quiet = WRIST;
+    quiet.torque_density   = 0.0;
+    hand::Tremor::Oscillators osc{};
+    osc[hand::WRIST_FLEX] = quiet;
+    hand::SharedDrive d{.frequency_hz = 8.0, .bandwidth_hz = 4.0, .gate = hand::SharedDrive::Gate::Speed};
+    d.gain[hand::WRIST_FLEX] = 0.05;
+    hand::Trajectory tr(hand::Pose{});
+    tr.hold(20.0);
+    hand::Pose out;
+    out.joints.wrist_flex = 0.5;
+    tr.move(1.0, out);
+    tr.hold(20.0);
+    hand::Motion m(tr, osc, 9, {d});
+    auto rms = [&](double a, double b) {
+        double v = 0.0;
+        int k    = 0;
+        for (double t = a; t < b; t += 0.005, ++k) {
+            const double q = m.at(t).joints_vel.wrist_flex - tr.at(t).joints_vel.wrist_flex;
+            v += q * q;
+        }
+        return std::sqrt(v / k);
+    };
+    const double before = rms(5.0, 19.9), during = rms(20.2, 20.8), after = rms(25.0, 40.0);
+    check(before == 0.0, "speed gate: still before the move", before);
+    check(during > 0.0, "speed gate: rough during the move, rad/s", during);
+    check(after < 0.05 * during, "speed gate: dies out after the move (ratio)", after / during);
+
+    hand::JoltParams p{.frequency_hz = 40.0, .bandwidth_hz = 10.0, .level_dps = 2.0};
+    hand::Jolt rest(p, 3, [](double) { return 0.0; });
+    check(rest.at(5.0).rate_dps.norm() == 0.0, "jolt: zero gate gives no rate", rest.at(5.0).rate_dps.norm());
+    const double fs = 400.0;
+    std::vector<double> x, y;
+    auto run_jolt = [&](double gate) {
+        hand::Jolt j(p, 4, [gate](double) { return gate; });
+        double v = 0.0, xy = 0.0;
+        x.clear();
+        y.clear();
+        for (int i = static_cast<int>(fs); i < static_cast<int>(200 * fs); ++i) {
+            const Vec3 r = j.at(i / fs).rate_dps;
+            x.push_back(r.x());
+            y.push_back(r.y());
+            v += r.x() * r.x();
+            xy += r.x() * r.y();
+        }
+        return std::pair{v / static_cast<double>(x.size()), xy / static_cast<double>(x.size())};
+    };
+    const auto [v1, xy1] = run_jolt(1.0);
+    const double fp      = peak_hz(std::vector<double>(x.begin(), x.begin() + static_cast<long>(80 * fs)), fs);
+    check(std::abs(fp - 40.0) < p.bandwidth_hz / 4, "jolt: peaks within a quarter width of its frequency, Hz", fp);
+    /* Variance of the band-pass: level^2 times the integral of its |H|^2, pi/2 times the width. */
+    const double expected = p.level_dps * p.level_dps * M_PI / 2 * p.bandwidth_hz;
+    check(std::abs(v1 / expected - 1) < 0.1, "jolt: variance matches level^2 x band", v1 / expected);
+    check(std::abs(xy1 / v1) < 0.05, "jolt: axes independent", xy1 / v1);
+    {
+        /* The angle is the rate's integral: compare its change over a step with the mean rate. */
+        hand::Jolt j(p, 6, [](double) { return 1.0; });
+        double worst = 0.0, scale = 0.0;
+        const double h = 1.0 / 2000.0;
+        for (int i = 2000; i < 6000; ++i) {
+            const auto a = j.at(i * h), b = j.at((i + 1) * h);
+            const double d = (b.angle_rad.x() - a.angle_rad.x()) * 180.0 / M_PI;
+            const double m = 0.5 * (a.rate_dps.x() + b.rate_dps.x()) * h;
+            worst          = std::max(worst, std::abs(d - m));
+            scale          = std::max(scale, std::abs(m));
+        }
+        check(worst / scale < 0.05, "jolt: the angle integrates the rate", worst / scale);
+    }
+    const auto [v3, xy3] = run_jolt(3.0);
+    check(std::abs(v3 / v1 - 9.0) < 0.5, "jolt: variance scales with the gate squared", v3 / v1);
+}
+
+/* With full contact the pivot stays still while the hand turns; off the table it swings with the
+ * wrist rotation; the rate is the same either way. */
+void table_contact() {
+    hand::Geometry g{};
+    g.palm_sensor   = Vec3(0.0, 0.07, 0.02);
+    g.mcp           = Vec3(0.0, 0.08, 0.0);
+    g.proximal_m    = 0.04;
+    g.middle_m      = 0.03;
+    g.finger_sensor = Vec3(0.0, 0.02, 0.0);
+    g.dip_per_pip   = 0.7;
+    g.contact_pivot = Vec3(0.0, 0.07, 0.02);
+    hand::State s{};
+    s.pose.joints.wrist_flex = 0.01;
+    s.joints_vel.wrist_flex  = 0.5;
+    s.joints_acc.wrist_flex  = 20.0;
+    s.contact                = 1.0;
+    const auto held          = hand::evaluate(g, s);
+    s.contact                = 0.0;
+    const auto free          = hand::evaluate(g, s);
+    check(held.palm.acceleration.norm() < 1e-12, "contact: the pivot (here the palm chip) stays still", held.palm.acceleration.norm());
+    check(free.palm.acceleration.norm() > 1.0, "contact off: the palm chip swings, m/s^2", free.palm.acceleration.norm());
+    check((held.palm.rate_dps - free.palm.rate_dps).norm() < 1e-12, "contact: rates unchanged", (held.palm.rate_dps - free.palm.rate_dps).norm());
+    check(held.finger.acceleration.norm() < free.finger.acceleration.norm(), "contact: the finger swings less about a nearer pivot",
+          held.finger.acceleration.norm() / free.finger.acceleration.norm());
+    g.finger_contact_pivot = g.finger_sensor;
+    s.contact              = 1.0;
+    const auto finger_held = hand::evaluate(g, s);
+    check(finger_held.finger.acceleration.norm() < 1e-12, "contact: the finger held at its own point", finger_held.finger.acceleration.norm());
+
+    hand::Pose start;
+    start.support = 0.2;
+    hand::Trajectory tr(start);
+    tr.hold(1.0);
+    hand::Pose up = start;
+    up.support    = 1.0;
+    tr.move(2.0, up);
+    hand::Motion m(tr);
+    check(m.at(0.5).contact == 1.0 && m.at(2.0).contact > 0.0 && m.at(2.0).contact < 1.0 && m.at(3.5).contact == 0.0,
+          "contact: 1 at the start support, 0 once lifted", m.at(2.0).contact);
+}
+
 } // namespace
 
 int main() {
+    table_contact();
+    speed_gate_and_jolt();
+    shared_drive();
     composed_motion();
     resonance_and_variance();
     added_mass();

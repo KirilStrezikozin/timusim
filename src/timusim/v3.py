@@ -10,11 +10,10 @@ import typing
 
 import numpy as np
 
-from timusim import capture, rig, v4
+from timusim import acceptance, capture, rig, v4
 
 REFERENCE = {"v3": "palm", "v3_board": "finger"}
 NARROW = {"v3": ("finger", "palm_lsm9"), "v3_board": ("palm", "palm_lsm9")}
-CLIP_CODE = int(0.99 * 32768)
 MERGE_S = 0.5
 RECOVERY_TOLERANCE = 2.0
 # Half the 1% band an event's samples are counted in: the chips plateau a few codes to a few
@@ -41,7 +40,7 @@ def events(s: capture.SensorStream, kind: str, ref_input: np.ndarray | None, ful
     gap = int(MERGE_S * s.odr_hz)
     for axis in range(3):
         for sign in (1, -1):
-            hit = sign * codes[:, axis] >= CLIP_CODE
+            hit = sign * codes[:, axis] >= rig.CLIP_CODE
             spans: list[list[int]] = []
             for a, b in rig.runs(hit):
                 if spans and a - spans[-1][1] < gap:
@@ -49,15 +48,15 @@ def events(s: capture.SensorStream, kind: str, ref_input: np.ndarray | None, ful
                 else:
                     spans.append([a, b])
             for a, b in spans:
-                clipped = codes[a:b, axis][sign * codes[a:b, axis] >= CLIP_CODE]
+                clipped = codes[a:b, axis][sign * codes[a:b, axis] >= rig.CLIP_CODE]
                 past = None if ref_input is None else sign * ref_input[a:b, axis] > full_scale
                 # A wrap is the output jumping to the opposite extreme while the input stays past
                 # full scale; a shock at the stop can swing it through zero for a sample.
-                wrapped = bool(past is not None and np.any(-sign * codes[a:b, axis][past] >= CLIP_CODE))
+                wrapped = bool(past is not None and np.any(-sign * codes[a:b, axis][past] >= rig.CLIP_CODE))
                 recovery = np.nan
                 if kind == "gyro" and ref_input is not None:
                     inside = np.flatnonzero(sign * ref_input[b - 1 :, axis] <= full_scale)
-                    out_of = np.flatnonzero(sign * codes[b - 1 :, axis] < CLIP_CODE)
+                    out_of = np.flatnonzero(sign * codes[b - 1 :, axis] < rig.CLIP_CODE)
                     if len(inside) and len(out_of):
                         recovery = float(out_of[0] - inside[0])
                 out.append(Event(kind, axis, sign, plateau(clipped, sign), wrapped, recovery))
@@ -99,7 +98,7 @@ def fit_delay(ref: capture.SensorStream, narrow: capture.SensorStream, rotation:
     moving samples."""
     t = rig.board_time(narrow)
     w = narrow.gyro_dps - rig.zero_level(narrow.gyro_dps, narrow.odr_hz)
-    ok = np.all(np.abs(narrow.gyro_codes.astype(np.int32)) < CLIP_CODE, axis=1) & (np.linalg.norm(w, axis=1) > 20)
+    ok = np.all(np.abs(narrow.gyro_codes.astype(np.int32)) < rig.CLIP_CODE, axis=1) & (np.linalg.norm(w, axis=1) > 20)
     w_ref = (ref.gyro_dps - rig.zero_level(ref.gyro_dps, ref.odr_hz)) @ rotation.T
     delays = np.arange(-DELAY_SEARCH_S, DELAY_SEARCH_S, 1e-4)
     cost = [np.sqrt(np.mean((w[ok] - rig.resample(rig.board_time(ref) + d, w_ref, t[ok])) ** 2)) for d in delays]
@@ -117,17 +116,6 @@ def mapping(geometry: v4.Geometry, ref: str, narrow: str, delay_s: float = 0.0) 
     return Mapping(rotation, delay_s, lever(geometry, ref, narrow))
 
 
-@dataclasses.dataclass(frozen=True)
-class Score:
-    sensor: str
-    config: str
-    metric: str
-    real_mean: float
-    real_sd: float
-    sim_mean: float
-    window: float
-    passed: bool | None  # None: reported, not scored
-    n_real: int
 
 
 def group(evs: list[Event]) -> dict[tuple[str, str, int], list[Event]]:
@@ -137,7 +125,7 @@ def group(evs: list[Event]) -> dict[tuple[str, str, int], list[Event]]:
     return out
 
 
-def score_events(sensor: str, config: str, real: list[Event], simulated: list[Event]) -> list[Score]:
+def score_events(sensor: str, config: str, real: list[Event], simulated: list[Event]) -> list[rig.Score]:
     out = []
     rg, sg = group(real), group(simulated)
     for key in sorted(set(rg) | set(sg)):
@@ -145,22 +133,21 @@ def score_events(sensor: str, config: str, real: list[Event], simulated: list[Ev
         r, s = rg.get(key, []), sg.get(key, [])
         name = f"{kind}.{axis}{'+' if sign > 0 else '-'}"
         if not r or not s:
-            out.append(Score(sensor, config, f"{name}.events", len(r), 0.0, len(s), 0.0, None, len(r)))
+            out.append(rig.Score(sensor, config, f"{name}.events", len(r), 0.0, len(s), 0.0, None, len(r)))
             continue
         rl, sl = np.array([e.clip_level for e in r]), np.array([e.clip_level for e in s])
         window = max(CLIP_LEVEL_TOLERANCE, 2 * float(rl.std()))
-        out.append(Score(sensor, config, f"{name}.clip_level", float(np.median(rl)), float(rl.std()), float(np.median(sl)), window,
+        out.append(rig.Score(sensor, config, f"{name}.clip_level", float(np.median(rl)), float(rl.std()), float(np.median(sl)), window,
                          bool(abs(np.median(rl) - np.median(sl)) <= window), len(r)))
         rw, sw = any(e.wrapped for e in r), any(e.wrapped for e in s)
-        out.append(Score(sensor, config, f"{name}.wrap", float(rw), 0.0, float(sw), 0.0, rw == sw, len(r)))
+        out.append(rig.Score(sensor, config, f"{name}.wrap", float(rw), 0.0, float(sw), 0.0, rw == sw, len(r)))
         rr = np.array([e.recovery for e in r if np.isfinite(e.recovery)])
         sr = np.array([e.recovery for e in s if np.isfinite(e.recovery)])
         if len(rr) and len(sr):
-            sd = float(rr.std(ddof=1)) if len(rr) > 1 else 0.0
-            window = max(RECOVERY_TOLERANCE, 2 * sd)
+            v = acceptance.judge(rr, sr, absolute=RECOVERY_TOLERANCE)
             # Accel recovery is reported, not scored.
-            passed = bool(abs(sr.mean() - rr.mean()) <= window) if kind == "gyro" else None
-            out.append(Score(sensor, config, f"{name}.recovery", float(rr.mean()), sd, float(sr.mean()), window, passed, len(rr)))
+            passed = v.passed if kind == "gyro" else None
+            out.append(rig.Score(sensor, config, f"{name}.recovery", v.real_mean, v.real_sd, v.sim_mean, v.window, passed, len(rr)))
     return out
 
 
@@ -174,19 +161,20 @@ def run(
     work_dir: pathlib.Path,
     *,
     report_sessions: typing.Callable[[int], bool] = lambda s: s > 1,
+    gyro_cal: typing.Mapping[str, pathlib.Path] | None = None,
     log: rig.Log = print,
-) -> list[Score]:
+) -> list[rig.Score]:
     geometry = v4.fit_geometry(data_dir, log=log)
     es = rig.entries(data_dir, "V3")
     work_dir.mkdir(parents=True, exist_ok=True)
-    params = v4.write_params(geometry, work_dir, data_dir)
+    params = v4.write_params(geometry, work_dir, data_dir, gyro_cal)
     delays: dict[tuple[str, str], float] = {}
     for e in (x for x in es if x.session == 1):
         cap = capture.read_capture(e.path)
         ref = REFERENCE[e.config]
         for narrow in NARROW[e.config]:
             m = mapping(geometry, ref, narrow)
-            delays[(e.config, narrow)] = fit_delay(rig.stream(cap, ref), rig.stream(cap, narrow), m.rotation)
+            delays[(e.config, narrow)] = fit_delay(cap.stream(ref), cap.stream(narrow), m.rotation)
             log(f"{e.config} {narrow}: delay {1e3 * delays[(e.config, narrow)]:+.2f} ms behind {ref}")
 
     reported = [x for x in es if report_sessions(x.session)]
@@ -198,11 +186,11 @@ def run(
         geometry = moved if e.session >= v4.REMOUNT_SESSION else session_1
         cap = capture.read_capture(e.path)
         ref_name = REFERENCE[e.config]
-        ref = rig.stream(cap, ref_name)
-        inputs, headers, odrs = {}, {}, {}
-        t_start = min(rig.board_time(rig.stream(cap, n))[0] for n in NARROW[e.config])
+        ref = cap.stream(ref_name)
+        inputs, streams = {}, {}
+        t_start = rig.first_sample_s(cap, NARROW[e.config])
         for narrow in NARROW[e.config]:
-            s = rig.stream(cap, narrow)
+            s = cap.stream(narrow)
             m = mapping(geometry, ref_name, narrow, delays.get((e.config, narrow), 0.0))
             force, rate = reference_input(ref, s, m)
             for kind, est in (("accel", force), ("gyro", rate)):
@@ -211,8 +199,8 @@ def run(
             t_ref = rig.board_time(ref) + m.delay_s
             f_ref, w_ref = reference_input(ref, s, m, t_ref)
             inputs[narrow] = (t_ref - t_start, f_ref, w_ref)
-            headers[narrow], odrs[narrow] = s.header, s.odr_hz
-        sims = rig.simulate(work_dir, f"{e.config}-s{e.session}-{k}", inputs, headers, odrs, 1000 * k + 1, params)
+            streams[narrow] = s
+        sims = rig.simulate(work_dir, f"{e.config}-s{e.session}-{k}", inputs, streams, 1000 * k + 1, params)
         for narrow, s in sims.items():
             m = mapping(geometry, ref_name, narrow, delays.get((e.config, narrow), 0.0))
             t_sim = rig.board_time(s) + t_start
@@ -228,12 +216,6 @@ def run(
     return out
 
 
-CSV_HEADER = "sensor,config,metric,real_mean,real_sd,sim_mean,window,pass,n_real"
 
-
-def scores_csv(results: typing.Iterable[Score]) -> str:
-    rows = [CSV_HEADER]
-    for r in results:
-        verdict = "" if r.passed is None else str(int(r.passed))
-        rows.append(f"{r.sensor},{r.config},{r.metric},{r.real_mean:.6g},{r.real_sd:.6g},{r.sim_mean:.6g},{r.window:.6g},{verdict},{r.n_real}")
-    return "\n".join(rows) + "\n"
+def scores_csv(results: typing.Iterable[rig.Score]) -> str:
+    return rig.scores_csv(results, "config")

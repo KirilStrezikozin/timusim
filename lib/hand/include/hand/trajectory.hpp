@@ -21,7 +21,9 @@ class Trajectory {
   public:
     explicit Trajectory(const Pose &start) : start_(start), end_pose_(start) {}
 
-    Trajectory &move(double duration_s, const Pose &to, Profile profile = Profile::MIN_JERK) {
+    Trajectory &move(
+        double duration_s, const Pose &to, Profile profile = Profile::MIN_JERK, Shape shape = {}
+    ) {
         Pose from = this->end_pose_;
         /* Same rotation, but the short way round. */
         if (from.palm.dot(to.palm) < 0.0) { from.palm.coeffs() = -from.palm.coeffs(); }
@@ -34,9 +36,10 @@ class Trajectory {
             .turn_axis = turn.axis(),
             .turn_rad  = turn.angle(),
             .profile   = profile,
+            .shape     = shape,
         });
         this->duration_ += duration_s;
-        this->end_pose_ = to;
+        this->end_pose_  = to;
         return *this;
     }
 
@@ -55,17 +58,18 @@ class Trajectory {
         if (seg == nullptr) { return State{.pose = this->end_pose_}; }
         if (t < seg->t0) { return State{.pose = this->start_}; }
 
-        const Progress p = progress(seg->profile, t - seg->t0, seg->duration);
+        const Progress p = progress(seg->profile, t - seg->t0, seg->duration, seg->shape);
         const Pose &a = seg->from, &b = seg->to;
         const Vec3 turn = seg->turn_axis * seg->turn_rad;
 
-        auto joints = [&](const Joints &base, double k) {
+        auto joints = [&](const Joints &base, double k)
+        {
             return Joints{
                 .wrist_flex = base.wrist_flex + ((b.joints.wrist_flex - a.joints.wrist_flex) * k),
                 .wrist_dev  = base.wrist_dev + ((b.joints.wrist_dev - a.joints.wrist_dev) * k),
                 .mcp_abd    = base.mcp_abd + ((b.joints.mcp_abd - a.joints.mcp_abd) * k),
-                .mcp_flex = base.mcp_flex + ((b.joints.mcp_flex - a.joints.mcp_flex) * k),
-                .pip_flex = base.pip_flex + ((b.joints.pip_flex - a.joints.pip_flex) * k),
+                .mcp_flex   = base.mcp_flex + ((b.joints.mcp_flex - a.joints.mcp_flex) * k),
+                .pip_flex   = base.pip_flex + ((b.joints.pip_flex - a.joints.pip_flex) * k),
             };
         };
 
@@ -74,7 +78,7 @@ class Trajectory {
                 Pose{
                     .palm   = a.palm * Quat(Eigen::AngleAxisd(seg->turn_rad * p.u, seg->turn_axis)),
                     .wrist  = a.wrist + (b.wrist - a.wrist) * p.u,
-                    .joints  = joints(a.joints, p.u),
+                    .joints = joints(a.joints, p.u),
                     .support = a.support + ((b.support - a.support) * p.u),
                 },
             .palm_rate_body  = turn * p.du,
@@ -95,6 +99,7 @@ class Trajectory {
         Vec3 turn_axis;
         double turn_rad;
         Profile profile;
+        Shape shape;
     };
 
     Pose start_;

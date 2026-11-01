@@ -78,6 +78,35 @@ void profiles() {
     }
 }
 
+/* Beta: derivatives agree, it is min-jerk at a = b = 3, and a < b peaks the velocity early. */
+void beta_profile() {
+    const double duration = 0.7, h = 1e-6;
+    double worst = 0.0, same = 0.0;
+    for (const hand::Shape shape : {hand::Shape{2.0, 4.0}, hand::Shape{2.5, 3.5}, hand::Shape{3.0, 3.0}}) {
+        for (double t = 0.05; t < duration - 0.05; t += 0.01) {
+            const auto p0 = hand::progress(hand::Profile::BETA, t - h, duration, shape);
+            const auto p1 = hand::progress(hand::Profile::BETA, t, duration, shape);
+            const auto p2 = hand::progress(hand::Profile::BETA, t + h, duration, shape);
+            worst         = std::max(worst, std::abs((p2.u - p0.u) / (2 * h) - p1.du));
+            worst         = std::max(worst, std::abs((p2.du - p0.du) / (2 * h) - p1.ddu) * 1e-2);
+        }
+    }
+    for (double t = 0.0; t <= duration; t += 0.01) {
+        const auto b = hand::progress(hand::Profile::BETA, t, duration, {3.0, 3.0});
+        const auto m = hand::progress(hand::Profile::MIN_JERK, t, duration);
+        same         = std::max({same, std::abs(b.u - m.u), std::abs(b.du - m.du) * 1e-2});
+    }
+    double peak_t = 0.0, peak_v = 0.0;
+    for (double t = 0.0; t <= duration; t += 0.001) {
+        const double v = hand::progress(hand::Profile::BETA, t, duration, {2.0, 4.0}).du;
+        if (v > peak_v) { peak_v = v, peak_t = t; }
+    }
+    const auto end = hand::progress(hand::Profile::BETA, duration, duration, {2.0, 4.0});
+    check(worst < 1e-4 && end.u == 1.0, "beta derivatives and ends", worst);
+    check(same < 1e-9, "beta at a = b = 3 is min-jerk", same);
+    check(std::abs(peak_t / duration - 0.25) < 0.01, "beta (2, 4) peaks at a quarter of the move", peak_t / duration);
+}
+
 void static_gravity() {
     const auto g = test_geometry();
     hand::State s{.pose = pose(Quat::Identity(), Vec3::Zero(), 0, 0, 0)};
@@ -165,12 +194,29 @@ void integrated_rate() {
     }
     const double expected = 50 + 70 * (1 + g.dip_per_pip);
     check(std::abs(angle - expected) < 1e-4, "flexion rate integrates to MCP + PIP + DIP, deg", angle - expected);
+
+    /* On the middle phalanx the sensor misses the DIP. */
+    auto middle           = straight;
+    middle.finger_segment = hand::FingerSegment::Middle;
+    angle                 = 0.0;
+    for (double t = 0.0; t < 0.5 - dt / 2; t += dt) {
+        angle += hand::evaluate(middle, flex.at(t + dt / 2)).finger.rate_dps.dot(axis) * dt;
+    }
+    check(std::abs(angle - 120.0) < 1e-4, "middle-phalanx rate integrates to MCP + PIP, deg", angle - 120.0);
+    /* Curled 90 deg at the PIP alone, the middle sensor sits proximal_m along y and
+     * finger_sensor.y down from it. */
+    hand::State curled{.pose = pose(Quat::Identity(), Vec3::Zero(), 0, 0, 90)};
+    const Vec3 at   = hand::evaluate(middle, curled).finger.position;
+    const Vec3 want = middle.mcp + Vec3(0.0, middle.proximal_m, 0.0)
+                    + Vec3(middle.finger_sensor.x(), middle.finger_sensor.z(), -middle.finger_sensor.y());
+    check((at - want).norm() < 1e-12, "middle-phalanx sensor position, PIP at 90 deg, m", (at - want).norm());
 }
 
 } // namespace
 
 int main() {
     profiles();
+    beta_profile();
     static_gravity();
     derivatives();
     integrated_rate();

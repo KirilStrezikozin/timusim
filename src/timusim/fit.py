@@ -380,7 +380,7 @@ def fit_capture(
     )
 
 
-def _vec(values: typing.Iterable[float]) -> str:
+def vector(values: typing.Iterable[float]) -> str:
     return "[" + ", ".join(f"{v:.6g}" for v in values) + "]"
 
 
@@ -415,7 +415,6 @@ def params_toml(
     fits: list[SensorFit],
     *,
     source: str,
-    gyro_lpf2: Shape | None = None,
     gyro_lpf2_by_bw: dict[int, Shape] | None = None,
     by_range: list[SensorFit] | None = None,
     shape_fits: list[SensorFit] | None = None,
@@ -432,7 +431,8 @@ def params_toml(
     scales give that range's own white noise density, gyro zero level and drift level. Filter
     shapes are voted over shape_fits (default: fits) across axes and captures."""
     voters = shape_fits or fits
-    drift = allan_fits or fits
+    drift_fits = allan_fits or fits
+
     def med(get: typing.Callable[[SensorFit, int], float]) -> list[float]:
         return [float(np.median([get(f, i) for f in fits])) for i in range(3)]
 
@@ -457,9 +457,9 @@ def params_toml(
         f"accel_aa = {vote(a.shape.internal for f in voters for a in f.accel).toml()}",
         f"accel_lp = {vote(a.shape.odr_stage for f in voters for a in f.accel).toml()}",
         f"gyro_lpf1 = {vote(a.shape.internal for f in voters for a in f.gyro).toml()}",
-        f"gyro_lpf2 = {(gyro_lpf2 or vote(a.shape.odr_stage for f in voters for a in f.gyro)).toml()}",
+        f"gyro_lpf2 = {vote(a.shape.odr_stage for f in voters for a in f.gyro).toml()}",
         f"temperature_c = {np.median([f.temperature_c for f in fits]):.2f}",
-        f"gyro_offset = {_vec(zero_level())}",
+        f"gyro_offset = {vector(zero_level())}",
     ]
     lpf1 = lpf1_by_odr(voters)
     if lpf1:
@@ -477,18 +477,18 @@ def params_toml(
             return f.accel if kind == "accel" else f.gyro
 
         lines += ["", f"[{kind}]"]
-        lines.append(f"white_density = {_vec(med(lambda f, i: axes(f)[i].shape.density))}")
+        lines.append(f"white_density = {vector(med(lambda f, i: axes(f)[i].shape.density))}")
         if kind == "gyro":
-            lines.append(f"turn_on_sigma = {_vec(turn_on())}")
+            lines.append(f"turn_on_sigma = {vector(turn_on())}")
         white = med(lambda f, i: axes(f)[i].white_low)
         drifts: list[Drift] = []
-        source = accel_allan_fits if kind == "accel" and accel_allan_fits else drift
-        if all(a.allan is not None for f in source for a in axes(f)):
+        held = accel_allan_fits if kind == "accel" and accel_allan_fits else drift_fits
+        if all(a.allan is not None for f in held for a in axes(f)):
             drifts = [
                 fit_drift(
-                    [axes(f)[i].allan for f in source],  # type: ignore[misc]
+                    [axes(f)[i].allan for f in held],  # type: ignore[misc]
                     white[i],
-                    [axes(f)[i].spectrum for f in source if axes(f)[i].spectrum is not None],  # type: ignore[misc]
+                    [axes(f)[i].spectrum for f in held if axes(f)[i].spectrum is not None],  # type: ignore[misc]
                 )
                 for i in range(3)
             ]
@@ -496,9 +496,9 @@ def params_toml(
             for t_c in DRIFT_TAUS_S:
                 sigma = [next((sg for sg, t in d.markov if t == t_c), 0.0) for d in drifts]
                 if any(sigma):
-                    lines.append(f"    {{ sigma = {_vec(sigma)}, tau_s = {_vec([t_c] * 3)} }},")
+                    lines.append(f"    {{ sigma = {vector(sigma)}, tau_s = {vector([t_c] * 3)} }},")
             lines.append("]")
-            lines.append(f"rate_random_walk = {_vec(d.rate_random_walk for d in drifts)}")
+            lines.append(f"rate_random_walk = {vector(d.rate_random_walk for d in drifts)}")
         others: dict[float, list[SensorFit]] = {}
         for f in by_range or []:
             fs = f.accel_fs_g if kind == "accel" else f.gyro_fs_dps
@@ -507,13 +507,12 @@ def params_toml(
         if others:
             lines += ["", f"[{kind}.by_fs]"]
             for fs, group in sorted(others.items()):
-                axes_of = (lambda f: f.accel) if kind == "accel" else (lambda f: f.gyro)
-                d = [float(np.median([axes_of(f)[i].shape.density for f in group])) for i in range(3)]
-                lines.append(f'"{fs:g}" = {_vec(d)}')
+                d = [float(np.median([axes(f)[i].shape.density for f in group])) for i in range(3)]
+                lines.append(f'"{fs:g}" = {vector(d)}')
             if kind == "gyro":
                 lines += ["", "[gyro.offset_by_fs]"]
                 for fs, group in sorted(others.items()):
-                    lines.append(f'"{fs:g}" = {_vec(float(np.median([f.gyro[i].mean for f in group])) for i in range(3))}')
+                    lines.append(f'"{fs:g}" = {vector(float(np.median([f.gyro[i].mean for f in group])) for i in range(3))}')
             curved = {fs: g for fs, g in others.items() if all(axes(f)[i].allan is not None for f in g for i in range(3))}
             if drifts and curved:
                 lines += ["", f"[{kind}.drift_scale_by_fs]"]
@@ -526,8 +525,22 @@ def params_toml(
                         )
                         for i in range(3)
                     ]
-                    lines.append(f'"{fs:g}" = {_vec(k)}')
+                    lines.append(f'"{fs:g}" = {vector(k)}')
     return "\n".join(lines) + "\n"
+
+
+def with_top_level(params: str, lines: typing.Sequence[str]) -> str:
+    """The parameter file with these top-level `key = value` lines, replacing any with the same
+    key; they go before the first table."""
+    keys = tuple(ln.split("=", 1)[0].strip() + " " for ln in lines)
+    kept = [ln for ln in params.splitlines() if not (ln.split("=", 1)[0].strip() + " ").startswith(keys)]
+    first_table = next((i for i, ln in enumerate(kept) if ln.startswith("[")), len(kept))
+    kept[first_table:first_table] = list(lines)
+    return "\n".join(kept) + "\n"
+
+
+def matrix(rows: np.ndarray) -> str:
+    return "[" + ", ".join(vector(row) for row in rows) + "]"
 
 
 def fit_files(paths_: list[pathlib.Path], sensor: str, **kwargs: typing.Any) -> list[SensorFit]:

@@ -12,7 +12,9 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <filesystem>
 #include <fstream>
+#include <optional>
 #include <string>
 
 #include "capture/protocol.hpp"
@@ -133,18 +135,32 @@ int main(int argc, char **argv) {
     sim::Scenario s = std::move(*loaded);
     if (seed) { s.seed = *seed; }
 
-    hand::Motion motion(s.trajectory, s.tremor, (2 * s.seed) + 7);
+    hand::Motion motion(s.trajectory, s.tremor, (2 * s.seed) + 7, s.drives);
+    /* Segment speeds for the mount jolts, from the scripted joint rates. */
+    const hand::Trajectory &scripted = motion.trajectory();
+    hand::Jolt jolts[2] = {
+        hand::Jolt(s.palm_jolt, (2 * s.seed) + 11, [&scripted](double t) {
+            const auto v = scripted.at(t).joints_vel;
+            return std::hypot(v.wrist_flex, v.wrist_dev);
+        }),
+        hand::Jolt(s.finger_jolt, (2 * s.seed) + 13, [&scripted](double t) {
+            const auto v = scripted.at(t).joints_vel;
+            return std::sqrt(std::pow(v.wrist_flex + v.mcp_flex + v.pip_flex, 2) + std::pow(v.wrist_dev, 2) + std::pow(v.mcp_abd, 2));
+        }),
+    };
     auto truth_of = [&](bool finger) {
-        return [&s, &motion, finger](double t) {
+        return [&s, &motion, &jolts, finger](double t) {
             const auto h = hand::evaluate(s.geometry, motion.at(t));
             const auto &x = finger ? h.finger : h.palm;
-            return std::pair{x.specific_force_g, x.rate_dps};
+            const auto j = jolts[finger ? 1 : 0].at(t);
+            /* The chip turned by the small angle j sees the force turned back: f - angle x f. */
+            return std::pair{hand::Vec3(x.specific_force_g - j.angle_rad.cross(x.specific_force_g)), hand::Vec3(x.rate_dps + j.rate_dps)};
         };
     };
     vclock::set_us(0);
-    auto make = [](const sim::Sensor &sensor, std::uint64_t seed, chip::SimIMU::Truth truth) {
+    auto make = [](const sim::Sensor &sensor, std::uint64_t chip_seed, chip::SimIMU::Truth truth) {
         return std::visit(
-            [&](const auto &config) { return chip::SimIMU(config, sensor.params, seed, std::move(truth)); },
+            [&](const auto &config) { return chip::SimIMU(config, sensor.params, chip_seed, std::move(truth)); },
             sensor.config
         );
     };

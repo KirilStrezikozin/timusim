@@ -45,10 +45,6 @@ def _style(ax: plt.Axes) -> None:
     ax.tick_params(colors=INK, labelsize=8)
 
 
-def _sensor(cap: capture.Capture, name: str) -> capture.SensorStream:
-    return next(s for s in cap.sensors.values() if s.name == name)
-
-
 def _signal(s: capture.SensorStream, kind: str, trim_s: float) -> tuple[np.ndarray, float]:
     keep = s.longest_run(s.t_s >= trim_s)
     data = s.accel_g if kind == "accel" else s.gyro_dps
@@ -60,7 +56,7 @@ Series = tuple[str | None, str, str, np.ndarray, np.ndarray, float]
 
 
 def series(cap: capture.Capture, label: str | None, color: str, style: str, *, sensor: str, trim_s: float) -> Series:
-    s = _sensor(cap, sensor)
+    s = cap.stream(sensor)
     accel, fs = _signal(s, "accel", trim_s)
     gyro, _ = _signal(s, "gyro", trim_s)
     return label, color, style, accel, gyro, fs
@@ -166,7 +162,7 @@ def filter_shape(cap: capture.Capture, *, sensor: str = "finger", kind: str = "a
     """Measured noise PSD with the best Butterworth and the best one-pole model of the
     ODR-rate stage: the shape near Nyquist tells them apart. Where LPF1 alone shapes the band,
     its cutoff factor is fitted as well."""
-    s = _sensor(cap, sensor)
+    s = cap.stream(sensor)
     x, fs = _signal(s, kind, trim_s)
     f, p = bench.psd(x[:, axis] - x[:, axis].mean(), fs)
     path = fit.paths(s.header, s.odr_hz / float(s.header["odr_hz"]))[kind]

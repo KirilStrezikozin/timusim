@@ -10,6 +10,27 @@ ROOT = pathlib.Path(__file__).resolve().parents[2]
 DEFAULT_BINARY = ROOT / "build" / "sim" / "timusim-sim"
 
 
+def slot(sensor: str) -> str:
+    """The simulator has a palm and a finger slot; palm_lsm9 runs in the finger's."""
+    return "finger" if sensor == "palm_lsm9" else sensor
+
+
+def point_scenario(name: str, seed: int, mount: str) -> str:
+    """The start of a scenario with both sensors at one point and the same mount, no hand."""
+    return f"""name = "{name}"
+seed = {seed}
+[geometry]
+palm_sensor = [0.0, 0.0, 0.0]
+mcp = [0.0, 0.0, 0.0]
+proximal_m = 0.0
+middle_m = 0.0
+finger_sensor = [0.0, 0.0, 0.0]
+dip_per_pip = 0.0
+palm_mount = {mount}
+finger_mount = {mount}
+"""
+
+
 @dataclasses.dataclass
 class Truth:
     index: np.ndarray

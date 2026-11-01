@@ -1,9 +1,10 @@
 import pathlib
+import types
 
 import numpy as np
 import pytest
 
-from timusim import capture, rig, sim, v3
+from timusim import capture, rig, sim, v3, v4
 
 LSM9DS1_HEADER = {
     "chip": "LSM9DS1", "odr_hz": "476", "accel_fs_g": "2", "gyro_fs_dps": "245",
@@ -43,11 +44,34 @@ def test_replay_input_clips_at_full_scale_and_runs_at_the_given_rate(tmp_path: p
     slot = rig.Slot(LSM9DS1_HEADER, 470.0, "in.csv")
     scen.write_text(rig.replay_scenario(slot, slot, 2.0, 1))
     sim.run(scen, tmp_path / "out.bin", truth=False)
-    s = rig.stream(capture.read_capture(tmp_path / "out.bin"), "finger")
+    s = capture.read_capture(tmp_path / "out.bin").stream("finger")
 
     assert abs(s.odr_hz - 470.0) < 0.05
     codes = s.gyro_codes[:, 2].astype(np.int32)
-    assert codes.max() >= v3.CLIP_CODE
+    assert codes.max() >= rig.CLIP_CODE
     fs = 32768 * float(s.header["gyro_lsb_dps"])
     inside = np.abs(np.interp(s.t_s, t, rate[:, 2])) < 0.9 * fs
     assert np.max(np.abs(s.gyro_dps[inside, 2] - np.interp(s.t_s[inside], t, rate[:, 2]))) < 2.0
+
+
+def test_gravity_angle_reads_b_past_180() -> None:
+    hinge = np.array([0.0, 0.0, 1.0])
+    up_a = np.array([1.0, 0.0, 0.0])
+    # Turning the arm +183 about the hinge turns gravity, seen from the arm, by -183.
+    assert abs(v4.gravity_angle(hinge, up_a, rig.rotate(hinge, -183.0, up_a)) - 183.0) < 1e-9
+    assert abs(v4.gravity_angle(hinge, up_a, rig.rotate(hinge, 3.0, up_a)) + 3.0) < 1e-9
+
+
+def clip_stream(x_codes: list[int]) -> types.SimpleNamespace:
+    codes = np.zeros((len(x_codes), 3), np.int16)
+    codes[:, 0] = x_codes
+    return types.SimpleNamespace(accel_codes=codes, gyro_codes=codes, odr_hz=476.0)
+
+
+def test_wrap_is_a_jump_to_the_opposite_extreme() -> None:
+    past = np.full((8, 3), -2.5)
+    shock = clip_stream([-32768, -32768, -31000, 65, -16000, -32768, -32768, -30000])
+    (event,) = v3.events(shock, "accel", past, 2.0)
+    assert not event.wrapped
+    wrap = clip_stream([-32768, -32768, 32767, 32767, -32768, -32768, -30000, -30000])
+    assert any(e.wrapped for e in v3.events(wrap, "accel", past, 2.0) if e.sign == -1)

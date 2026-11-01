@@ -21,8 +21,13 @@ timusim-v1 = "timusim.cli:v1_main"
 timusim-v2 = "timusim.cli:v2_main"
 timusim-v3 = "timusim.cli:v3_main"
 timusim-v4 = "timusim.cli:v4_main"
+timusim-v5 = "timusim.cli:v5_main"
+timusim-gyrocal = "timusim.cli:gyrocal_main"
 timusim-compare = "timusim.cli:compare_main"
 timusim-figures = "timusim.cli:figures_main"
+timusim-protocol = "timusim.cli:protocol_main"
+timusim-reproduce = "timusim.cli:reproduce_main"
+timusim-place = "timusim.cli:place_main"
 
 [dependency-groups]
 dev = [

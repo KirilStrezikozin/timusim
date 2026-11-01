@@ -134,6 +134,13 @@ class Capture:
     bad_frames: int
     restarts: int
 
+    def stream(self, name: str) -> SensorStream:
+        """The stream of the sensor with this name (palm, finger, palm_lsm9)."""
+        found = next((s for s in self.sensors.values() if s.name == name), None)
+        if found is None:
+            raise KeyError(f"no sensor {name!r} in the capture")
+        return found
+
 
 def _parse_header(text: str, header: dict[str, str]) -> None:
     for line in text.splitlines():

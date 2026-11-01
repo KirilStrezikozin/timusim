@@ -1,0 +1,24 @@
+# V5 hand measurements (RESEARCH.md, V5 procedure), by ruler, ±1 mm, 2026-11-01. Palm frame:
+# origin at the wrist pivot (midpoint of the wrist crease), x across the knuckles towards the
+# little finger, y along the fingers, z out of the back of the hand. palm_sensor is the LSM6DSL
+# chip on the STM32 board, which is strapped on the back of the hand. The finger chip is on the
+# middle phalanx, measured from the PIP. Measured points (palm frame, mm): MCP (-12, 79, 20),
+# PIP (-12, 115, 13), DIP (-12, 149, 10), finger chip (-12, 144, 18); the chain keeps the finger
+# straight at the MCP's height, so the chip's z is its height above the PIP-DIP line there.
+measured = true
+
+[geometry]
+palm_sensor = [0.009, 0.071, 0.040]
+mcp = [-0.012, 0.079, 0.020]
+proximal_m = 0.036
+middle_m = 0.034
+finger_segment = "middle"
+finger_sensor = [0.0, 0.029, 0.008]
+dip_per_pip = 0.7
+twist_at_90_deg = 0.0
+
+# The palm rig as strapped on (ST-Link and palm sensor, wiring, straps; reweighed 2026-11-01),
+# and its centre from the palm LSM6DSL chip in the palm frame.
+[board]
+kg = 0.048
+offset = [0.016, -0.0255, -0.0005]

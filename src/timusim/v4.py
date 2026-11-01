@@ -10,7 +10,7 @@ import typing
 import numpy as np
 import tomllib
 
-from timusim import capture, rig, sim, v1, v2
+from timusim import acceptance, capture, fit, rig, sim, v1, v2
 
 ORIENTATIONS = ("hinge_horizontal", "tilted", "hinge_vertical")
 # The arm's rest angle between the stops, per base orientation (the author's measurements): with
@@ -72,14 +72,19 @@ def rate(s: capture.SensorStream) -> np.ndarray:
 def hold_up(s: capture.SensorStream, params: dict | None = None) -> np.ndarray:
     """Up in the sensor's frame from a hold; with params, corrected by its accel zero level and
     gain (V2)."""
-    a = s.accel_g[s.longest_run(s.t_s >= v2.SETTLE_S)].mean(axis=0)
+    return up_from(s.accel_g[s.longest_run(s.t_s >= v2.SETTLE_S)], params)
+
+
+def up_from(accel_g: np.ndarray, params: dict | None = None) -> np.ndarray:
+    """Unit mean accel, with params corrected by the accel zero level and gain."""
+    a = accel_g.mean(axis=0)
     if params is not None:
         a = np.linalg.solve(np.array(params.get("accel_gain", np.eye(3))), a - np.array(params.get("accel_offset", np.zeros(3))))
     return a / np.linalg.norm(a)
 
 
 def accel_params(data_dir: pathlib.Path) -> dict[str, dict]:
-    return {n: tomllib.loads((data_dir.parent / rig.PARAMS[n]).read_text()) for n in rig.SENSORS}
+    return {n: tomllib.loads((data_dir / rig.PARAMS[n]).read_text()) for n in rig.SENSORS}
 
 
 @dataclasses.dataclass(frozen=True)
@@ -101,11 +106,11 @@ def sweep_rest_deg(geometry: Geometry, orientation: str) -> float:
 
 
 def fit_mounts(cap: capture.Capture) -> dict[str, np.ndarray]:
-    ref = rig.stream(cap, "palm_lsm9")
+    ref = cap.stream("palm_lsm9")
     w_ref = rate(ref)
     out = {"palm_lsm9": np.eye(3)}
     for name in ("palm", "finger"):
-        s = rig.stream(cap, name)
+        s = cap.stream(name)
         w = rate(s)
         w_l9 = rig.resample(rig.board_time(ref), w_ref, rig.board_time(s))
         moving = np.linalg.norm(w, axis=1) > MOVING_DPS
@@ -117,10 +122,10 @@ def remount(geometry: Geometry, cap: capture.Capture) -> Geometry:
     """The geometry after palm_lsm9 turned on the arm: the turn from its old frame to its new one,
     fitted on a base rotation with palm and finger as the reference, moves every mount and
     palm_lsm9's own directions."""
-    ref = rig.stream(cap, "palm_lsm9")
+    ref = cap.stream("palm_lsm9")
     old, new = [], []
     for name in ("palm", "finger"):
-        s = rig.stream(cap, name)
+        s = cap.stream(name)
         w = rate(s)
         moving = np.linalg.norm(w, axis=1) > MOVING_DPS
         old.append(w[moving] @ geometry.mount[name].T)
@@ -146,9 +151,9 @@ def remounted(geometry: Geometry, data_dir: pathlib.Path, *, log: rig.Log = prin
     return moved
 
 
-def fit_hinge(sweeps: list[capture.Capture]) -> np.ndarray:
-    """Principal direction of palm_lsm9's rate while the arm moves."""
-    w = np.concatenate([rate(rig.stream(c, "palm_lsm9")) for c in sweeps])
+def fit_hinge(sweeps: typing.Iterable[capture.Capture], name: str = "palm_lsm9") -> np.ndarray:
+    """Principal direction of a sensor's rate while the arm moves."""
+    w = np.concatenate([rate(c.stream(name)) for c in sweeps])
     w = w[np.linalg.norm(w, axis=1) > MOVING_DPS]
     _, vecs = np.linalg.eigh(w.T @ w)
     return vecs[:, -1]
@@ -159,7 +164,7 @@ def fit_radial(cap: capture.Capture, name: str, hinge: np.ndarray, up_a: np.ndar
     A (the hinge is a few degrees off vertical, which leaves 0.07-0.08 g in the plane), is
     -w^2 c + alpha (h x c) + zero level, with c the radius vector. Stop contacts are left out.
     Returns its direction and length (m)."""
-    s = rig.stream(cap, name)
+    s = cap.stream(name)
     t = rig.board_time(s)
     w_dps = rate(s) @ hinge
     w = np.radians(w_dps)
@@ -186,23 +191,24 @@ def fit_geometry(data_dir: pathlib.Path, *, log: rig.Log = print) -> Geometry:
         raise SystemExit("no V4 session-1 base-rotation capture in the manifest")
     mount = fit_mounts(capture.read_capture(rot[-1].path))
     sweeps = {o: [capture.read_capture(e.path) for e in groups.get((1, o, "sweeps"), [])] for o in ORIENTATIONS}
-    h = fit_hinge([c for cs in sweeps.values() for c in cs])
+    every_sweep = [c for cs in sweeps.values() for c in cs]
+    h = fit_hinge(every_sweep)
     # Positive turns A towards B: world up, seen from the arm, turns the other way.
     a, b = groups.get((1, "hinge_horizontal", "hold_a")), groups.get((1, "hinge_horizontal", "hold_b"))
     if a and b:
-        up_a = hold_up(rig.stream(capture.read_capture(a[-1].path), "palm_lsm9"))
-        up_b = hold_up(rig.stream(capture.read_capture(b[-1].path), "palm_lsm9"))
+        up_a = hold_up(capture.read_capture(a[-1].path).stream("palm_lsm9"))
+        up_b = hold_up(capture.read_capture(b[-1].path).stream("palm_lsm9"))
         if rig.signed_angle(h, up_a, up_b) > 0:
             h = -h
     hinge = {n: mount[n].T @ h for n in rig.SENSORS}
     hold_caps = {(o, k): capture.read_capture(groups[(1, o, k)][-1].path) for o in ORIENTATIONS for k in ("hold_a", "hold_b") if (1, o, k) in groups}
-    holds = {key: hold_up(rig.stream(c, "palm_lsm9")) for key, c in hold_caps.items()}
+    holds = {key: hold_up(c.stream("palm_lsm9")) for key, c in hold_caps.items()}
     radial = {}
     for n in rig.SENSORS:
-        own = fit_hinge_one(sweeps, n)
+        own = fit_hinge(every_sweep, n)
         log(f"{n}: own hinge fit {np.degrees(np.arccos(min(1.0, abs(own @ hinge[n])))):.2f} deg from the mapped one")
         if sweeps["hinge_vertical"] and ("hinge_vertical", "hold_a") in holds:
-            up_a = hold_up(rig.stream(hold_caps[("hinge_vertical", "hold_a")], n))
+            up_a = hold_up(hold_caps[("hinge_vertical", "hold_a")].stream(n))
             radial[n], r = fit_radial(sweeps["hinge_vertical"][-1], n, hinge[n], up_a)
             log(f"{n}: fitted radius {100 * r:.1f} cm (measured {100 * rig.RADIUS_M[n]:.1f}, used)")
 
@@ -212,7 +218,7 @@ def fit_geometry(data_dir: pathlib.Path, *, log: rig.Log = print) -> Geometry:
         if (o, "hold_a") not in holds or (o, "hold_b") not in holds:
             continue
         for n in rig.SENSORS:
-            up_a, up_b = (hold_up(rig.stream(hold_caps[(o, k)], n), corrections[n]) for k in ("hold_a", "hold_b"))
+            up_a, up_b = (hold_up(hold_caps[(o, k)].stream(n), corrections[n]) for k in ("hold_a", "hold_b"))
             pred = rig.rotate(hinge[n], -THETA_REST_DEG[o], up_a)
             axis = np.cross(pred, up_b)
             deg = float(np.degrees(np.arctan2(np.linalg.norm(axis), pred @ up_b)))
@@ -233,9 +239,9 @@ def fit_geometry(data_dir: pathlib.Path, *, log: rig.Log = print) -> Geometry:
             continue
         spans = []
         for c in sweeps[o]:
-            l9 = rig.stream(c, "palm_lsm9")
+            l9 = c.stream("palm_lsm9")
             rs = rests(l9, hinge["palm_lsm9"], o, np.zeros(3), THETA_REST_DEG[o])
-            m = sweep_metrics(rig.stream(c, "palm"), 0.0, hinge["palm"], None, 0.0, rs)
+            m = sweep_metrics(c.stream("palm"), 0.0, hinge["palm"], None, 0.0, rs)
             spans += [v / g for d, g in zip(("a_to_b", "b_to_a"), gyro_gain["palm"]) for v in m.gyro_scale_deg[d]]
         rest[o] = (float(np.mean(spans)) + SWEEP_REST_MEASURED_DEG) / 2
         log(f"{o}: sweep rests {rest[o]:.1f} deg apart (LSM6DSL {np.mean(spans):.1f}, measured {SWEEP_REST_MEASURED_DEG:.0f})")
@@ -244,21 +250,20 @@ def fit_geometry(data_dir: pathlib.Path, *, log: rig.Log = print) -> Geometry:
 
 def span_ratios(cap: capture.Capture, geometry: Geometry, orientation: str, up_a: np.ndarray) -> dict[str, dict[str, list[float]]]:
     """Per sensor and direction, each half sweep's integrated angle over its span from gravity."""
-    l9 = rig.stream(cap, "palm_lsm9")
+    l9 = cap.stream("palm_lsm9")
     rs = rests(l9, geometry.hinge["palm_lsm9"], orientation, up_a, THETA_REST_DEG[orientation])
     spans = {"a_to_b": [], "b_to_a": []}
     for r0, r1 in zip(rs, rs[1:]):
         spans["b_to_a" if r0.at_b else "a_to_b"].append(abs(r1.target_deg - r0.target_deg))
     out = {}
     for n in rig.SENSORS:
-        m = sweep_metrics(rig.stream(cap, n), 0.0, geometry.hinge[n], None, 0.0, rs)
+        m = sweep_metrics(cap.stream(n), 0.0, geometry.hinge[n], None, 0.0, rs)
         out[n] = {d: [v / t for v, t in zip(m.gyro_scale_deg[d], spans[d])] for d in spans}
     return out
 
 
 def gyro_params(geometry: Geometry, name: str, base: str) -> str:
-    """The parameter file with the per-direction gain on the axis nearest the hinge; it goes
-    before the first table."""
+    """The parameter file with the per-direction gain on the axis nearest the hinge."""
     if name not in geometry.gyro_gain:
         return base
     h = geometry.hinge[name]
@@ -270,27 +275,27 @@ def gyro_params(geometry: Geometry, name: str, base: str) -> str:
     gain[axis, axis] = positive
     neg = np.ones(3)
     neg[axis] = negative / positive
-    lines = [ln for ln in base.splitlines() if not ln.startswith(("gyro_gain", "gyro_negative_gain"))]
-    first_table = next((i for i, ln in enumerate(lines) if ln.startswith("[")), len(lines))
-    rows = ", ".join("[" + ", ".join(f"{c:.6g}" for c in row) + "]" for row in gain)
-    lines[first_table:first_table] = [f"gyro_gain = [{rows}]", f"gyro_negative_gain = [{', '.join(f'{c:.6g}' for c in neg)}]"]
-    return "\n".join(lines) + "\n"
+    return fit.with_top_level(base, [f"gyro_gain = {fit.matrix(gain)}", f"gyro_negative_gain = {fit.vector(neg)}"])
 
 
-def write_params(geometry: Geometry, work_dir: pathlib.Path, data_dir: pathlib.Path) -> dict[str, pathlib.Path]:
+def write_params(
+    geometry: Geometry, work_dir: pathlib.Path, data_dir: pathlib.Path, gyro_cal: typing.Mapping[str, pathlib.Path] | None = None,
+) -> dict[str, pathlib.Path]:
+    """Per sensor, the parameter file the replay uses: the GyroCal gain where given, else the
+    per-direction hinge-axis gain."""
     out = {}
     for n in rig.SENSORS:
-        base = (data_dir.parent / rig.PARAMS[n]).read_text()
+        base = (data_dir / rig.PARAMS[n]).read_text()
         out[n] = work_dir / f"params-{n}.toml"
-        out[n].write_text(gyro_params(geometry, n, base))
+        if gyro_cal and n in gyro_cal:
+            cal = tomllib.loads(gyro_cal[n].read_text())
+            out[n].write_text(fit.with_top_level(base, [
+                f"gyro_gain = {fit.matrix(np.array(cal['gyro_gain']))}",
+                f"gyro_negative_gain = {fit.vector(cal['gyro_negative_gain'])}",
+            ]))
+        else:
+            out[n].write_text(gyro_params(geometry, n, base))
     return out
-
-
-def fit_hinge_one(sweeps: dict[str, list[capture.Capture]], name: str) -> np.ndarray:
-    w = np.concatenate([rate(rig.stream(c, name)) for cs in sweeps.values() for c in cs])
-    w = w[np.linalg.norm(w, axis=1) > MOVING_DPS]
-    _, vecs = np.linalg.eigh(w.T @ w)
-    return vecs[:, -1]
 
 
 @dataclasses.dataclass(frozen=True)
@@ -300,6 +305,13 @@ class Rest:
     at_b: bool
     target_deg: float  # hinge angle the rest stands for
     level_deg: float  # integrated arm rate over the rest, for telling A from B without gravity
+
+
+def gravity_angle(hinge: np.ndarray, up_a: np.ndarray, up: np.ndarray) -> float:
+    """Hinge angle from A, positive towards B, at which gravity reads up, in [-90, 270): the stops
+    are about 180 degrees apart, so a signed angle would read B as -177."""
+    target = -rig.signed_angle(hinge, up_a, up) % 360.0
+    return target - 360.0 if target > 270.0 else target
 
 
 def rests(l9: capture.SensorStream, hinge: np.ndarray, orientation: str, up_a: np.ndarray, theta_rest: float) -> list[Rest]:
@@ -316,9 +328,7 @@ def rests(l9: capture.SensorStream, hinge: np.ndarray, orientation: str, up_a: n
     out: list[Rest] = []
     for (a, b), level in zip(stills, levels):
         if from_gravity:
-            # Signed angles wrap at 180 and the stops are about that far apart: B may read -177.
-            target = -rig.signed_angle(hinge, up_a, l9.accel_g[a:b].mean(axis=0)) % 360.0
-            target = target - 360.0 if target > 270.0 else target
+            target = gravity_angle(hinge, up_a, l9.accel_g[a:b].mean(axis=0))
             at_b = target > theta_rest / 2
         else:
             at_b = level > middle
@@ -353,7 +363,7 @@ def sweep_up(s: capture.SensorStream, h: np.ndarray, t: np.ndarray, theta: np.nd
     hinge between rests, with the out-of-plane change from one rest to the next spread over the
     turn (the loose arm settles and sinks as the sweeps go on)."""
     ts = rig.board_time(s)
-    ups = [hold_up_of(s.accel_g[segment(ts, r.start, r.end)], params) for r in rs]
+    ups = [up_from(s.accel_g[segment(ts, r.start, r.end)], params) for r in rs]
     out = np.empty((len(t), 3))
     out[:] = ups[0]
     for r, u in zip(rs, ups):
@@ -374,26 +384,21 @@ def sweep_up(s: capture.SensorStream, h: np.ndarray, t: np.ndarray, theta: np.nd
     return out
 
 
-def hold_up_of(accel_g: np.ndarray, params: dict) -> np.ndarray:
-    a = np.linalg.solve(np.array(params.get("accel_gain", np.eye(3))), accel_g.mean(axis=0) - np.array(params.get("accel_offset", np.zeros(3))))
-    return a / np.linalg.norm(a)
-
-
 def sweep_inputs(
     cap: capture.Capture, geometry: Geometry, orientation: str, up_a_l9: np.ndarray, corrections: dict[str, dict]
 ) -> tuple[list[Rest], float, dict[str, tuple[np.ndarray, np.ndarray, np.ndarray]]]:
     """Each sensor's input for the replay, at palm_lsm9's samples from the earliest stream's start."""
-    l9 = rig.stream(cap, "palm_lsm9")
+    l9 = cap.stream("palm_lsm9")
     rs = rests(l9, geometry.hinge["palm_lsm9"], orientation, up_a_l9, sweep_rest_deg(geometry, orientation))
     t = rig.board_time(l9)
     theta = hinge_angle(l9, geometry.hinge["palm_lsm9"], rs)
     w = np.gradient(theta, t)
     alpha = np.radians(np.gradient(w, t))
-    t_start = min(rig.board_time(rig.stream(cap, n))[0] for n in rig.SENSORS)
+    t_start = rig.first_sample_s(cap)
     inputs = {}
     for n in rig.SENSORS:
         h = geometry.hinge[n]
-        up = sweep_up(rig.stream(cap, n), h, t, theta, rs, corrections[n])
+        up = sweep_up(cap.stream(n), h, t, theta, rs, corrections[n])
         r = rig.RADIUS_M[n] * geometry.radial[n]
         kin = alpha[:, None] * np.cross(h, r) - (np.radians(w) ** 2)[:, None] * r
         inputs[n] = (t - t_start, up + kin / rig.G, w[:, None] * h)
@@ -420,7 +425,7 @@ def sweep_metrics(s: capture.SensorStream, t_offset: float, hinge: np.ndarray, r
     t = rig.board_time(s) + t_offset
     w = s.gyro_dps @ hinge
     out = SweepMetrics()
-    clipped = np.any(np.abs(s.accel_codes.astype(np.int32)) >= int(0.99 * 32768), axis=1)
+    clipped = np.any(np.abs(s.accel_codes.astype(np.int32)) >= rig.CLIP_CODE, axis=1)
     settle_n = max(1, int(SETTLE_S * s.odr_hz))
 
     def integrate(r0: Rest, r1: Rest) -> float:
@@ -458,35 +463,21 @@ def sweep_metrics(s: capture.SensorStream, t_offset: float, hinge: np.ndarray, r
 
 
 def mount_rms(cap: capture.Capture, geometry: Geometry, name: str) -> float:
-    ref = rig.stream(cap, "palm_lsm9")
-    s = rig.stream(cap, name)
+    ref = cap.stream("palm_lsm9")
+    s = cap.stream(name)
     w = rate(s)
     w_l9 = rig.resample(rig.board_time(ref), rate(ref) @ geometry.mount[name], rig.board_time(s))
     moving = np.linalg.norm(w, axis=1) > MOVING_DPS
     return float(np.sqrt(np.mean(np.sum((w[moving] - w_l9[moving]) ** 2, axis=1))))
 
 
-@dataclasses.dataclass(frozen=True)
-class Score:
-    sensor: str
-    orientation: str
-    metric: str
-    real_mean: float
-    real_sd: float
-    sim_mean: float
-    window: float
-    passed: bool | None
-    n_real: int
 
 
-def score(sensor: str, orientation: str, metric: str, real: list[float], simulated: list[float], scored: bool = True) -> Score:
-    r, s = np.array(real), np.array(simulated)
-    sd = float(r.std(ddof=1)) if len(r) > 1 else 0.0
+def score(sensor: str, orientation: str, metric: str, real: list[float], simulated: list[float], scored: bool = True) -> rig.Score:
     base = metric.split(".")[0]
-    tol = TOLERANCE[base] if base in TOLERANCE else RELATIVE[base] * abs(float(r.mean()))
-    window = max(tol, 2 * sd)
-    passed = bool(abs(s.mean() - r.mean()) <= window) if scored and len(s) else None
-    return Score(sensor, orientation, metric, float(r.mean()), sd, float(s.mean()) if len(s) else np.nan, window, passed, len(r))
+    v = acceptance.judge(real, simulated, absolute=TOLERANCE.get(base, 0.0), relative=RELATIVE.get(base, 0.0))
+    passed = v.passed if scored and len(simulated) else None
+    return rig.Score(sensor, orientation, metric, v.real_mean, v.real_sd, v.sim_mean, v.window, passed, len(real))
 
 
 def run(
@@ -494,11 +485,12 @@ def run(
     work_dir: pathlib.Path,
     *,
     report_sessions: typing.Callable[[int], bool] = lambda s: s > 1,
+    gyro_cal: typing.Mapping[str, pathlib.Path] | None = None,
     log: rig.Log = print,
-) -> list[Score]:
+) -> list[rig.Score]:
     geometry = fit_geometry(data_dir, log=log)
     work_dir.mkdir(parents=True, exist_ok=True)
-    params = write_params(geometry, work_dir, data_dir)
+    params = write_params(geometry, work_dir, data_dir, gyro_cal)
     corrections = accel_params(data_dir)
     groups = by_kind([e for e in rig.entries(data_dir, "V4") if report_sessions(e.session)])
     sessions = sorted({k[0] for k in groups})
@@ -519,33 +511,32 @@ def run(
             if not a:
                 continue
             cap_a = capture.read_capture(a[-1].path)
-            up_a = hold_up(rig.stream(cap_a, "palm_lsm9"))
+            up_a = hold_up(cap_a.stream("palm_lsm9"))
             # Static decomposition at B: each sensor's own hold at A, corrected by its V2 zero level
             # and gain, turned by the rest angle about its hinge axis and by its session-1 rocking.
             if b:
                 cap_b = capture.read_capture(b[-1].path)
                 for n in rig.SENSORS:
-                    up = rig.rotate(geometry.hinge[n], -THETA_REST_DEG[o], hold_up(rig.stream(cap_a, n), corrections[n]))
+                    up = rig.rotate(geometry.hinge[n], -THETA_REST_DEG[o], hold_up(cap_a.stream(n), corrections[n]))
                     if (n, o) in geometry.stop_b:
                         up = rig.rotate(*geometry.stop_b[(n, o)], up)
-                    s = rig.stream(cap_b, n)
+                    s = cap_b.stream(n)
                     real = v2.array_hold_metrics(s.accel_g[s.longest_run(s.t_s >= v2.SETTLE_S)], up).tilt_deg
                     scen = work_dir / f"hold-s{session}-{o}-b-{n}.toml"
                     scen.write_text(v1.still_scenario(s.header, up, s.duration_s, session * 100 + len(rows), str(params[n].resolve())))
                     sim.run(scen, scen.with_suffix(".bin"), truth=False)
-                    ss = rig.stream(capture.read_capture(scen.with_suffix(".bin")), "finger")
+                    ss = capture.read_capture(scen.with_suffix(".bin")).stream("finger")
                     simulated = v2.array_hold_metrics(ss.accel_g[ss.longest_run(ss.t_s >= v2.SETTLE_S)], up).tilt_deg
                     add((n, o, "tilt_deg.b"), [real], [simulated])
             for k, e in enumerate(groups.get((session, o, "sweeps"), [])):
                 cap = capture.read_capture(e.path)
                 rs, t_start, inputs = sweep_inputs(cap, geometry, o, up_a, corrections)
-                headers = {n: rig.stream(cap, n).header for n in rig.SENSORS}
-                odrs = {n: rig.stream(cap, n).odr_hz for n in rig.SENSORS}
-                sims = rig.simulate(work_dir, f"sweeps-s{session}-{o}-{k}", inputs, headers, odrs, session * 1000 + k, params)
+                streams = {n: cap.stream(n) for n in rig.SENSORS}
+                sims = rig.simulate(work_dir, f"sweeps-s{session}-{o}-{k}", inputs, streams, session * 1000 + k, params)
                 for n in rig.SENSORS:
                     radial = geometry.radial.get(n) if o == "hinge_vertical" else None
                     args = (geometry.hinge[n], radial, rig.RADIUS_M[n], rs)
-                    real = sweep_metrics(rig.stream(cap, n), 0.0, *args)
+                    real = sweep_metrics(cap.stream(n), 0.0, *args)
                     simulated = sweep_metrics(sims[n], t_start, *args)
                     add((n, o, "closure_deg"), real.closure_deg, simulated.closure_deg)
                     for d in ("a_to_b", "b_to_a"):
@@ -554,14 +545,13 @@ def run(
                         add((n, o, "lever_residual_g"), real.lever_residual_g, simulated.lever_residual_g)
         for k, e in enumerate(groups.get((session, "", "base_rotation"), [])):
             cap = capture.read_capture(e.path)
-            l9 = rig.stream(cap, "palm_lsm9")
+            l9 = cap.stream("palm_lsm9")
             t = rig.board_time(l9)
-            t_start = min(rig.board_time(rig.stream(cap, n))[0] for n in rig.SENSORS)
+            t_start = rig.first_sample_s(cap)
             w = rate(l9)
             inputs = {n: (t - t_start, l9.accel_g @ geometry.mount[n], w @ geometry.mount[n]) for n in rig.SENSORS}
-            headers = {n: rig.stream(cap, n).header for n in rig.SENSORS}
-            odrs = {n: rig.stream(cap, n).odr_hz for n in rig.SENSORS}
-            sims = rig.simulate(work_dir, f"rotation-s{session}-{k}", inputs, headers, odrs, session * 1000 + 500 + k, params)
+            streams = {n: cap.stream(n) for n in rig.SENSORS}
+            sims = rig.simulate(work_dir, f"rotation-s{session}-{k}", inputs, streams, session * 1000 + 500 + k, params)
             scap = capture.Capture(cap.header, dict(enumerate(sims.values())), {}, [], 0, 0)
             # The re-mount is fitted on this capture, so here mount agreement is reported only.
             metric = "mount_rms_dps.remount_fit" if session == REMOUNT_SESSION else "mount_rms_dps"
@@ -579,18 +569,12 @@ def run(
         )
         out.append(score(n, o, metric, real, simulated, scored))
     for o in ORIENTATIONS + ("",):
-        part = [s for s in out if s.orientation == o and s.passed is not None]
+        part = [s for s in out if s.group == o and s.passed is not None]
         if part:
             log(f"{o or 'base_rotation'}: {sum(bool(s.passed) for s in part)}/{len(part)} pass")
     return out
 
 
-CSV_HEADER = "sensor,orientation,metric,real_mean,real_sd,sim_mean,window,pass,n_real"
 
-
-def scores_csv(results: typing.Iterable[Score]) -> str:
-    rows = [CSV_HEADER]
-    for r in results:
-        verdict = "" if r.passed is None else str(int(r.passed))
-        rows.append(f"{r.sensor},{r.orientation},{r.metric},{r.real_mean:.6g},{r.real_sd:.6g},{r.sim_mean:.6g},{r.window:.6g},{verdict},{r.n_real}")
-    return "\n".join(rows) + "\n"
+def scores_csv(results: typing.Iterable[rig.Score]) -> str:
+    return rig.scores_csv(results, "orientation")

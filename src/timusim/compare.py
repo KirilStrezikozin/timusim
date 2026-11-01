@@ -81,7 +81,7 @@ def drift_params(
     for kind in ("accel", "gyro"):
         signals = []
         for cap in caps:
-            s = next(x for x in cap.sensors.values() if x.name == sensor)
+            s = cap.stream(sensor)
             keep = s.longest_run(s.t_s >= TRIM_S)
             signals.append(((s.accel_g if kind == "accel" else s.gyro_dps)[keep], s.odr_hz))
         terms = [term([fit.allan_curve(x[:, i], fs) for x, fs in signals]) for i in range(3)]
@@ -132,10 +132,6 @@ def simulated_metrics(out: pathlib.Path) -> bench.StillMetrics:
     return bench.array_metrics(*load(out))
 
 
-def _sensor_id(cap: capture.Capture, sensor: str) -> int:
-    return next(i for i, s in cap.sensors.items() if s.name == sensor)
-
-
 def run(
     data_dir: pathlib.Path,
     work_dir: pathlib.Path,
@@ -154,7 +150,7 @@ def run(
             if not fit_caps:
                 log(f"{config}: no session-1 capture, skipped")
                 continue
-            sid = lambda cap: _sensor_id(cap, sensor)
+            sid = lambda cap: cap.stream(sensor).id
             base = params([bench.still_metrics(c, sid(c), trim_s=TRIM_S) for c in fit_caps], fit_caps[0].sensors[sid(fit_caps[0])].header)
             drift = {}
             if MARKOV & set(simulators):
@@ -210,8 +206,8 @@ def run_v2(
     for h in fit_set:
         cap = capture.read_capture(h.path)
         means.append(v2.hold_metrics(cap, sensor, h.up).mean_g)
-        metrics.append(bench.still_metrics(cap, _sensor_id(cap, sensor), trim_s=v2.SETTLE_S))
-    header = cap.sensors[_sensor_id(cap, sensor)].header
+        metrics.append(bench.still_metrics(cap, cap.stream(sensor).id, trim_s=v2.SETTLE_S))
+    header = cap.stream(sensor).header
     ups = np.array([h.up for h in fit_set])
     offset, gain = v2.fit_accel(np.array(means), ups)
     zero = np.mean(np.array(means) - ups, axis=0)
@@ -222,7 +218,7 @@ def run_v2(
     with concurrent.futures.ThreadPoolExecutor(jobs) as pool:
         for k, h in enumerate(reported):
             cap = capture.read_capture(h.path)
-            seconds = cap.sensors[_sensor_id(cap, sensor)].duration_s
+            seconds = cap.stream(sensor).duration_s
             for simulator in simulators:
                 accel = {**base["accel"], "bias": (offset if simulator in GAIN else zero).tolist()}
                 if simulator in GAIN:

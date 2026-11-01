@@ -42,7 +42,7 @@ def test_v1_passes_on_captures_of_the_model_itself(tmp_path: pathlib.Path, senso
         sim.run(scen, data / f"{name}.bin")
         manifest.append(
             {"file": f"{name}.bin", "test": "V1", "config": config, "session": session, "clean": True},
-            path=data / manifest.MANIFEST_PATH.name,
+            path=manifest.path(data),
         )
     results = v1.run(data, tmp_path / "work", sensor=sensor, log=lambda _: None)
     failed = [s for s in results["default"] if not s.passed]

@@ -8,7 +8,7 @@ import typing
 
 import numpy as np
 
-from timusim import capture, manifest, sim, v1
+from timusim import acceptance, capture, fit, manifest, sim, v1
 
 # Dropped from the start of each hold, so taping and letting go do not enter the mean.
 SETTLE_S = 30.0
@@ -50,7 +50,7 @@ class Hold:
 def entries(data_dir: pathlib.Path = manifest.DATA_DIR, sensor: str = v1.SENSOR) -> list[Hold]:
     """V2 captures whose manifest entry gives this sensor's up direction."""
     out = []
-    for e in manifest.load(data_dir / manifest.MANIFEST_PATH.name):
+    for e in manifest.load(manifest.path(data_dir)):
         up = e.get("sensors", {}).get(sensor, {}).get("up")
         if e.get("test") == "V2" and up is not None and v1.usable(e, sensor):
             out.append(Hold(data_dir / e["file"], int(e["session"]), parse_up(",".join(map(str, up)))))
@@ -65,7 +65,7 @@ class HoldMetrics:
 
 
 def hold_metrics(cap: capture.Capture, sensor: str, up: typing.Sequence[float], *, trim_s: float = SETTLE_S) -> HoldMetrics:
-    s = next(x for x in cap.sensors.values() if x.name == sensor)
+    s = cap.stream(sensor)
     return array_hold_metrics(s.accel_g[s.longest_run(s.t_s >= trim_s)], up)
 
 
@@ -88,15 +88,8 @@ def fit_accel(means: np.ndarray, ups: np.ndarray) -> tuple[np.ndarray, np.ndarra
 
 
 def with_accel(params: str, offset: np.ndarray, gain: np.ndarray) -> str:
-    """The parameter file with accel_offset and accel_gain set; they go before the first table."""
-    lines = [ln for ln in params.splitlines() if not ln.startswith(("accel_offset", "accel_gain"))]
-    first_table = next((i for i, ln in enumerate(lines) if ln.startswith("[")), len(lines))
-    rows = ", ".join("[" + ", ".join(f"{c:.6g}" for c in row) + "]" for row in gain)
-    lines[first_table:first_table] = [
-        f"accel_offset = [{', '.join(f'{c:.6g}' for c in offset)}]",
-        f"accel_gain = [{rows}]",
-    ]
-    return "\n".join(lines) + "\n"
+    """The parameter file with accel_offset and accel_gain set."""
+    return fit.with_top_level(params, [f"accel_offset = {fit.vector(offset)}", f"accel_gain = {fit.matrix(gain)}"])
 
 
 @dataclasses.dataclass(frozen=True)
@@ -111,11 +104,8 @@ class Score:
 
 
 def score(position_: str, metric: str, real: list[float], simulated: list[float], tolerance: float) -> Score:
-    r, s = np.array(real), np.array(simulated)
-    sd = float(r.std(ddof=1)) if len(r) > 1 else 0.0
-    window = max(tolerance, 2 * sd)
-    passed = bool(abs(s.mean() - r.mean()) <= window)
-    return Score(position_, metric, float(r.mean()), sd, float(s.mean()), window, passed)
+    v = acceptance.judge(real, simulated, absolute=tolerance)
+    return Score(position_, metric, v.real_mean, v.real_sd, v.sim_mean, v.window, v.passed)
 
 
 def run(
@@ -140,19 +130,17 @@ def run(
     params_path.write_text(with_accel(base_params.read_text(), offset, gain))
     log(f"accel zero level and gain from {len(fit_set)} session-1 holds -> {params_path}")
 
-    # The sim has palm and finger slots, both running this chip; palm_lsm9 takes the finger's.
-    slot = "finger" if sensor == "palm_lsm9" else sensor
     rows: Rows = {}
     for k, h in enumerate(reported):
         cap = capture.read_capture(h.path)
-        s = next(x for x in cap.sensors.values() if x.name == sensor)
+        s = cap.stream(sensor)
         simulated = []
         for j in range(sims_per_hold):
             scen = work_dir / f"hold-{k}-{j}.toml"
             scen.write_text(v1.still_scenario(s.header, np.array(h.up), s.duration_s, 1000 * k + j + 1, params_path.name))
             out = work_dir / f"hold-{k}-{j}.bin"
             sim.run(scen, out, truth=False)
-            simulated.append(hold_metrics(capture.read_capture(out), slot, h.up))
+            simulated.append(hold_metrics(capture.read_capture(out), sim.slot(sensor), h.up))
         add_row(rows, h.position, hold_metrics(cap, sensor, h.up), simulated)
 
     return score_rows(rows, log)

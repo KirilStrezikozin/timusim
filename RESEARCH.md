@@ -17,7 +17,8 @@ below of real captures, including the physiological tremor band.
   ±2000 dps, gyro LPF1 only.
 - Added masses, weighed with mounts and wires: finger board 8 g, palm breakout 8 g. The STM32
   board with breadboard and straps weighs 124 g and stays off the hand except in the mass-loading
-  check (V5).
+  check (V5). V5's palm rig (ST-Link and palm sensor, with straps and wires) weighs 48 g
+  (reweighed 2026-11-01).
 - Every capture gets a manifest entry: date, session, test, config, board IDs, firmware hash,
   temperature at start, mount notes.
 
@@ -165,9 +166,92 @@ Phases: 60 s on the table, 60 s free hold, then the scripted motion routine.
 | linear acceleration | 95th percentile of \|\|a\| − 1 g\| per phase |
 | handedness | correlation from `imu/conformance.hpp` HandednessCheck over the routine |
 
-Mass-loading check: the free hold repeated with the 124 g STM32 board strapped to the back of the
-hand. Metric: shift of the dominant frequency between the two conditions. The sim gets only the
-added mass.
+Mass-loading check (restored 2026-11-01 after session 1, see Changes): per session, a capture
+with a known weight added on top of the strapped board, table, lift and free hold only. Mechanical
+tremor slows with the load as √(K / I); a central oscillation keeps its frequency. Reported per
+session: the hold's mechanical peak (3–9.5 Hz) and central peak (9.5–16 Hz) with and without the
+weight, real against the fitted model with the same weight added. Not a pass/fail metric.
+
+Procedure (drafted by Claude on 2026-10-31, before any V5 capture; the author confirms or changes
+it before session 1, and changes after that are logged under Changes):
+
+- Subject: the author, right hand, index finger. Seated, forearm resting on the table from the
+  elbow to the wrist crease, which lies on the table edge, so the hand pivots freely at the wrist.
+- Sensors: the STM32 board strapped firmly to the back of the hand, its LSM6DSL (`palm`) over the
+  metacarpals, its USB cable slack and taped along the forearm; `finger` on the back of the index
+  middle phalanx. `palm_lsm9` is not used.
+- Firmware: the `v5` env (default config; palm LSM6DSL and finger, the finger at 0x6B).
+- Hand measurements, by ruler (±1 mm) before session 1, into `sim/scenarios/v5/hand.toml`:
+  the wrist pivot, taken as the midpoint of the wrist crease; from it, in the palm frame, the
+  LSM6DSL chip centre and the index MCP centre; the proximal and middle phalanx lengths; the
+  finger chip from the PIP; the DIP-to-PIP coupling (0.7 unless measured); the finger twist at
+  90° MCP flexion (0 unless measured). The board as strapped on is weighed, and its centre is
+  measured from the LSM6DSL chip.
+- Captures: one per trial. `timusim-v5 cue` starts the capture and prints each phase with a
+  terminal bell, so the phases sit at fixed times from the first sample:
+  1. table, 0–60 s: hand flat on the table, palm down, fingers extended and together, relaxed;
+  2. lift, 60–62 s: the hand raised to horizontal;
+  3. free hold, 62–122 s: the hand held horizontal past the table edge, palm down, fingers
+     extended, the forearm still on the table;
+  4. routine, 122–272 s: from the free-hold pose, five moves, five repetitions each, each
+     repetition 1 s out, 2 s hold, 1 s back, 2 s hold. The moves are: index curl (MCP 45°,
+     PIP 60°); wrist extension 30°; wrist flexion 30°; index abduction 15° towards the thumb;
+     and wrist radial deviation 15°. Angles are targets by eye against a protractor card on the
+     table, and the sim takes the targets;
+  5. the hand back on the table; the capture stops at 280 s.
+- Trials: 3 per session, with a minute's rest with the hand on the table between them, then one
+  mass-loading capture (`timusim-v5 cue --added-g G`; the weight, weighed, taped on top of the
+  board): table, lift and free hold as above, the hand back on the table at 120 s, stopped at
+  125 s.
+- Sessions: session 1 fits; sessions 2 and 3 are reported, on different days and power-ups.
+- Phase windows: table 5–58 s, free hold 67–120 s, routine 122–272 s. A trial is redone if the
+  lift (|ω| of `palm` over 30 dps) does not start between 57 and 66 s, for missing samples, or
+  for a reason seen without its readings (a move skipped or out of order).
+- Session 1 fits, in order, with the chip parameters fixed from V1 and V2:
+  1. mounts: each sensor's mount rotation, from its gravity on the table (palm frame z up) and
+     its mean gyro axis in the routine's wrist flexion (`palm`) and index curl (`finger`)
+     moves, both the flexion axis, as in V4's hinge fit;
+  2. tremor: a torque density for each of wrist flexion, wrist deviation, forearm
+     pronation-supination (`sway_ry`), finger flexion (MCP and PIP driven at one weight), MCP
+     abduction and the two slow drift DOF (`sway_rx`, `sway_rz`), one stiffness scale shared by
+     the three wrist and forearm DOF, one shared by the finger joints and one for the drift. Inertia
+     is the literature value plus the added masses (the board's weighed mass at its measured
+     centre on the palm, 8 g at the finger sensor), and damping is the literature value. The other sway DOF stay off,
+     since the forearm is supported. Fitted on the free hold:
+     on a grid of the two stiffness scales, 300 s sims with one joint driven alone at unit
+     density, and one with no tremor, give band powers that add, since the drives are
+     independent and the angles small. The fit compares band powers per axis of the gyro turned
+     into the segment frame by the step-1 mounts, so that flexion and abduction, about
+     different axes, are told apart. Each axis's power gets 1% of the band's total over the
+     three axes added, so that a degree or two of mount error, which leaks about −30 dB of the
+     strong axis into the weak ones, does not count. The densities are the non-negative
+     least-squares fit of the real band powers in dB. The grid point that minimises
+     Σ(ΔdB / 3 dB)² + Σ(Δf / 1 Hz)² over both sensors' band powers and dominant frequencies
+     wins. A full sim with the fitted values checks the additivity. On simulated trials
+     (2026-10-31, before any V5 capture), the fit returns the mounts within 1.5°, both
+     stiffness scales exactly, each density within 7% and the table support within 2%;
+     In the same least squares, a central oscillation: one narrow-band drive shared by the wrist
+     and forearm DOF, a gain each, through the same muscle filter. Its frequency is the median
+     over trials of the free hold's spectral peak between 9.5 and 16 Hz (both sensors, all
+     axes); its half-power width (0.2–5 Hz) is fitted;
+  3. table support: the tremor drive scale on the table, from the table phase's band powers
+     with the fitted densities, by the same least squares;
+  4. heartbeat and breathing: two narrow-band drives, not scaled by the support (present on the
+     table too). The heartbeat (0.8–2 Hz, its 2nd harmonic at a fitted amplitude) acts on the
+     three forearm rotations and, with its own gain, on the finger joints; breathing
+     (0.15–0.6 Hz) on the three forearm rotations. Frequencies, widths and gains are fitted on
+     the table phase's spectrum at 20 s resolution over 0.15–3.5 Hz, against the spectrum's own
+     background (a 0.8 Hz running median), so that the lines and not the broadband level set
+     them.
+- Sim: each trial's scenario is the hand file, the fitted tremor and the phase timeline, with
+  each sensor's chip config and measured ODR from the real capture. Three seeds per real
+  capture; the sim value is the mean over all of them.
+- Ladder: rung 1, ideal kinematics, has chip transfer, noise and tremor off and no twist;
+  rung 2 adds chip transfer; rung 3 noise; rung 4 tremor on the finger joints; rung 5 the wrist
+  and forearm tremor with the central oscillation, and the finger twist; rung 6 the slow drift of
+  the hand (`sway_rx`, `sway_rz`); rung 7 heartbeat and breathing (`body`).
+- Scoring, sessions 2 and 3: every metric per phase and sensor. Accel noise is scored on the
+  table phase only and handedness on the routine only.
 
 ## Acceptance
 
@@ -189,7 +273,6 @@ under Changes with its date and whether test data had been seen):
 | band power | 3 dB |
 | dominant frequency | 1 Hz absolute |
 | gyro std, median peak, linear acceleration | 25% |
-| mass-loading shift | sign must match, size within 50% |
 | clip level, wrap | exact: same code, same sign behaviour |
 | recovery | 2 samples absolute |
 | gyro scale | 1° absolute on the integrated angle |
@@ -606,3 +689,324 @@ Each rung of the ladder (ideal kinematics, + chip transfer, + noise and bias, + 
   32 events; the pivot is screwed in since session 2). A wrap is now the output reaching the
   opposite 99% band (the event's own clip threshold) while the input is past full scale, the
   two's complement signature.
+- 2026-10-31, V4/V3 session 3 scores (recorded 2026-10-30 evening, power-ups 14-15, pivot screwed
+  in, each placement checked live against session 1's holds; nothing refitted): V4 over sessions
+  2 and 3 is 30/37 (session 2 alone 26/35). Tilted 10/10. Hinge horizontal 11/12 (from 9/12): the
+  one fail is `palm_lsm9`'s static tilt at B, real 3.2° against 1.9° sim. Hinge vertical 9/13
+  (from 7/13): static tilt at B fails for all three sensors (real 1.4-3.6°, sim 0.3-2.2°), and
+  so does finger's gyro scale B->A (real 161.7°, sim 159.2°, window 2.4°). Base rotation 0/2:
+  finger's and palm's mount rms, the chips' x/y gyro gains, which are not modelled (as in the V4
+  check). V3 over sessions 2 and 3 is 82/84 (from 79/82): finger's gyro z- recovery (real -1.15,
+  SD 0.76, against sim 1, window 2) and palm's accel y- clip level (real -32490 over 4 events,
+  sim -32768, window 164).
+- 2026-10-31, V1rig sessions 2 and 3 (night 8, power-up 13, and night 9, power-up 16): every V1
+  config on all three sensors at once (`trio_*` firmware envs, `timusim-protocol`; 952 Hz clean on
+  the shared bus both nights, so no split), then one 120-min default hold each night (`-s4-`,
+  `-s5-`). All 24 captures are clean (0 missing). Scored as before over sessions 1-3: finger
+  573/600 (541 over sessions 1-2), palm 393/420 (372), `palm_lsm9` 545/660 (522). Most configs now
+  have 2-3 captures, so the windows carry a 2 SD term: of the fail->pass changes with session 3,
+  18 of 35 (finger), 5 of 23 (palm) and 13 of 34 (`palm_lsm9`) have the sim within the old
+  window, and the rest pass only because the window widened. `palm_lsm9` still fails on the
+  gyro: bias 31 (every config and axis), noise floor and low-frequency level 16 each, std 10.
+  That is the same unit difference as night 7. The finger's and palm's fails are spread out,
+  the largest group being palm's accel Allan at 10-60 s (13). The night-9 build is the night-8
+  firmware (`data/firmware/README.md`).
+- 2026-10-31, code review (Claude, at the author's request). It was meant to change no fitted
+  parameter, score or figure, and none changed. Before the review, every step of
+  `timusim-reproduce` (comparisons skipped) was run as a baseline; after it, everything was run
+  again. Every score and parameter file is identical. The 220 PNG figures are byte-identical
+  too. The V1rig steps were rerun on the baseline's manifest without night 9's captures, which
+  were recorded in between, so that their comparison uses the same data. ctest 6/6, pytest
+  52 passed, 3 skipped. What changed:
+  - V1, V2, V3 and V4 used four copies of the acceptance rule; they now share one,
+    `acceptance.judge` (window max(tolerance, 2 SD), SD with ddof 1).
+  - `fit.with_top_level` replaces the top-level keys of a parameter file in one place (V2's
+    accel and V4's gyro corrections). Unused and duplicated helpers are removed.
+  - The rig code shares one parameter-file map, one clip threshold and one score row type for
+    V3 and V4. `sim.point_scenario` is shared by V1's still scenarios and the rig's replay
+    scenarios.
+  - `timusim-place`, the live placement used for V4 sessions 2 and 3, moved from the scratchpad
+    into the package. `timusim-inspect --hold SENSOR` prints a hold's gravity.
+  - The one-off checks behind findings in this file are in `diagnostics/`, with a README mapping
+    each one to its finding. `data/firmware/` keeps the diff of each dirty firmware build.
+  - C++: the scenario parser is split into one function per section, with the same error
+    messages. The chip model's fallbacks by key share one helper. This is the only change in
+    the night-9 firmware build, and it is in the simulator, not the firmware.
+  - Not changed: the firmware sources (a change needs a reflash and hardware tests), the
+    libraries copied from the glove project, and the comparison drivers.
+- 2026-10-31, gyro gain calibration (test `GyroCal`), procedure drafted by Claude at the author's
+  request before any capture; the author confirms or changes it before the first one. This
+  change comes after V4's session-2 and session-3 scores were seen: base rotation fails because
+  each chip's gyro has gain and cross-axis on all three axes, and the models have only the
+  hinge axis's gain (above). The fit uses its own captures, independent of V4. V4 and V3 are then
+  rescored with the matrices.
+  - Why a new capture: V2's holds are still, so the gyro sees nothing to calibrate against. On
+    the rig the hinge is always the same sensor axis. Turns between still poses, checked
+    against gravity from the V2-calibrated accelerometer, fix all nine entries (Tedaldi et al.
+    2014; the glove project's `cal/gyro_gain.hpp` fits only the diagonal this way).
+  - Setup: all three sensors stay on the V4 arm, taped at stop A, with the pivot screwed in and
+    the mounts unchanged, so one capture covers palm, finger and `palm_lsm9`. Rig firmware
+    `default` config, the same chip settings as V4. Firm table.
+  - Capture: one continuous recording of about 6 min. It starts with 30 s still, box on its base.
+    Then come at least 16 poses, each one held still for at least 5 s with the box resting on the
+    table or on a block, never held by hand. Between poses the box is turned by hand, in one
+    smooth motion of 1-3 s, kept under about 150 dps (inside full scale on every chip). The
+    turns go about all three box axes, each axis at least four times and in both directions.
+    The poses spread gravity over the box's faces and edges, so no axis is turned about only
+    while it is vertical (a turn about the vertical is invisible to gravity). The recording ends
+    with 30 s still. Two captures in one session, at one power-up: the first is fitted and the
+    second checked.
+  - Fit, per sensor: a reading is m = G ω + b, with ω the true rate in the accelerometer's frame.
+    A per-axis gain on negative rates (`gyro_negative_gain`) comes in before G, on every sensor
+    (the author, before any capture: one procedure for both chips; V4 measured the LSM6DSL's
+    direction difference only on the hinge axis, 0.2%).
+    b is each still's mean gyro, interpolated linearly across the turn after it, so zero-rate
+    drift and the power-up offset drop out. A still is at least 2 s with every gyro axis within
+    3 dps of its median (V4's rest rule); a turn is the samples between two stills. Each turn's
+    rate G^-1(m - b) is integrated to a rotation, which carries the gravity of the still before it
+    into a prediction for the still after it. G and the negative gains are fitted by least
+    squares on those angle misfits, starting from the identity.
+  - Result: G is written as `gyro_gain` and the negative gains as `gyro_negative_gain` into each
+    sensor's parameter file, in place of V4's hinge-axis gain. V4's gyro gain against gravity
+    from the sweeps is then reported as a check of the calibration and no longer fitted.
+    Reported per sensor: G, each turn's misfit on the fitted capture, and on the second capture
+    with nothing refitted.
+  - Acceptance of the calibration, before V4 uses it: on the second capture, the median turn
+    misfit is under 0.5° and no turn's misfit is over 2°. A turn with missing samples is
+    dropped, along with any still they fall in. A capture is redone only for a reason seen
+    without its readings (a pose that moved, a bumped table) or when its remaining turns no
+    longer cover every axis in both directions (the author, 2026-10-31, after capture 1 lost
+    about 20 samples per sensor to one bad frame inside one turn, before any fit was run).
+  - Session 1, power-up 17 (2026-10-31): fitted 143742, checked 151050. On the check, palm
+    passed (median 0.32°, max 1.47°; 1.09° at unit gain), `palm_lsm9` passed (0.39°, 1.41°;
+    1.63°) and the finger failed its median (0.67°, max 1.85°; 1.55°). 33 of 143742's 51 turns
+    were over 150 dps, against the procedure's pace; the check's 21 turns were all but one
+    under it, and on the check the finger's misfit grew with turn size (correlation 0.53), as a
+    gain fitted at other rates would leave. Fitted on the check capture alone, the gain agrees
+    within 0.4% on the diagonal, 0.6% on the negative gains. Extra terms tried and not taken:
+    g-sensitivity (unstable, worse check) and a per-axis gain growing with rate (finger check
+    0.55°). The author had 143742 redone at the procedure's pace as 154121, the fitted capture;
+    151050 stays the check, though recorded before it. This redo comes from a deviation from the
+    procedure, seen in the readings after the check had been scored.
+  - 154121 (fitted): one bad frame at 139.4 s lost 132-148 samples per sensor inside one turn,
+    which is dropped. One turn (248 s) peaked at 346-368 dps. The author's rule, from here on and
+    for every GyroCal capture: a turn whose rate peaks over 150 dps is dropped. It also drops one
+    turn of 151050 for the finger and two for `palm_lsm9`, whose misfits had been 0.24-0.62°.
+  - Fitted on 154121 (16 turns left), every sensor failed the check: palm 0.51° median (max
+    1.64°), finger 0.83° (4.96°), `palm_lsm9` 0.82° (4.34°). Pace was not the cause: slow turns
+    did no better than 143742's 51 mostly fast ones. Nor was the accelerometer: refitted on the
+    stills of 154121 and 151050 together (|a| = 1, a symmetric gain and an offset on top of V2),
+    |a| tightens from ±1.4-6.2 mg to ±0.3-0.5 mg and V2 moves by at most 0.35% and 10 mg
+    (`palm_lsm9` z zero, as in its power-up dependence), but the check stays at finger 0.91°,
+    `palm_lsm9` 0.85°, while palm passes (0.38°). The 12 parameters are loosely pinned by 16
+    turns (predicted 1 SD of Gxy 1.2%).
+  - The author's changes, before the next fitted capture (155630) and any fit on it: a fitted
+    capture has at least 40 turns, all under 150 dps, at least 6 each way and 12 in total about
+    each sensor axis (a turn counts for an axis if it tilts gravity at least 30° about it); and
+    each session's accelerometer correction is refitted, as above, on the stills of all its
+    GyroCal captures before the gyro fit. Pooled over 154121 and 151050 with that correction, the
+    fit reaches finger 0.36° and `palm_lsm9` 0.33° in-sample, which is not an acceptance result.
+  - Session 1 result, fitted on 155630 (41 turns per sensor), checked on 151050: palm PASS
+    (median 0.26°, max 1.24°; 1.05° at unit gain), finger FAIL (0.57°, 1.91°; 1.61°),
+    `palm_lsm9` FAIL (0.56°, 1.32°; 1.38°). The LSM9DS1s fit their own capture worse than the
+    check (0.73°, 0.76°), so the remainder is a chip effect the model lacks, not too few turns.
+    The author keeps the 0.5° tolerance: the LSM9DS1 gains are not accepted. V4 and V3 are
+    rerun two ways, both reported: strict (only palm's calibrated gain, the LSM9DS1s on V4's
+    hinge-axis gain), the scored result; and all three calibrated, marked not accepted, to show
+    the gains' effect.
+  - Reruns (data/{v4,v3}-gyrocal-{strict,all}): V3 82/84 both ways, as before. V4 strict 30/37
+    (before 30/37): palm's base-rotation mount rms passes (sim 1.15 -> 1.99 dps, real 2.41) and
+    its hinge-horizontal B->A gyro scale fails (sim 171.7° -> 173.6°, real 171.0°). V4 all
+    (not accepted) 29/37: hinge-vertical and tilted gyro scales move towards the real ones
+    (finger hinge-vertical B->A passes, 159.2° -> 160.4°, real 161.7°), while with the hinge
+    horizontal every sensor's sim now overshoots the real span by 1-2% (finger B->A fails,
+    164.7° vs 161.7°); finger mount rms stays failing from the other side (0.44 -> 1.01 dps,
+    real 0.77); `palm_lsm9` tilted closure fails (4.73° -> 6.66°, real 4.94°). The
+    hinge-horizontal overshoot is common to all three sensors, which points at the reference
+    there (rests from gravity) or at the sweeps' stop impacts rather than at one chip; not yet
+    tested.
+  - Then: V4 (every session) and V3 are rerun with the calibrated parameters. The change and the
+    before/after scores are logged here, base rotation in particular.
+- 2026-11-01, V5, before any V5 capture (the author): the palm sensor is the LSM6DSL on the STM32
+  board, strapped firmly to the back of the hand, instead of `palm_lsm9`; it is easier to mount
+  and better characterized (own V1/V2 parameters, GyroCal pass), where `palm_lsm9` has only the
+  finger unit's parameters, which V1rig showed do not carry over. With the board on the hand in
+  every trial there is no light-palm condition, so the mass-loading capture and its metric are
+  dropped. The board's weighed mass sits at its measured centre: scenario `[[masses]]` takes an
+  optional `offset` from the sensor (point mass; the board's own rotational inertia is left out,
+  and the fitted wrist stiffness absorbs a common inertia error).
+- 2026-11-01, V5, before any V5 capture (the author): the finger sensor goes on the middle
+  phalanx, the only place it can be fixed, so it sees MCP and PIP flexion but not the DIP. The
+  chain takes `finger_segment = "middle"` (sensor from the PIP, middle segment frame). Hand
+  measured the same day into `sim/scenarios/v5/hand.toml`: proximal 36 mm, middle 34 mm, the
+  points in the palm frame listed there; board 124 g as strapped on (wires and straps included).
+  Fit recovery on simulated trials with this geometry (`diagnostics/v5_fit_recovery.py`):
+  mounts 0.30° palm, 1.32° finger; both stiffness scales exact; densities wrist +0.8%, MCP
+  flexion +11.9%, PIP −0.4%, abduction +2.0%; table support 0.296 against 0.3. MCP flexion is
+  worse than with the distal mount (+2.4%) because the middle-phalanx sensor separates MCP from
+  PIP flexion less well.
+- 2026-11-01, V5 session 1, after its captures were seen (the author): the lift window widens
+  from 60 ± 3 s to 57–66 s, so that trial 025316 (lift at 65.3 s) is kept. Settling, as the
+  first time after the lift that the 0.5 s RMS of |ω| stays under 3× the hold's median for 2 s:
+  025316 palm 66.4 s, finger 68.2 s (1.2 s into the 67–120 s hold window; 1.5% of the window
+  above 3×, against 0.0% and 0.7% in the other two trials); 025905 palm and finger 63.7 s;
+  030716 palm 62.8 s, finger 62.7 s. The early bound stays at 57 s, since the table window ends
+  at 58 s.
+- 2026-11-01, V5, after session 1's fit was seen (the author): tremor in three directions. The
+  session-1 fit (cost 260; 0.48 on simulated trials) drove flexion and abduction only, while the
+  real free hold has power about all three palm axes (3–8 Hz, palm frame: flexion axis −3.5 dB,
+  forearm axis −8.5 dB, deviation axis −8.0 dB; model −39 dB on the latter two, its 1% axis
+  floor), so the fit raised flexion about 15 dB to lift the floor. The additivity held (sum of
+  unit runs within 1 dB of the full sim). The order matches Pigg et al. 2020 (postural tremor:
+  wrist flexion, then forearm pronation-supination and wrist deviation about equal, one peak
+  frequency across DOF), and Jombík et al. 2020 find physiological tremor between all three
+  planes. Wrist deviation and forearm pronation-supination (`sway_ry`) join the fit with the
+  wrist's stiffness scale; their inertia, stiffness and damping are Lakie's flexion values
+  times Peaden & Charles 2014 ratios to flexion (sim/params/tremor_literature.toml); the board
+  mass adds to `sway_ry`'s inertia about the forearm axis. Yao et al. 2012's 3-DOF wrist model
+  (uncoupled pendulums with Hill muscles under FES) was read and not used: it is driven by
+  stimulation pulses rather than noise, and its passive stiffness (0.3–0.4 Nm/rad) is far
+  below the postural stiffness that sets tremor frequency.
+- 2026-11-01, V5, after the three-direction refit was seen (the author): that refit cost 56.8;
+  on simulated trials the wrist, deviation and forearm densities came back within 1.3% but MCP
+  flexion went to 0 and PIP to +42%, since the middle-phalanx sensor turns with both about the
+  same axis. MCP and PIP flexion now share one fitted power weight (each keeps its own
+  literature inertia, stiffness and damping), and the stiffness-scale grid widens from
+  0.5–8 to 0.25–8 because the finger scale stopped at the old lower edge (0.5). The
+  per-axis band powers of that refit were within about ±5 dB of the real ones, too strong at
+  3–13 Hz and too weak at 0.1–3 and 13–25 Hz; the free hold sits 20–35 dB above the bench
+  noise floor (V1rig long s5) below 13 Hz, and trial 025316's table phase about 10 dB above
+  the other two in every band.
+- 2026-11-01, V5, same refit (the author): slow wander of the held hand is modelled. The free
+  hold's 0.1–3 Hz power is 25–30 dB above the still chips' (bench floor, V1rig long s5), so it
+  is hand motion, not chip drift, and the tremor oscillators reach it only with their tails
+  (3–10 dB short). Two drift sources, `sway_rx` and `sway_rz` (the hand turned about the
+  wrist's flexion and deviation axes), are critically damped oscillators with the wrist's
+  inertia; the fit takes their resonance from 0.5, 1 and 2 Hz (one shared stiffness scale,
+  damping scaled with its square root) and a level each. There is no literature value for them;
+  Pigg et al. 2020 and Elble & McNames 2016 put voluntary and postural movement below about
+  3–4 Hz. They form a sixth rung, `drift`, after `wrist_and_twist`. Finger abduction stays its
+  own group: the finger sensor sees it about a different axis from flexion.
+- 2026-11-01, V5, after the drift refit was seen (the author): the palm rig mass was wrong. V5's
+  palm rig is the ST-Link with the palm sensor, 48 g as strapped on (reweighed), not the 124 g
+  STM32 board; the finger stays 8 g. `hand.toml` takes 48 g; the board-centre offset is still
+  the one measured for the STM32 board. Every fit before this one used 124 g.
+- 2026-11-01, V5, after the drift refit was seen (the author): a central oscillation. Every trial,
+  axis and sensor of session 1's free hold shows two peaks, about 6–7 Hz and a narrow one at
+  11–13 Hz that moves between trials (10.9, 12.8, 11.5 Hz) and is common to both sensors, which
+  one noise-driven resonator per DOF cannot make (Elble & McNames 2016: physiological tremor has a
+  mechanical and a central 8–12 Hz part). One narrow-band drive shared by the wrist and forearm
+  DOF joins the model (sim `[[drives]]`), its frequency the median measured hold peak, its width
+  and gains fitted. With the drive's frequency left free the 5-band fit put it at 13.1 Hz, on the
+  8–13/13–25 Hz band edge, to fill a 13–25 Hz deficit, so the frequency is measured instead.
+  The trials' spread is about 9 against a perfect model's 3.1, and the earlier fit's 35.4 was not
+  trial noise; per-trial fits chose different grid points (cost 40–53 each).
+- 2026-11-01, V5, same (the author): heartbeat and breathing. The table phase shows lines at
+  1.20 Hz and 2.35–2.40 Hz (heartbeat and its harmonic) and 0.30–0.35 Hz (breathing), +3–6 dB
+  over the background in trials 025905 and 030716 and hardly visible in 025316, whose hand was
+  not still; no mains or machine lines. Where palm and finger are coherent their delay is about
+  0 (±50 ms, no consistent sign), so no delay is modelled. Two drives not scaled by the support
+  act through the whole run (the free hold's broadband motion buries them there); they are
+  fitted to the table spectrum against its own background, and form a seventh rung, `body`.
+- 2026-11-01, V5, same (the author): the mass-loading capture comes back, one per session after
+  the three trials, to tell the mechanical peak (moves with the load) from the central one (does
+  not). It is reported, not scored.
+- 2026-11-01, V5, refit with all of the above (session 1 only; no session 2 or 3 data exist):
+  cost 24.2 (√(24.2/32) × 3 dB ≈ 2.6 dB typical miss), from 35.4. Wrist scale 0.71, finger 1,
+  drift 0.25 (0.5 Hz, the grid's lower edge); central 11.5 Hz, width 3.1 Hz, nearly all on wrist
+  flexion, whose own broadband density fits to about 0, as does finger flexion's (the finger
+  sensor's flexion is the wrist's, coherence 0.9–0.98 below 13 Hz); heartbeat 1.20 Hz (2nd
+  harmonic 0.51), mostly on forearm roll, breathing 0.28 Hz. On simulated trials with a central
+  drive (11.5 Hz, width 1.0) the fit returns every density within 8%, the support within 1%, the
+  width as 1.42 Hz and the central gain within 7%. The finger chip's angle to the palm grew
+  0.6°, 8.9° and 3.8° over the three trials (slow slip, no rocking seen).
+- 2026-11-01, V5 session 2 recorded (power-up 19): trials 135253, 135946, 140542 and the
+  mass-loading capture 141336 (+69 g); six false starts (0–1871 samples) excluded in the manifest.
+- 2026-11-01, V5, after session 2 was seen (the author): the routine is replayed as performed.
+  The by-eye moves differ from the script: curl 84–107° (105), extension 29–45° (30), flexion
+  12–23° (30), abduction and radial deviation 15–30° with the sign opposite to the script's
+  "towards the thumb"; out in 0.3–1.0 s and back in about 0.6 s (1 s scripted), starting about
+  1 s before each cue. Each trial's sim now takes every repetition's angle and timing measured
+  from that trial: the angle integrated from the segment-frame gyro (palm, or finger less palm)
+  about the move's axis, the timing from its 10/50/90% crossings as a min-jerk move, curl split
+  between MCP and PIP as scripted. A sim replaying measured repetitions measures back within
+  0.42° and 14 ms.
+- 2026-11-01, V5, after session 2 was seen (the author): session 2's free hold has no 11–13 Hz
+  peak (session 1's had), so the central level, fitted on session 1 alone, varies by day. Its
+  band, 8–13 Hz in the hold and routine, is scored at 6 dB instead of 3 (about the session 1 to
+  2 difference, so chosen from the data it judges); the ladder also reports the 3 dB count.
+- 2026-11-01, V5, after session 2's mass-loading capture was seen (the author): peaks for the
+  mass check are taken on spectra smoothed over 1 Hz, since single bins jumped between trials
+  by up to 3 Hz on session 2's flat spectra. Result: the 6.3 Hz peak (unloaded trials 6.25,
+  6.25, 6.50 Hz) did not move with +69 g (6.50 Hz), where the model predicts −0.46 Hz; the
+  central peak scatters 9.75–14.13 Hz between unloaded trials and cannot be read.
+- 2026-11-01, V5, after session 2 was seen (the author): the table support is fitted a second
+  time on full-model table sims around the band-power value, scored on the table's per-axis
+  band powers and both sensors' accel noise (std of |a|, 20%); linear acceleration is left out,
+  since on the table it reads the chips' static offset from 1 g (9 mg for the finger in a sim
+  with no motion). Result 0.128 (0.142 on band powers alone); the ladder is unchanged (32/58).
+  The finger's accel noise stays about 2× the real (2.2 against 1.16 mg) at any support that
+  fits its gyro: the sim's finger accelerates too much per unit of rotation on the table.
+- 2026-11-01, V5, after session 2 was seen: what the sim's routine misses. Fitting each
+  repetition's angle, min-jerk leaves 1.02% RMS of the angle, a cubic 1.06%, min-jerk with an end
+  overshoot 0.93%, an asymmetric beta velocity profile 0.71% (curl and abduction peak early,
+  at 0.30 and 0.17 of the move; wrist moves near 0.5); the residual rate is mostly 3–6 Hz.
+  During moves the real gyro is 10–18 dB above the sim's at 3–100 Hz with the gross motion
+  (0.1–3 Hz) matched; palm and finger are coherent there at 3–13 Hz (0.5–0.6) and not above
+  13 Hz (0.24–0.30, the floor for those windows), so the high band is local to each mount
+  (strap, skin). In the routine's holds the real tremor is 3–7 dB (palm) and 6–10 dB (finger)
+  above the free hold's; the sim's is the same as its free hold.
+- 2026-11-01, V5, after session 2 was seen (the author): movement roughness. Three parts,
+  fitted on session 1's routine split into move and hold windows (band powers per axis,
+  3–100 Hz, by least squares from two sims per trial, full model and without tremor): a routine
+  gain on the support (1.56); a drive gated by each joint's scripted speed through the muscle
+  filter (sim `[[drives]]` `gate = "speed"`; forearm rotation, never scripted, takes the wrist's
+  speed), 7.57 Hz, width 0.70 Hz; and mount jolts, rate added at each sensor while its segment
+  moves (sim `[jolt.palm]`, `[jolt.finger]`), held above 13 Hz where the sensors are
+  incoherent, fitted at 13 Hz (the bound), width 5.6 Hz, palm 0.34 and finger 1.05 dps/√Hz per
+  rad/s. Routine-window cost 559 without, 39.5 with (48 terms); with the jolts allowed down to
+  10 Hz it was 55.6 before forearm gating, 59.7 held above 13 Hz. On simulated trials with known
+  values (diagnostics/v5_routine_recovery.py) the fit returns the routine gain within 2%, the
+  jolts within 1% in frequency and 4–8% in level, and the roughness at 7.9 Hz (7.5), but not its
+  split between the wrist DOF (−60% to +44%) or the tiny finger gains: those are gated by the
+  same moves and seen by the same two sensors, so only the sensor-level result is determined.
+  It forms an eighth rung, `roughness`. Session 2: 41/58 pass (32 at `body`); the routine 15/20
+  (7/20), every routine band power now passing. Still failing in the routine: dominant
+  frequency (real 3.1–3.2 Hz, sim 7.0–7.4 Hz) and handedness (real 0.87–0.91, sim 0.71–0.74,
+  it was 0.98 without roughness).
+- 2026-11-01, V5, after session 2 was seen (the author): table contact. On the table the hand
+  rests and rocks about a held point rather than swinging about the wrist (sim
+  `geometry.contact_pivot`, the hand's held point, and `finger_contact_pivot`, the finger's own,
+  lying on the table too; full contact at the start support, none once lifted; rates unchanged).
+  One point could not serve both sensors (palm accel noise needs it at the wrist, the finger's
+  near the knuckles), hence two. The table support now comes from the gyro band powers alone
+  (0.142) and each pivot from its sensor's accel noise on session 1: palm 0.6 cm from the
+  wrist, finger 5.6 cm proximal of the PIP (about 2 cm into the palm from the MCP). It forms a
+  ninth rung, `contact`. Session 2: the finger's table accel noise falls from 2.2 to 1.49 mg
+  (session 1 real 1.46, session 2 real 1.16, so still outside session 2's window); the ladder
+  stays at 41/58.
+- 2026-11-01, V5, after session 2 was seen (the author): move shape. Each repetition's out and
+  back curves are fitted with a beta velocity profile, s^(a−1)(1−s)^(b−1) (min-jerk is a = b = 3,
+  bounded 2–8 so the acceleration stays finite), and replayed (sim `profile = "beta"`). Medians:
+  wrist moves near min-jerk (peak at 0.40–0.54 of the move); curl out and abduction peak early
+  (0.27, 0.19); the curl's return snaps back with a long tail (a = 2, b = 8, 77% on a bound). A
+  sim replaying them measures back within 0.63° (start times within 0.2 s, traded against the
+  slow tails). Routine-window cost without roughness 447 (559 with min-jerk), with it 37.6
+  (39.5). The ladder stays at 41/58: the routine's dominant frequency (real 3.1 Hz, sim 6.9–7.4)
+  and handedness (real 0.87–0.91, sim 0.73) still fail.
+- 2026-11-01, V5, after session 2 was seen (the author): routine dominant frequency and
+  handedness as fit targets. The roughness band is now chosen from a grid of centres and widths
+  on the band powers plus each sensor's routine dominant frequency (band powers alone fitted a
+  narrow 7.6 Hz band whose peak outranked the moves' 3 Hz): 2.0 Hz, 1.5 Hz wide; session 2's
+  routine dominant frequency now passes on both sensors (sim 3.0/3.3 Hz, real 3.1/3.2). One
+  session 2 trial with roughness on one joint group at a time showed handedness falls with
+  forearm roll (palm 0.83) and the finger joints (finger 0.90), not with the routine gain or
+  jolts. Roll's share is therefore also chosen on session 1's simulated handedness (shares 1,
+  0.5, 0.25, 0, the other weights refitted): 0.5. Session 2 handedness: palm 0.84 (real 0.91,
+  was 0.76), finger 0.78 (real 0.87, was 0.75), both still outside. Without roll the refit moves
+  the roughness onto the finger joints and the finger falls further; the finger routine 3–8 Hz
+  band is 5 dB above session 2's real, so session 2's roughness was lower than session 1's.
+  Mount jolts now also turn the chip by their integrated angle (forgotten below 0.5 Hz); this
+  leaves handedness unchanged. The ladder stays at 41/58 (two routine band powers lost to the
+  broader roughness, the two dominant frequencies gained).
+

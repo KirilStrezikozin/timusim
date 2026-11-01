@@ -12,11 +12,16 @@ Both are TOML, read by `sim/scenario.hpp`. Paths in a scenario are relative to i
 | `[geometry]` `proximal_m`, `middle_m`, `dip_per_pip` | segment lengths and DIP coupling; required |
 | `[geometry]` `palm_mount`, `finger_mount` | `{ axis = [x, y, z], deg = a }`, sensor to segment |
 | `[geometry]` `twist_at_90_deg` | finger twist at 90° flexion |
+| `[geometry]` `finger_segment` | `"distal"` (default) or `"middle"`; `finger_sensor` is from the DIP or the PIP |
 | `[palm]`, `[finger]` `chip` | chip config, below |
 | `[palm]`, `[finger]` `params` | parameter file; absent is an ideal chip |
 | `[start]`, `[[moves]]` | poses: `palm`, `wrist`, `joints_deg`, `support`; a move has `hold_s` or `duration_s` and `profile` (`min_jerk`, `cosine`) |
 | `tremor_file`, `[tremor]` | joint oscillators per DOF: `inertia`, `stiffness`, `damping`, `torque_density`, `muscle_tau_s`, `muscle_order` |
-| `[[masses]]` | `kg` and `at = "palm"` or `"finger"` |
+| `[[drives]]` | shared narrow-band torque: `frequency_hz`, `bandwidth_hz` (half power), `harmonics` amplitudes (default `[1.0]`), `gate` (`support`, the default, scales it with support; `none`; `speed`, by the DOF's scripted speed in rad/s), `gain` table by DOF name, N m/√Hz at the peak |
+| `[jolt.palm]`, `[jolt.finger]` | mount jolts: rate added at the sensor while its segment moves, `frequency_hz`, `bandwidth_hz`, `level_dps` (dps/√Hz at the peak per rad/s of segment speed) |
+| `geometry.contact_pivot` | point of the hand (palm frame, m) the table holds still while the hand rests on it (support below 1, full contact at the start support); default the wrist; `geometry.finger_contact_pivot`, the finger's own held point (sensor's segment frame from its proximal joint), default none |
+| `[[moves]]` `profile = "beta"`, `shape = [a, b]` | velocity ∝ s^(a−1)(1−s)^(b−1); [3, 3] is min-jerk, a < b peaks early |
+| `[[masses]]` | `kg`, `at = "palm"` or `"finger"`, optional `offset = [x, y, z]` m from that sensor |
 
 ### Chip config
 

@@ -66,7 +66,7 @@ def test_v2_passes_on_holds_of_the_model_itself(tmp_path: pathlib.Path) -> None:
                     "file": f"{stem}.bin", "test": "V2", "config": "default", "session": session, "clean": True,
                     "sensors": {"finger": {"up": list(up)}},
                 },
-                path=data / manifest.MANIFEST_PATH.name,
+                path=manifest.path(data),
             )
     results = v2.run(data, tmp_path / "work", base, log=lambda _: None)
     fitted = tomllib.loads((tmp_path / "work" / base.name).read_text())

@@ -25,6 +25,7 @@
 #include <deque>
 #include <functional>
 #include <random>
+#include <vector>
 
 namespace hand {
 
@@ -57,6 +58,21 @@ enum Dof : std::uint8_t {
     DOF_COUNT,
 };
 
+/* A narrow-band torque shared by several DOF (a central oscillation, the heartbeat, breathing,
+ * movement roughness): white noise through a second-order band-pass per harmonic, centred at
+ * k * frequency_hz with a half-power width of k * bandwidth_hz and a peak of harmonics[k-1]^2
+ * times gain^2 (gain in N m / sqrt(Hz), one-sided, per DOF). It joins each DOF's drive before
+ * the muscle filter, times the gate: Pose::support like the joint noise, 1, or the DOF's own
+ * scripted speed in rad/s (gain then per rad/s). */
+struct SharedDrive {
+    enum class Gate : std::uint8_t { Support, None, Speed };
+    double frequency_hz = 0.0;
+    double bandwidth_hz = 0.0;
+    std::vector<double> harmonics{1.0};
+    std::array<double, DOF_COUNT> gain{};
+    Gate gate = Gate::Support;
+};
+
 struct JointMotion {
     double q   = 0.0;
     double qd  = 0.0;
@@ -71,16 +87,25 @@ class Tremor {
     using Oscillators = std::array<Oscillator, DOF_COUNT>;
     /* Scales the torque noise at time t; Pose::support along the trajectory. */
     using Support = std::function<double(double)>;
+    /* Each DOF's scripted speed at time t, rad/s, for speed-gated drives. */
+    using Speed = std::function<std::array<double, DOF_COUNT>(double)>;
 
     Tremor() = default;
 
-    Tremor(const Oscillators &oscillators, std::uint64_t seed, Support support)
-        : osc_(oscillators), rng_(seed), support_(std::move(support)) {
+    Tremor(
+        const Oscillators &oscillators, std::uint64_t seed, Support support, std::vector<SharedDrive> drives = {},
+        Speed speed = {}
+    )
+        : osc_(oscillators), drives_(std::move(drives)), rng_(seed), support_(std::move(support)), speed_(std::move(speed)) {
+        for (const SharedDrive &d : this->drives_) { this->band_.resize(this->band_.size() + d.harmonics.size()); }
         this->history_.push_back(Node{});
     }
 
     [[nodiscard]] bool active() const {
-        return std::any_of(this->osc_.begin(), this->osc_.end(), [](const Oscillator &o) { return o.active(); });
+        for (int j = 0; j < DOF_COUNT; ++j) {
+            if (this->dof_active_(j)) { return true; }
+        }
+        return false;
     }
 
     std::array<JointMotion, DOF_COUNT> at(double t) {
@@ -113,6 +138,42 @@ class Tremor {
         std::array<std::array<double, MAX_MUSCLE_ORDER>, DOF_COUNT> torque{};
     };
 
+    struct Band {
+        double y = 0.0;
+        double v = 0.0;
+    };
+
+    [[nodiscard]] bool dof_active_(int j) const {
+        const Oscillator &o = this->osc_[j];
+        if (o.inertia <= 0.0) { return false; }
+        if (o.torque_density > 0.0) { return true; }
+        return std::any_of(this->drives_.begin(), this->drives_.end(), [j](const SharedDrive &d) {
+            return d.gain[j] != 0.0 && d.frequency_hz > 0.0;
+        });
+    }
+
+    /* Advances every band one step; returns each drive's band-passed signal, unit peak density
+     * per harmonic amplitude. Semi-implicit Euler on y'' + 2 z w y' + w^2 y = 2 z w a n, whose
+     * rate y' has a peak gain a at w and a half-power width 2 z w. */
+    std::vector<double> step_drives_(std::normal_distribution<double> &n) {
+        std::vector<double> out(this->drives_.size(), 0.0);
+        std::size_t b = 0;
+        for (std::size_t i = 0; i < this->drives_.size(); ++i) {
+            const SharedDrive &d = this->drives_[i];
+            for (std::size_t k = 0; k < d.harmonics.size(); ++k, ++b) {
+                const double h    = static_cast<double>(k + 1);
+                const double w    = 2.0 * M_PI * h * d.frequency_hz;
+                const double zeta = d.bandwidth_hz / (2.0 * d.frequency_hz);
+                Band &s           = this->band_[b];
+                const double in   = 2.0 * zeta * w * d.harmonics[k] * n(this->rng_) / std::sqrt(2.0 * STEP_S);
+                s.v += (in - (2.0 * zeta * w * s.v) - (w * w * s.y)) * STEP_S;
+                s.y += s.v * STEP_S;
+                out[i] += s.v;
+            }
+        }
+        return out;
+    }
+
     static double hermite_(double p0, double m0, double p1, double m1, double s, double h) {
         const double s2 = s * s;
         const double s3 = s2 * s;
@@ -128,10 +189,22 @@ class Tremor {
         next.t                 = prev.t + STEP_S;
         const double support   = this->support_ ? this->support_(next.t) : 1.0;
         std::normal_distribution<double> n(0.0, 1.0);
+        const std::vector<double> shared = this->step_drives_(n);
+        const bool gated = this->speed_ && std::any_of(this->drives_.begin(), this->drives_.end(), [](const SharedDrive &d) {
+            return d.gate == SharedDrive::Gate::Speed;
+        });
+        const std::array<double, DOF_COUNT> speed = gated ? this->speed_(next.t) : std::array<double, DOF_COUNT>{};
         for (int j = 0; j < DOF_COUNT; ++j) {
             const Oscillator &o = this->osc_[j];
-            if (!o.active()) { continue; }
-            const double drive = support * o.torque_density / std::sqrt(2.0 * STEP_S) * n(this->rng_);
+            if (!this->dof_active_(j)) { continue; }
+            double drive = support * o.torque_density / std::sqrt(2.0 * STEP_S) * n(this->rng_);
+            for (std::size_t i = 0; i < this->drives_.size(); ++i) {
+                const SharedDrive &d = this->drives_[i];
+                const double gate    = d.gate == SharedDrive::Gate::Support ? support
+                                     : d.gate == SharedDrive::Gate::Speed   ? std::abs(speed[j])
+                                                                            : 1.0;
+                drive += gate * d.gain[j] * shared[i];
+            }
             const double keep  = o.muscle_tau_s > 0.0 ? std::exp(-STEP_S / o.muscle_tau_s) : 0.0;
             const int stages   = std::clamp(o.muscle_order, 1, MAX_MUSCLE_ORDER);
             double in          = drive;
@@ -151,8 +224,11 @@ class Tremor {
     }
 
     Oscillators osc_{};
+    std::vector<SharedDrive> drives_;
+    std::vector<Band> band_;
     std::mt19937_64 rng_;
     Support support_;
+    Speed speed_;
     std::deque<Node> history_;
 };
 
