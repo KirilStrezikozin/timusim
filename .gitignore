@@ -25,3 +25,5 @@ data/firmware/*
 /external/matlab/
 /external/matlab_*.zip
 /paper/
+
+/examples/quickstart/output/

@@ -1,5 +1,5 @@
-# Root CMakeLists.txt. Builds the host simulator; the capture firmware under
-# examples/ builds with PlatformIO. See README.md.
+# Root CMakeLists.txt. Builds the host simulator and examples/quickstart; the
+# capture firmware under examples/ builds with PlatformIO. See README.md.
 
 cmake_minimum_required(VERSION 3.13)
 
@@ -25,4 +25,5 @@ enable_testing()
 add_subdirectory(external)
 add_subdirectory(lib)
 add_subdirectory(sim)
+add_subdirectory(examples/quickstart)
 add_subdirectory(tests)

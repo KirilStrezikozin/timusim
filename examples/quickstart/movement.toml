@@ -1,0 +1,94 @@
+# One index finger curl and back from a held hand, 8 s. Same values as hold.toml.
+name = "movement"
+seed = 1
+
+tremor_file = "../../sim/params/tremor_literature.toml"
+[geometry]
+palm_sensor = [0.009, 0.071, 0.04]
+mcp = [-0.012, 0.079, 0.02]
+proximal_m = 0.036
+middle_m = 0.034
+finger_segment = "middle"
+finger_sensor = [0.0, 0.029, 0.008]
+dip_per_pip = 0.7
+twist_at_90_deg = 0.0
+[palm]
+chip = { model = "lsm6dsl", odr_hz = 416, accel_range_g = 4, gyro_range_dps = 2000, gyro_bw = "lp1_strong", accel_bw = "low_latency_odr_div_9" }
+params = "params/lsm6dsl.toml"
+[finger]
+chip = { odr_hz = 476, accel_range_g = 4, gyro_range_dps = 2000, gyro_out_path = "lpf1", gyro_bw = "ultra_light", accel_bw = "odr_div_9" }
+params = "params/lsm9ds1.toml"
+[[masses]]
+kg = 0.048
+at = "palm"
+offset = [0.016, -0.0255, -0.0005]
+[[masses]]
+kg = 0.008
+at = "finger"
+[tremor.wrist_flex]
+stiffness = 5.3033
+torque_density = 2.21107e-07
+[tremor.wrist_dev]
+stiffness = 16.1362
+torque_density = 0.00293125
+[tremor.sway_ry]
+stiffness = 5.09824
+torque_density = 0.00200008
+[tremor.mcp_flex]
+stiffness = 0.03662
+torque_density = 7.01839e-09
+[tremor.pip_flex]
+stiffness = 0.01438
+torque_density = 2.75599e-09
+[tremor.mcp_abd]
+stiffness = 0.1154
+torque_density = 5.38616e-05
+[tremor.sway_rx]
+stiffness = 0.024675
+damping = 0.0157
+torque_density = 0.000176228
+[tremor.sway_rz]
+stiffness = 0.027725
+damping = 0.01765
+torque_density = 0.000124808
+
+[[drives]]
+frequency_hz = 11.5006686
+bandwidth_hz = 3.05697582
+harmonics = [1.0]
+gate = "support"
+gain = { wrist_flex = 0.00731934186, wrist_dev = 1.18891077e-06, sway_ry = 1.14137534e-06 }
+
+[[drives]]
+frequency_hz = 1.19500364
+bandwidth_hz = 0.0520345971
+harmonics = [1.0, 0.5125167529161243]
+gate = "none"
+gain = { sway_rx = 3.64991622e-06, sway_ry = 0.000647226783, sway_rz = 8.17231562e-10, mcp_flex = 4.16316272e-06, pip_flex = 1.63479738e-06 }
+
+[[drives]]
+frequency_hz = 0.278424197
+bandwidth_hz = 0.02
+harmonics = [1.0]
+gate = "none"
+gain = { sway_rx = 1.74642949e-05, sway_ry = 0.00484217759, sway_rz = 2.04472556e-05 }
+
+[start]
+support = 1.0
+
+[[moves]]
+hold_s = 2
+
+[[moves]]
+duration_s = 1.0
+joints_deg = { mcp_flex = 45, pip_flex = 60 }
+
+[[moves]]
+hold_s = 2
+
+[[moves]]
+duration_s = 1.0
+joints_deg = { mcp_flex = 0, pip_flex = 0 }
+
+[[moves]]
+hold_s = 2

@@ -1,0 +1,56 @@
+# Fitted by timusim.fit from V1-default-s1-011744.bin, V1-low_range-s1-012930.bin, V1-238hz-s1-014114.bin, V1-119hz-s1-015254.bin, V1-lpf2_strong-s1-020434.bin, V1-lpf2_light-s1-021612.bin, V1-952hz-s1-022758.bin, V1-mid_range-s1-023947.bin, V1-16g-s1-025117.bin, V1-xl_lp_off-s1-030247.bin, V1-xl_div50-s1-031417.bin, V1-palm_833hz-s1-044326.bin, V1-palm_lp1_light-s1-045451.bin, V1-palm_lp1_aggressive-s1-050614.bin, V1-palm_xl_div50-s1-051738.bin, V1-palm_low_range-s1-052901.bin, V1-palm_208hz-s1-042346.bin.
+odr_scale = 1.009453
+accel_aa = { kind = "butterworth", order = 1 }
+accel_lp = { kind = "one_pole", order = 1 }
+gyro_lpf1 = { kind = "one_pole", order = 4 }
+gyro_lpf2 = { kind = "butterworth", order = 0 }
+temperature_c = 25.05
+gyro_offset = [0.816904, -2.03314, -0.70201]
+
+accel_offset = [-0.00254104, -0.00704768, 0.0340723]
+accel_gain = [[0.998601, -0.00480085, -0.00254202], [-0.00158269, 1.00209, 0.00330386], [0.00544218, 0.00255158, 1.0072]]
+[gyro_lpf1_by_odr]
+"208" = [{ kind = "one_pole", order = 2, cutoff_scale = 0.8620 }, { kind = "one_pole", order = 4, cutoff_scale = 0.9057 }, { kind = "one_pole", order = 4, cutoff_scale = 0.9057 }]
+"416" = [{ kind = "one_pole", order = 4, cutoff_scale = 0.9517 }, { kind = "one_pole", order = 4, cutoff_scale = 0.8836 }, { kind = "one_pole", order = 4, cutoff_scale = 0.8409 }]
+"833" = [{ kind = "butterworth", order = 3, cutoff_scale = 1.1318 }, { kind = "butterworth", order = 3, cutoff_scale = 1.0771 }, { kind = "butterworth", order = 2, cutoff_scale = 0.8836 }]
+
+[accel]
+white_density = [5.16723e-05, 4.72465e-05, 5.63632e-05]
+markov = [
+    { sigma = [3.54739e-05, 3.68255e-05, 3.98375e-05], tau_s = [0.316228, 0.316228, 0.316228] },
+    { sigma = [2.27022e-05, 1.49376e-05, 2.00826e-05], tau_s = [3.16228, 3.16228, 3.16228] },
+    { sigma = [6.27491e-06, 2.74461e-05, 2.30745e-05], tau_s = [10, 10, 10] },
+    { sigma = [3.46749e-05, 1.15615e-05, 2.36584e-05], tau_s = [31.6228, 31.6228, 31.6228] },
+    { sigma = [1.71782e-05, 3.59406e-05, 3.97954e-05], tau_s = [100, 100, 100] },
+    { sigma = [3.72481e-05, 1.90119e-05, 0], tau_s = [1000, 1000, 1000] },
+    { sigma = [7.71962e-05, 0.000122652, 0], tau_s = [3162.28, 3162.28, 3162.28] },
+]
+rate_random_walk = [0, 0, 2.2419e-06]
+
+[accel.by_fs]
+"2" = [4.88008e-05, 4.43764e-05, 5.47682e-05]
+
+[accel.drift_scale_by_fs]
+"2" = [0.758826, 0.829413, 0.639491]
+
+[gyro]
+white_density = [0.00466388, 0.00396242, 0.00343189]
+turn_on_sigma = [0.128563, 0.044452, 0.11565]
+markov = [
+    { sigma = [0.00773827, 0, 0], tau_s = [0.316228, 0.316228, 0.316228] },
+    { sigma = [0.00649326, 0.000379496, 0], tau_s = [3.16228, 3.16228, 3.16228] },
+    { sigma = [0.00739304, 0.000196699, 0], tau_s = [10, 10, 10] },
+    { sigma = [0.000666045, 0.00094483, 0], tau_s = [31.6228, 31.6228, 31.6228] },
+    { sigma = [0.00825592, 0.000146151, 0], tau_s = [100, 100, 100] },
+    { sigma = [0.0139002, 0, 0], tau_s = [3162.28, 3162.28, 3162.28] },
+]
+rate_random_walk = [0.000225597, 4.95422e-05, 6.63246e-05]
+
+[gyro.by_fs]
+"250" = [0.00464672, 0.00410789, 0.00346009]
+
+[gyro.offset_by_fs]
+"250" = [0.707222, -2.05636, -0.613956]
+
+[gyro.drift_scale_by_fs]
+"250" = [0.857982, 0.00673799, 1.23973]
