@@ -10,7 +10,7 @@ dependencies = [
     "pybullet>=3.2.6",
     "pytorch3d",
     "scipy>=1.15",
-    "torch>=2.6,<2.7",
+    "torch>=2.6,<2.14",
     "tqdm>=4.66",
     "wandb>=0.19",
 ]
